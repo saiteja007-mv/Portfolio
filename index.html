@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venkata Sai Teja Mothukuri - Data Analyst Portfolio</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Data Analyst and Computer Science Graduate Student specializing in SQL, Python, Power BI, and Tableau. Transforming raw data into actionable business insights.">
+    <meta name="keywords" content="Data Analyst, SQL, Python, Power BI, Tableau, Data Science, Business Intelligence, Kansas City">
+    <meta name="author" content="Venkata Sai Teja Mothukuri">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Venkata Sai Teja Mothukuri - Data Analyst Portfolio">
+    <meta property="og:description" content="Data Analyst and Computer Science Graduate Student specializing in SQL, Python, Power BI, and Tableau.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-vercel-url.vercel.app">
+    <meta property="og:image" content="https://your-vercel-url.vercel.app/og-image.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Venkata Sai Teja Mothukuri - Data Analyst Portfolio">
+    <meta name="twitter:description" content="Data Analyst and Computer Science Graduate Student specializing in SQL, Python, Power BI, and Tableau.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Cursor Follower -->
+    <div class="cursor-follower"></div>
+    
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader">
+            <div class="loader-text">VST</div>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-text">VST</div>
+                <div class="logo-dot"></div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" data-text="Home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" data-text="About">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#journey" class="nav-link" data-text="Journey">Journey</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#work" class="nav-link" data-text="Work">Work</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#visualizations" class="nav-link" data-text="Visualizations">Visualizations</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link" data-text="Skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#certifications" class="nav-link" data-text="Certifications">Certifications</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-text="Contact">Contact</a>
+                </li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-grid"></div>
+            <div class="hero-particles"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>Available for opportunities</span>
+                    <div class="badge-dot"></div>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">Hello, I'm</span>
+                    <span class="title-name">Venkata Sai Teja</span>
+                    <span class="title-role">Data Analyst & Developer</span>
+                </h1>
+                <p class="hero-description">
+                    Transforming complex data into compelling stories. 
+                    Building intelligent solutions that drive business growth.
+                </p>
+                <div class="hero-actions">
+                    <a href="#work" class="btn btn-primary">
+                        <span>View My Work</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        <span>Let's Talk</span>
+                        <i class="fas fa-message"></i>
+                    </a>
+                    <a href="DA Venkata sai teja.pdf" class="btn btn-outline" target="_blank">
+                        <span>Download Resume</span>
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="4">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="6">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="6">0</div>
+                        <div class="stat-label">Certifications</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="card-header">
+                        <div class="card-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <pre class="code-block" id="typing-code">
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load employee retention dataset
+df = pd.read_csv('employee_data.csv')
+
+# Data cleaning and analysis
+df.dropna()
+retention_rate = df.groupby('department').mean()
+print("Analysis Complete!")
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-text">Scroll to explore</div>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Passionate about data and innovation</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="about-intro">
+                        <h3>Turning Data into Decisions</h3>
+                        <p>
+                            I'm a Data Analyst and Computer Science graduate student with a passion for transforming raw data into actionable insights. 
+                            My journey spans from traditional data analysis to cutting-edge AI automation.
+                        </p>
+                    </div>
+                    <div class="about-highlights">
+                        <div class="highlight-card">
+                            <div class="highlight-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4>Data Analysis</h4>
+                            <p>Expert in SQL, Python, and visualization tools</p>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="highlight-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h4>AI & Automation</h4>
+                            <p>Building intelligent workflows and solutions</p>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="highlight-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h4>Continuous Learning</h4>
+                            <p>M.S. Computer Science with Data Analytics focus</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="about-image">
+                        <div class="image-container">
+                            <div class="image-placeholder">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="floating-card card-1">
+                            <i class="fas fa-database"></i>
+                            <span>Database Expert</span>
+                        </div>
+                        <div class="floating-card card-2">
+                            <i class="fas fa-brain"></i>
+                            <span>AI Enthusiast</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section id="journey" class="journey">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Journey</h2>
+                <p class="section-subtitle">From student to data professional</p>
+            </div>
+            <div class="journey-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Data Analyst</h3>
+                            <span class="timeline-company">Accenture North America</span>
+                            <span class="timeline-date">April 2025</span>
+                        </div>
+                        <p class="timeline-description">
+                            Virtual experience program focused on social media analytics and strategic insights.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li>Analyzed 7 datasets for content trend insights</li>
+                            <li>Created strategic presentations for stakeholders</li>
+                            <li>Developed data-driven recommendations</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>M.S. Computer Science</h3>
+                            <span class="timeline-company">University of Central Missouri</span>
+                            <span class="timeline-date">2024 - Present</span>
+                        </div>
+                        <p class="timeline-description">
+                            Graduate studies with specialization in Data Analytics and Database Management.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li>Advanced coursework in data analysis</li>
+                            <li>Research in machine learning applications</li>
+                            <li>Database systems and optimization</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>B.Tech Information Technology</h3>
+                            <span class="timeline-company">SRKR Engineering College</span>
+                            <span class="timeline-date">2019 - 2023</span>
+                        </div>
+                        <p class="timeline-description">
+                            Undergraduate studies with focus on data structures and emerging technologies.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li>Published research on AI-driven cyberbullying detection</li>
+                            <li>Event organizer for technical education society</li>
+                            <li>Comprehensive IT curriculum completion</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="work">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Work</h2>
+                <p class="section-subtitle">Projects that showcase my expertise</p>
+            </div>
+            <div class="work-grid">
+                <div class="work-card featured">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge">Featured</div>
+                        <h3>Employee Retention Analysis</h3>
+                        <p>Leading a data analysis project to explore employee retention trends using data from Forbes-listed companies and Glassdoor reviews with automated data collection.</p>
+                        <div class="card-tech">
+                            <span>Python</span>
+                            <span>Selenium</span>
+                            <span>Power BI</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="https://github.com/saiteja007-mv/Employee-Retention-Analysis.git" class="btn btn-sm" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="work-card">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Homegrown Grocery E-Commerce Platform</h3>
+                        <p>Full-stack grocery e-commerce platform with MySQL database and PHP backend, featuring product listings, user authentication, and inventory management.</p>
+                        <div class="card-tech">
+                            <span>MySQL</span>
+                            <span>PHP</span>
+                            <span>HTML/CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="https://github.com/saiteja007-mv/Homegrown-Grocery.git" class="btn btn-sm" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="work-card">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Target Brazil E-commerce Data Analysis</h3>
+                        <p>Analysis of 100K+ orders using BigQuery and Tableau for sales optimization, uncovering trends in payment behaviors and shipping delays.</p>
+                        <div class="card-tech">
+                            <span>BigQuery</span>
+                            <span>SQL</span>
+                            <span>Tableau</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="https://github.com/saiteja007-mv/-Target-Brazil-Ecommerce-Data-Analysis-using-SQL.git" class="btn btn-sm" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="work-card">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>AI Cyberbullying Detection</h3>
+                        <p>Machine learning model with 89% accuracy for detecting harmful content across text, image, and audio. Published research in JETIR journal.</p>
+                        <div class="card-tech">
+                            <span>Machine Learning</span>
+                            <span>NLP</span>
+                            <span>Deep Learning</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="https://github.com/saiteja007-mv/Cyberbully-Detection-in-Texts-Images-and-Audios.git" class="btn btn-sm" target="_blank">View Project</a>
+                            <a href="https://www.jetir.org/view?paper=JETIR2304580" class="btn btn-sm btn-outline" target="_blank">Research Paper</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="work-card">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>LinkedIn Job Application Automation</h3>
+                        <p>AI-powered automation system for job applications with GPT-4 integration, reducing manual job search effort by over 80%.</p>
+                        <div class="card-tech">
+                            <span>Make.com</span>
+                            <span>OpenAI GPT-4</span>
+                            <span>Google Sheets</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="https://github.com/saiteja007-mv/LinkedIn-Job-Application-Automation-using-Make.com-Apify-OpenAI.git" class="btn btn-sm" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visualizations Section -->
+    <section id="visualizations" class="visualizations">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Data Visualizations</h2>
+                <p class="section-subtitle">Interactive dashboards and insights</p>
+            </div>
+            <div class="visualizations-grid">
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <div class="viz-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>IPL Analysis Dashboard</h3>
+                    </div>
+                    <div class="viz-content">
+                        <p>Comprehensive analysis of Indian Premier League data with interactive visualizations.</p>
+                        <div class="viz-tech">
+                            <span>Tableau</span>
+                            <span>Data Analysis</span>
+                        </div>
+                    </div>
+                    <div class="viz-actions">
+                        <a href="https://public.tableau.com/app/profile/venkata.sai.teja.mothukuri/viz/IPLAnalysis_16983213756910/IPLAnalysis" class="btn btn-sm" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Dashboard</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <div class="viz-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Sales Performance Analysis</h3>
+                    </div>
+                    <div class="viz-content">
+                        <p>Sales performance dashboard with trend analysis and KPI tracking.</p>
+                        <div class="viz-tech">
+                            <span>Tableau</span>
+                            <span>Sales Analytics</span>
+                        </div>
+                    </div>
+                    <div class="viz-actions">
+                        <a href="https://public.tableau.com/views/SaleAnalysis_17388930656530/Sales_Performance?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" class="btn btn-sm" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Dashboard</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="viz-card featured">
+                    <div class="viz-header">
+                        <div class="viz-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Prism Insurance Data Analysis</h3>
+                        <div class="viz-badge">Featured</div>
+                    </div>
+                    <div class="viz-content">
+                        <p>Comprehensive insurance data analysis with interactive Power BI dashboard.</p>
+                        <div class="viz-tech">
+                            <span>Power BI</span>
+                            <span>Insurance Analytics</span>
+                        </div>
+                    </div>
+                    <div class="viz-actions">
+                        <a href="https://app.powerbi.com/view?r=eyJrIjoiODhiNTAwNzAtYmY5YS00ZWM0LTk2ODMtZjQ5YjBjNTVmOTRhIiwidCI6IjdhZmI5ZTIyLTkzMDgtNDE4Ni04ZTI5LWVhMjMxZmYzYmFmNyIsImMiOjN9" class="btn btn-sm" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Dashboard</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Skills & Expertise</h2>
+                <p class="section-subtitle">Technologies I work with</p>
+            </div>
+            <div class="skills-container">
+                <div class="skills-category">
+                    <h3>Data Analysis & Visualization</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">SQL</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Python (pandas, NumPy)</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Tableau</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="88"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Power BI</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-category">
+                    <h3>Database & Cloud</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">MySQL</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Google BigQuery</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Databricks</span>
+                                <span class="skill-level">Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">MS Excel</span>
+                                <span class="skill-level">Expert</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="92"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-category">
+                    <h3>Web & Automation</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Selenium</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">BeautifulSoup</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Make.com</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="88"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">JavaScript</span>
+                                <span class="skill-level">Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Certifications & Achievements</h2>
+                <p class="section-subtitle">Professional credentials and recognition</p>
+            </div>
+            <div class="certifications-grid">
+                <div class="certification-card">
+                    <div class="cert-icon">
+                        <i class="fab fa-microsoft"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Microsoft Power BI Data Analyst Associate</h3>
+                        <p>Certified in Power BI data modeling and visualization</p>
+                        <span class="cert-date">June 2025</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="https://learn.microsoft.com/en-us/users/venkatasaitejamothukuri-4152/credentials/d3845ff6e8b4a1e3?ref=https%3A%2F%2Fwww.linkedin.com%2F" class="cert-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Credential</span>
+                        </a>
+                        <a href="Certifications/Microsoft PowerBI - Data Analysis Associate.pdf" class="cert-link" target="_blank">
+                            <i class="fas fa-download"></i>
+                            <span>Download PDF</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Data Analysis with Databricks</h3>
+                        <p>Hands-on data analysis and visualization using Databricks</p>
+                        <span class="cert-date">April 2025</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="Certifications/DataBricks Data Analysis.pdf" class="cert-link" target="_blank">
+                            <i class="fas fa-download"></i>
+                            <span>Download PDF</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Complete Data Analyst Bootcamp</h3>
+                        <p>From basics to advanced data analysis techniques</p>
+                        <span class="cert-date">April 2025</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="https://www.udemy.com/certificate/UC-df898c28-56d0-4d70-b981-a13c35f505c8/" class="cert-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Credential</span>
+                        </a>
+                        <a href="Certifications/Udemy Data Analyst Bootcamp.pdf" class="cert-link" target="_blank">
+                            <i class="fas fa-download"></i>
+                            <span>Download PDF</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="cert-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>NPTEL Data Analytics with Python</h3>
+                        <p>Certified in Python-based data analysis and visualization</p>
+                        <span class="cert-date">April 2022</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="Certifications/NPTEL_data analytics with python.jpg" class="cert-link" target="_blank">
+                            <i class="fas fa-download"></i>
+                            <span>Download Certificate</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certification-card featured">
+                    <div class="cert-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Published Research Paper</h3>
+                        <p>"Cyberbullying Detection in Text, Images, and Audio" - JETIR Journal</p>
+                        <span class="cert-date">2023</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="https://www.jetir.org/view?paper=JETIR2304580" class="cert-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Paper</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Accenture Data Analysis Simulation</h3>
+                        <p>Virtual experience program focused on social media analytics</p>
+                        <span class="cert-date">April 2025</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="Certifications/Accenture Data Analysis Simulation.pdf" class="cert-link" target="_blank">
+                            <i class="fas fa-download"></i>
+                            <span>Download PDF</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Connect</h2>
+                <p class="section-subtitle">Ready to work together?</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-intro">
+                        <h3>Get In Touch</h3>
+                        <p>
+                            I'm always open to discussing new opportunities, interesting projects, 
+                            or just having a chat about data and technology.
+                        </p>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <a href="mailto:saiteja.motukuri@icloud.com">saiteja.motukuri@icloud.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <a href="tel:913-263-4856">913-263-4856</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Location</h4>
+                                <span>Kansas City, Missouri</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/venkatasaitejam" class="social-link" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/saiteja007-mv" class="social-link" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="mailto:saiteja.motukuri@icloud.com" class="social-link" title="Send Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <form class="contact-form" action="https://formspree.io/f/xdkzbaoy" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
+                        <button type="submit" class="btn btn-primary">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">VST</div>
+                    <p>Data Analyst & Developer</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#work">Work</a>
+                    <a href="#visualizations">Visualizations</a>
+                    <a href="#certifications">Certifications</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/venkatasaitejam" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/saiteja007-mv" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Venkata Sai Teja Mothukuri. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
