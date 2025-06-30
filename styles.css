@@ -1537,6 +1537,27 @@ section {
     .footer-logo {
         font-size: 1.2rem;
     }
+    .title-name {
+        font-size: 2rem !important;
+        word-break: break-word;
+        line-height: 1.1;
+    }
+    .title-role {
+        font-size: 1.1rem !important;
+        word-break: break-word;
+        line-height: 1.2;
+    }
+    .hero-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+    }
+    .btn {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 body {
