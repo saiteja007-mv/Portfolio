@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://your-vercel-url.vercel.app/sitemap.xml
+
+# Disallow PDF files from being indexed
+Disallow: /*.pdf$ 
