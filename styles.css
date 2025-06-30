@@ -447,6 +447,51 @@ body {
 .btn-sm {
     padding: var(--space-xs) var(--space-md);
     font-size: 0.875rem;
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-sm::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-sm:hover::before {
+    left: 100%;
+}
+
+.btn-sm:hover {
+    background: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    color: white;
+}
+
+.btn-sm.btn-outline {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-sm.btn-outline:hover {
+    background: var(--primary);
+    color: white;
 }
 
 .hero-stats {
@@ -1743,4 +1788,62 @@ body {
 .viz-actions {
     position: relative;
     z-index: 1;
+}
+
+.cert-badge-container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    position: relative;
+    z-index: 1;
+}
+
+.cert-badge-image {
+    flex-shrink: 0;
+}
+
+.badge-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    background: white;
+    padding: 8px;
+}
+
+.badge-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.certification-card.featured .badge-img {
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+}
+
+.certification-card.featured .badge-img:hover {
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+}
+
+/* Responsive adjustments for badge */
+@media (max-width: 768px) {
+    .cert-badge-container {
+        flex-direction: column;
+        gap: var(--space-sm);
+        text-align: center;
+    }
+    
+    .badge-img {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .badge-img {
+        width: 60px;
+        height: 60px;
+    }
 } 

@@ -1,0 +1,189 @@
+===============================================================================
+                    VENKATA SAI TEJA MOTHUKURI - DATA ANALYST PORTFOLIO
+===============================================================================
+
+PERSONAL INFORMATION
+===================
+Name: Venkata Sai Teja Mothukuri
+Title: Data Analyst & Developer
+Location: Kansas City, Missouri
+Email: saiteja.motukuri@icloud.com
+Phone: 913-263-4856
+
+PROFESSIONAL SUMMARY
+===================
+Data Analyst and Computer Science graduate student with a passion for transforming 
+raw data into actionable insights. Specializing in SQL, Python, Power BI, and 
+Tableau. Building intelligent solutions that drive business growth.
+
+EXPERIENCE & TIMELINE
+====================
+
+Data Analyst - Accenture North America
+Duration: April 2025
+• Virtual experience program focused on social media analytics and strategic insights
+• Analyzed 7 datasets for content trend insights
+• Created strategic presentations for stakeholders
+• Developed data-driven recommendations
+
+FEATURED PROJECTS
+=================
+
+1. EMPLOYEE RETENTION ANALYSIS (FEATURED)
+   GitHub: https://github.com/saiteja007-mv/Employee-Retention-Analysis.git
+   Technologies: Python, Selenium, Power BI, JavaScript
+   Description: Leading a data analysis project to explore employee retention trends 
+   using data from Forbes-listed companies and Glassdoor reviews with automated 
+   data collection.
+
+2. HOMEGROWN GROCERY E-COMMERCE PLATFORM
+   GitHub: https://github.com/saiteja007-mv/Homegrown-Grocery.git
+   Technologies: MySQL, PHP, HTML/CSS, JavaScript
+   Duration: Apr 2025 - May 2025
+   Description: Full-stack grocery e-commerce platform with MySQL database and PHP 
+   backend, featuring product listings, user authentication, and inventory management.
+
+3. TARGET BRAZIL E-COMMERCE DATA ANALYSIS
+   GitHub: https://github.com/saiteja007-mv/-Target-Brazil-Ecommerce-Data-Analysis-using-SQL.git
+   Technologies: BigQuery, SQL, Tableau
+   Duration: Sep 2023 - Nov 2023
+   Description: Analysis of 100K+ orders using BigQuery and Tableau for sales 
+   optimization, uncovering trends in payment behaviors and shipping delays.
+
+4. AI CYBERBULLYING DETECTION
+   GitHub: https://github.com/saiteja007-mv/Cyberbully-Detection-in-Texts-Images-and-Audios.git
+   Research Paper: https://www.jetir.org/view?paper=JETIR2304580
+   Technologies: Machine Learning, NLP, Deep Learning
+   Duration: Jan 2023 - Apr 2023
+   Description: Machine learning model with 89% accuracy for detecting harmful 
+   content across text, image, and audio. Published research in JETIR journal.
+
+5. LINKEDIN JOB APPLICATION AUTOMATION
+   GitHub: https://github.com/saiteja007-mv/LinkedIn-Job-Application-Automation-using-Make.com-Apify-OpenAI.git
+   Technologies: Make.com, OpenAI GPT-4, Google Sheets
+   Description: AI-powered automation system for job applications with GPT-4 
+   integration, reducing manual job search effort by over 80%.
+
+DATA VISUALIZATIONS
+==================
+
+1. IPL ANALYSIS DASHBOARD
+   Tableau: https://public.tableau.com/app/profile/venkata.sai.teja.mothukuri/viz/IPLAnalysis_16983213756910/IPLAnalysis
+   Technologies: Tableau, Data Analysis
+   Description: Comprehensive analysis of Indian Premier League data with 
+   interactive visualizations.
+
+2. SALES PERFORMANCE ANALYSIS
+   Tableau: https://public.tableau.com/views/SaleAnalysis_17388930656530/Sales_Performance?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link
+   Technologies: Tableau, Sales Analytics
+   Description: Sales performance dashboard with trend analysis and KPI tracking.
+
+3. PRISM INSURANCE DATA ANALYSIS (FEATURED)
+   Power BI: https://app.powerbi.com/view?r=eyJrIjoiODhiNTAwNzAtYmY5YS00ZWM0LTk2ODMtZjQ5YjBjNTVmOTRhIiwidCI6IjdhZmI5ZTIyLTkzMDgtNDE4Ni04ZTI5LWVhMjMxZmYzYmFmNyIsImMiOjN9
+   Technologies: Power BI, Insurance Analytics
+   Description: Comprehensive insurance data analysis with interactive Power BI dashboard.
+
+CERTIFICATIONS & ACHIEVEMENTS
+============================
+
+1. MICROSOFT POWER BI DATA ANALYST ASSOCIATE (FEATURED)
+   Credential: https://learn.microsoft.com/en-us/users/venkatasaitejamothukuri-4152/credentials/d3845ff6e8b4a1e3?ref=https%3A%2F%2Fwww.linkedin.com%2F
+   Date: June 2025
+   Description: Certified in Power BI data modeling and visualization with official 
+   Microsoft credential
+
+2. DATA ANALYSIS WITH DATABRICKS
+   Certificate: Available in Certifications folder
+   Date: April 2025
+   Description: Hands-on data analysis and visualization using Databricks
+
+3. COMPLETE DATA ANALYST BOOTCAMP
+   Credential: https://www.udemy.com/certificate/UC-df898c28-56d0-4d70-b981-a13c35f505c8/
+   Date: April 2025
+   Description: From basics to advanced data analysis techniques
+
+4. NPTEL DATA ANALYTICS WITH PYTHON
+   Certificate: Available in Certifications folder
+   Date: April 2022
+   Description: Certified in Python-based data analysis and visualization
+
+5. PUBLISHED RESEARCH PAPER (FEATURED)
+   Paper: https://www.jetir.org/view?paper=JETIR2304580
+   Date: 2023
+   Description: "Cyberbullying Detection in Text, Images, and Audio" - JETIR Journal
+
+6. ACCENTURE DATA ANALYSIS SIMULATION
+   Certificate: Available in Certifications folder
+   Date: April 2025
+   Description: Virtual experience program focused on social media analytics
+
+SKILLS & EXPERTISE
+==================
+
+Data Analysis & Visualization:
+• SQL (Advanced - 90%)
+• Python - pandas, NumPy (Advanced - 85%)
+• Tableau (Advanced - 88%)
+• Power BI (Advanced - 85%)
+• Excel (Advanced - 90%)
+
+Programming & Development:
+• JavaScript (Intermediate - 75%)
+• PHP (Intermediate - 70%)
+• HTML/CSS (Advanced - 80%)
+• Machine Learning (Intermediate - 75%)
+• Deep Learning (Intermediate - 70%)
+
+Tools & Platforms:
+• BigQuery (Advanced - 85%)
+• Databricks (Intermediate - 75%)
+• Make.com (Advanced - 80%)
+• OpenAI GPT-4 (Advanced - 85%)
+• Google Sheets (Advanced - 90%)
+
+Leadership & Activities:
+• Event Organizer – Indian Society for Technical Education (SRKREC Students' Chapter AP-10)
+
+EDUCATION
+=========
+M.S. Computer Science (Data Analytics Focus)
+University of Central Missouri
+Current Student
+
+CONTACT INFORMATION
+===================
+Email: saiteja.motukuri@icloud.com
+Phone: 913-263-4856
+Location: Kansas City, Missouri
+
+PROFESSIONAL LINKS
+==================
+LinkedIn: https://www.linkedin.com/in/venkatasaitejam
+GitHub: https://github.com/saiteja007-mv
+Portfolio: [Your Vercel URL]
+
+RESUME DOWNLOAD
+===============
+PDF Resume: DA Venkata sai teja.pdf
+
+STATISTICS
+==========
+• 4 Years Experience
+• 6 Projects Completed
+• 6 Certifications
+• 1 Published Research Paper
+• 89% Accuracy in AI Model
+• 100K+ Data Records Analyzed
+
+AVAILABILITY
+============
+Status: Available for opportunities
+Open to: Full-time positions, contract work, freelance projects
+Interests: Data Analysis, Business Intelligence, AI/ML, Automation
+
+===============================================================================
+                    END OF PROFILE
+===============================================================================
+
+Last Updated: January 2025
+Portfolio Version: Complete with Microsoft Badge Integration 
