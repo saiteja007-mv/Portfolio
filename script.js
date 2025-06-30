@@ -557,38 +557,3 @@ scrollStyle.textContent = `
 `;
 document.head.appendChild(scrollStyle);
 
-@media (max-width: 768px) {
-  .container {
-    padding: 0 1rem;
-  }
-  .hero-container,
-  .about-content,
-  .work-grid,
-  .visualizations-grid,
-  .certifications-grid {
-    grid-template-columns: 1fr !important;
-    flex-direction: column !important;
-    gap: 1.5rem;
-  }
-  .section-title {
-    font-size: 2rem;
-  }
-  .btn {
-    width: 100%;
-    max-width: 250px;
-    justify-content: center;
-  }
-  .footer-content {
-    flex-direction: column;
-    gap: 1.5rem;
-    text-align: center;
-  }
-}
-@media (max-width: 480px) {
-  .section-title {
-    font-size: 1.5rem;
-  }
-  .container {
-    padding: 0 0.5rem;
-  }
-} 
