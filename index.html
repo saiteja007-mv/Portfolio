@@ -14,8 +14,8 @@
     <meta property="og:title" content="Venkata Sai Teja Mothukuri - Data Analyst Portfolio">
     <meta property="og:description" content="Data Analyst and Computer Science Graduate Student specializing in SQL, Python, Power BI, and Tableau.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-vercel-url.vercel.app">
-    <meta property="og:image" content="https://your-vercel-url.vercel.app/og-image.jpg">
+    <meta property="og:url" content="http://vst-portfolio-20251103-t9q4kx.s3-website-us-east-2.amazonaws.com">
+    <meta property="og:image" content="http://vst-portfolio-20251103-t9q4kx.s3-website-us-east-2.amazonaws.com/assets/images/og-image.svg">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -23,9 +23,8 @@
     <meta name="twitter:description" content="Data Analyst and Computer Science Graduate Student specializing in SQL, Python, Power BI, and Tableau.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/images/favicon.svg">
     
     <!-- Additional Meta Tags -->
     <meta name="robots" content="index, follow">
@@ -35,14 +34,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="VST Portfolio">
     
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Skip to Content Link for Accessibility -->
+    <a href="#home" class="skip-to-content">Skip to main content</a>
+
     <!-- Cursor Follower -->
     <div class="cursor-follower"></div>
-    
+
     <!-- Loading Screen -->
     <div class="loading-screen">
         <div class="loader">
@@ -114,17 +116,13 @@
                     Building intelligent solutions that drive business growth.
                 </p>
                 <div class="hero-actions">
-                    <a href="#work" class="btn btn-primary">
+                    <a href="#work" class="btn btn-primary" aria-label="View my portfolio projects">
                         <span>View My Work</span>
-                        <i class="fas fa-arrow-right"></i>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </a>
-                    <a href="mailto:saiteja.motukuri@icloud.com" class="btn btn-outline">
-                        <span>Hire Me</span>
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="Latex Resume.pdf" class="btn btn-outline" target="_blank">
-                        <span>Download Resume</span>
-                        <i class="fas fa-download"></i>
+                    <a href="mailto:saiteja.motukuri@icloud.com" class="btn btn-outline" aria-label="Contact me via email">
+                        <span>Get In Touch</span>
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
                     </a>
                 </div>
                 <div class="hero-stats">
@@ -261,7 +259,7 @@ plt.show()
                 <div class="about-visual">
                     <div class="about-image">
                         <div class="image-container image-tilt" id="profile-tilt">
-                            <img src="Profile photo no bg.png" alt="Venkata Sai Teja Mothukuri" class="profile-image">
+                            <img src="assets/images/Profile photo no bg.png" alt="Venkata Sai Teja Mothukuri" class="profile-image">
                             <div class="image-overlay"></div>
                             <div class="tilt-glare"></div>
                         </div>
@@ -289,7 +287,7 @@ plt.show()
             <div class="journey-timeline">
                 <div class="timeline-item">
                     <div class="timeline-marker">
-                        <div class="marker-dot"><img src="Accenture-Logo.png" alt="Accenture Logo" class="journey-logo"></div>
+                        <div class="marker-dot"><img src="assets/images/Accenture-Logo.png" alt="Accenture Logo" class="journey-logo"></div>
                     </div>
                     <div class="timeline-content">
                         <div class="timeline-header">
@@ -310,7 +308,7 @@ plt.show()
                 
                 <div class="timeline-item">
                     <div class="timeline-marker">
-                        <div class="marker-dot"><img src="UCM Logo.png" alt="UCM Logo" class="journey-logo"></div>
+                        <div class="marker-dot"><img src="assets/images/UCM Logo.png" alt="UCM Logo" class="journey-logo"></div>
                     </div>
                     <div class="timeline-content">
                         <div class="timeline-header">
@@ -331,7 +329,7 @@ plt.show()
                 
                 <div class="timeline-item">
                     <div class="timeline-marker">
-                        <div class="marker-dot"><img src="SRKR Logo.png" alt="SRKR Logo" class="journey-logo"></div>
+                        <div class="marker-dot"><img src="assets/images/SRKR Logo.png" alt="SRKR Logo" class="journey-logo"></div>
                     </div>
                     <div class="timeline-content">
                         <div class="timeline-header">
@@ -556,15 +554,15 @@ plt.show()
             </div>
             <div class="skills-container">
               <div class="skills-card-grid">
-                <div class="skill-card"><img src="images/sql.png" alt="SQL Logo" class="skill-logo"><span>SQL</span></div>
-                <div class="skill-card"><img src="images/Python Logo.png" alt="Python Logo" class="skill-logo"><span>Python</span></div>
-                <div class="skill-card"><img src="images/Tableau Logo.png" alt="Tableau Logo" class="skill-logo"><span>Tableau</span></div>
-                <div class="skill-card"><img src="images/PowerBI Logo.svg" alt="Power BI Logo" class="skill-logo"><span>Power BI</span></div>
-                <div class="skill-card"><img src="images/Bigquery Logo.png" alt="Big Query Logo" class="skill-logo"><span>Big Query</span></div>
-                <div class="skill-card"><img src="images/databricks logo.png" alt="Databricks Logo" class="skill-logo"><span>Databricks</span></div>
-                <div class="skill-card"><img src="images/MS Excel Logo.svg" alt="MS Excel Logo" class="skill-logo"><span>MS Excel</span></div>
-                <div class="skill-card"><img src="images/Snowflake logo.png" alt="Snowflake Logo" class="skill-logo"><span>Snowflake</span></div>
-                <div class="skill-card"><img src="images/AWS Logo.png" alt="AWS Logo" class="skill-logo"><span>AWS</span></div>
+                <div class="skill-card"><img src="assets/images/sql.png" alt="SQL Logo" class="skill-logo"><span>SQL</span></div>
+                <div class="skill-card"><img src="assets/images/Python Logo.png" alt="Python Logo" class="skill-logo"><span>Python</span></div>
+                <div class="skill-card"><img src="assets/images/Tableau Logo.png" alt="Tableau Logo" class="skill-logo"><span>Tableau</span></div>
+                <div class="skill-card"><img src="assets/images/PowerBI Logo.svg" alt="Power BI Logo" class="skill-logo"><span>Power BI</span></div>
+                <div class="skill-card"><img src="assets/images/Bigquery Logo.png" alt="Big Query Logo" class="skill-logo"><span>Big Query</span></div>
+                <div class="skill-card"><img src="assets/images/databricks logo.png" alt="Databricks Logo" class="skill-logo"><span>Databricks</span></div>
+                <div class="skill-card"><img src="assets/images/MS Excel Logo.svg" alt="MS Excel Logo" class="skill-logo"><span>MS Excel</span></div>
+                <div class="skill-card"><img src="assets/images/Snowflake logo.png" alt="Snowflake Logo" class="skill-logo"><span>Snowflake</span></div>
+                <div class="skill-card"><img src="assets/images/AWS Logo.png" alt="AWS Logo" class="skill-logo"><span>AWS</span></div>
               </div>
             </div>
         </div>
@@ -584,7 +582,7 @@ plt.show()
                             <i class="fab fa-microsoft"></i>
                         </div>
                         <div class="cert-badge-image">
-                            <img src="Microsoft_Data_Analyst_Associate-badgw.png" alt="Microsoft Data Analyst Associate Badge" class="badge-img">
+                            <img src="assets/images/Microsoft_Data_Analyst_Associate-badgw.png" alt="Microsoft Data Analyst Associate Badge" class="badge-img">
                         </div>
                     </div>
                     <div class="cert-content">
@@ -597,7 +595,7 @@ plt.show()
                             <i class="fas fa-external-link-alt"></i>
                             <span>View Credential</span>
                         </a>
-                        <a href="Certifications/Microsoft PowerBI - Data Analysis Associate.pdf" class="cert-link" target="_blank">
+                        <a href="docs/Certifications/Microsoft PowerBI - Data Analysis Associate.pdf" class="cert-link" target="_blank">
                             <i class="fas fa-download"></i>
                             <span>Download PDF</span>
                         </a>
@@ -614,7 +612,7 @@ plt.show()
                         <span class="cert-date">April 2025</span>
                     </div>
                     <div class="cert-actions">
-                        <a href="Certifications/DataBricks Data Analysis.pdf" class="cert-link" target="_blank">
+                        <a href="docs/Certifications/DataBricks Data Analysis.pdf" class="cert-link" target="_blank">
                             <i class="fas fa-download"></i>
                             <span>Download PDF</span>
                         </a>
@@ -635,7 +633,7 @@ plt.show()
                             <i class="fas fa-external-link-alt"></i>
                             <span>View Credential</span>
                         </a>
-                        <a href="Certifications/Udemy Data Analyst Bootcamp.pdf" class="cert-link" target="_blank">
+                        <a href="docs/Certifications/Udemy Data Analyst Bootcamp.pdf" class="cert-link" target="_blank">
                             <i class="fas fa-download"></i>
                             <span>Download PDF</span>
                         </a>
@@ -652,7 +650,7 @@ plt.show()
                         <span class="cert-date">April 2022</span>
                     </div>
                     <div class="cert-actions">
-                        <a href="Certifications/NPTEL_data analytics with python.jpg" class="cert-link" target="_blank">
+                        <a href="docs/Certifications/NPTEL_data analytics with python.jpg" class="cert-link" target="_blank">
                             <i class="fas fa-download"></i>
                             <span>Download Certificate</span>
                         </a>
@@ -686,7 +684,7 @@ plt.show()
                         <span class="cert-date">April 2025</span>
                     </div>
                     <div class="cert-actions">
-                        <a href="Certifications/Accenture Data Analysis Simulation.pdf" class="cert-link" target="_blank">
+                        <a href="docs/Certifications/Accenture Data Analysis Simulation.pdf" class="cert-link" target="_blank">
                             <i class="fas fa-download"></i>
                             <span>Download PDF</span>
                         </a>
@@ -754,14 +752,14 @@ plt.show()
                     </div>
                 </div>
                 <div class="contact-form-container">
-                    <form class="contact-form" action="https://formspree.io/f/xdkzbaoy" method="POST">
+                    <form id="contactForm" class="contact-form">
                         <div class="form-group">
                             <input type="text" id="name" name="name" required placeholder=" ">
-                            <label for="name">Name</label>
+                            <label for="name">Your Name</label>
                         </div>
                         <div class="form-group">
                             <input type="email" id="email" name="email" required placeholder=" ">
-                            <label for="email">Email</label>
+                            <label for="email">Your Email</label>
                         </div>
                         <div class="form-group">
                             <input type="text" id="subject" name="subject" required placeholder=" ">
@@ -769,13 +767,14 @@ plt.show()
                         </div>
                         <div class="form-group">
                             <textarea id="message" name="message" rows="5" required placeholder=" "></textarea>
-                            <label for="message">Message</label>
+                            <label for="message">Your Message</label>
                         </div>
-                        <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
-                        <button type="submit" class="btn btn-primary">
-                            <span>Send Message</span>
-                            <i class="fas fa-paper-plane"></i>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <span id="btnText">Send Message</span>
+                            <i class="fas fa-paper-plane" id="btnIcon"></i>
                         </button>
+
+                        <div id="formStatus" class="form-status" style="display: none;"></div>
                     </form>
                 </div>
             </div>
@@ -813,6 +812,6 @@ plt.show()
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html> 

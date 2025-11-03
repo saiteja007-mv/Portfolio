@@ -164,7 +164,7 @@ Portfolio: [Your Vercel URL]
 
 RESUME DOWNLOAD
 ===============
-PDF Resume: DA Venkata sai teja.pdf
+PDF Resume: docs/DA Venkata sai teja.pdf
 
 STATISTICS
 ==========

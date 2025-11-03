@@ -9,12 +9,12 @@ const skillBars = document.querySelectorAll('.skill-progress');
 const statNumbers = document.querySelectorAll('.stat-number');
 const contactForm = document.querySelector('.contact-form');
 
-// Loading Screen
+// Loading Screen - Reduced delay for better UX
 window.addEventListener('load', () => {
     setTimeout(() => {
         loadingScreen.classList.add('hidden');
         document.body.style.overflow = 'visible';
-    }, 2000);
+    }, 800);  // Reduced from 2000ms to 800ms
 });
 
 // Custom Cursor
@@ -25,17 +25,36 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
-// Mobile Menu Toggle
-navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+// Mobile Menu Toggle with scroll lock and guards
+if (navToggle && navMenu) {
+    const toggleMenu = () => {
+        const isActive = !navMenu.classList.contains('active');
+        navToggle.classList.toggle('active', isActive);
+        navMenu.classList.toggle('active', isActive);
+        // Lock body scroll when menu is open on small screens
+        document.body.style.overflow = isActive ? 'hidden' : 'visible';
+    };
+
+    navToggle.addEventListener('click', toggleMenu);
+
+    // Close menu and restore scroll on resize to desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+            document.body.style.overflow = 'visible';
+        }
+    });
+}
 
 // Close mobile menu when clicking on a link
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navMenu.classList.remove('active');
+        if (navToggle && navMenu) {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'visible';
+        }
     });
 });
 
@@ -56,8 +75,19 @@ navLinks.forEach(link => {
     });
 });
 
-// Navbar background change on scroll
-window.addEventListener('scroll', () => {
+// Throttle function for better performance
+function throttle(func, delay) {
+    let lastCall = 0;
+    return function(...args) {
+        const now = new Date().getTime();
+        if (now - lastCall < delay) return;
+        lastCall = now;
+        return func(...args);
+    };
+}
+
+// Navbar background change on scroll - Throttled for performance
+window.addEventListener('scroll', throttle(() => {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 100) {
         navbar.style.background = 'rgba(15, 15, 35, 0.95)';
@@ -66,7 +96,7 @@ window.addEventListener('scroll', () => {
         navbar.style.background = 'rgba(15, 15, 35, 0.8)';
         navbar.style.backdropFilter = 'blur(20px)';
     }
-});
+}, 100));
 
 // Intersection Observer for animations
 const observerOptions = {
@@ -161,34 +191,124 @@ if (heroSection) {
     heroObserver.observe(heroSection);
 }
 
-// Contact form handling
-// if (contactForm) {
-//     contactForm.addEventListener('submit', (e) => {
-//         e.preventDefault();
-        
-//         // Get form data
-//         const formData = new FormData(contactForm);
-//         const name = formData.get('name');
-//         const email = formData.get('email');
-//         const subject = formData.get('subject');
-//         const message = formData.get('message');
+// Contact form handling with AWS Lambda
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-//         // Simple validation
-//         if (!name || !email || !subject || !message) {
-//             showNotification('Please fill in all fields', 'error');
-//             return;
-//         }
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnIcon = document.getElementById('btnIcon');
+        const formStatus = document.getElementById('formStatus');
 
-//         if (!isValidEmail(email)) {
-//             showNotification('Please enter a valid email address', 'error');
-//             return;
-//         }
+        // Get form data
+        const formData = {
+            name: document.getElementById('name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            subject: document.getElementById('subject').value.trim(),
+            message: document.getElementById('message').value.trim()
+        };
 
-//         // Simulate form submission
-//         showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-//         contactForm.reset();
-//     });
-// }
+        // Basic validation
+        if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+            showFormStatus('Please fill in all fields', 'error');
+            return;
+        }
+
+        if (!isValidEmail(formData.email)) {
+            showFormStatus('Please enter a valid email address', 'error');
+            return;
+        }
+
+        // Show loading state
+        if (submitBtn) {
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+        }
+        if (btnText) btnText.textContent = 'Sending...';
+        if (btnIcon) btnIcon.className = 'fas fa-spinner fa-spin';
+        if (formStatus) formStatus.style.display = 'none';
+
+        try {
+            // Call AWS API Gateway endpoint
+            const response = await fetch('https://6dh439dgoj.execute-api.us-east-1.amazonaws.com/prod/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            // Check if response is OK
+            if (!response.ok) {
+                // Try to parse error response
+                let errorMessage = 'Internal server error';
+                try {
+                    const errorData = await response.json();
+                    errorMessage = errorData.message || errorData.error || `Server error (${response.status})`;
+                } catch (e) {
+                    // If response is not JSON, use status text
+                    errorMessage = `Server error: ${response.status} ${response.statusText}`;
+                }
+                
+                console.error('API Error:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    message: errorMessage
+                });
+                
+                showFormStatus(`Error: ${errorMessage}. Please check the troubleshooting guide or try again later.`, 'error');
+                return;
+            }
+
+            const result = await response.json();
+
+            if (result.success) {
+                showFormStatus(result.message || 'Message sent successfully! I\'ll get back to you soon.', 'success');
+                contactForm.reset();
+            } else {
+                showFormStatus(result.message || 'Failed to send message. Please try again.', 'error');
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            
+            // More detailed error messages
+            let errorMessage = 'Network error. Please check your connection and try again.';
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                errorMessage = 'Connection error. Please check your internet connection.';
+            } else if (error.message) {
+                errorMessage = `Error: ${error.message}`;
+            }
+            
+            showFormStatus(errorMessage, 'error');
+        } finally {
+            // Reset button state
+            if (submitBtn) {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+            if (btnText) btnText.textContent = 'Send Message';
+            if (btnIcon) btnIcon.className = 'fas fa-paper-plane';
+        }
+    });
+}
+
+// Show form status message
+function showFormStatus(message, type) {
+    const formStatus = document.getElementById('formStatus');
+    if (!formStatus) return;
+
+    formStatus.textContent = message;
+    formStatus.className = `form-status ${type}`;
+    formStatus.style.display = 'block';
+
+    // Auto-hide after 5 seconds for success
+    if (type === 'success') {
+        setTimeout(() => {
+            formStatus.style.display = 'none';
+        }, 5000);
+    }
+}
 
 // Email validation function
 function isValidEmail(email) {
@@ -265,15 +385,23 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
+// Parallax effect for hero section (disabled on small screens)
+const applyParallax = () => {
     const hero = document.querySelector('.hero');
-    if (hero) {
+    if (!hero) return;
+    const onScroll = () => {
+        if (window.innerWidth <= 768) {
+            hero.style.transform = '';
+            return;
+        }
+        const scrolled = window.pageYOffset;
         const rate = scrolled * -0.5;
         hero.style.transform = `translateY(${rate}px)`;
-    }
-});
+    };
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('resize', onScroll);
+};
+applyParallax();
 
 // Typing effect for hero title
 function typeWriter(element, text, speed = 100) {
@@ -307,21 +435,21 @@ window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 });
 
-// Smooth reveal animation for sections
+// Smooth reveal animation for sections - Throttled for performance
 const revealSections = () => {
     const sections = document.querySelectorAll('section');
-    
+
     sections.forEach(section => {
         const sectionTop = section.getBoundingClientRect().top;
         const windowHeight = window.innerHeight;
-        
+
         if (sectionTop < windowHeight * 0.75) {
             section.classList.add('revealed');
         }
     });
 };
 
-window.addEventListener('scroll', revealSections);
+window.addEventListener('scroll', throttle(revealSections, 100));
 
 // Add CSS for revealed sections
 const style = document.createElement('style');
@@ -573,14 +701,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Add glow effect on scroll
-window.addEventListener('scroll', () => {
+// Add glow effect on scroll - Throttled for performance
+window.addEventListener('scroll', throttle(() => {
     const scrolled = window.pageYOffset;
     const maxScroll = document.body.scrollHeight - window.innerHeight;
     const scrollProgress = scrolled / maxScroll;
-    
+
     document.documentElement.style.setProperty('--scroll-progress', scrollProgress);
-});
+}, 100));
 
 // Add CSS for scroll-based effects
 const scrollStyle = document.createElement('style');
