@@ -1318,6 +1318,73 @@ section {
     box-shadow: var(--shadow-md), var(--shadow-glow-primary);
 }
 
+/* AI Project Enhanced Styling */
+.work-card.ai-project {
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-elevated) 0%, rgba(255, 153, 0, 0.05) 100%);
+    border: 2px solid transparent;
+    background-image:
+        linear-gradient(var(--bg-elevated), var(--bg-elevated)),
+        linear-gradient(135deg, #FF9900 0%, #FF6B00 50%, var(--primary) 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    box-shadow:
+        var(--shadow-md),
+        0 0 40px rgba(255, 153, 0, 0.3),
+        0 0 80px rgba(99, 102, 241, 0.2);
+    animation: ai-border-pulse 3s ease-in-out infinite;
+}
+
+@keyframes ai-border-pulse {
+    0%, 100% {
+        box-shadow:
+            var(--shadow-md),
+            0 0 40px rgba(255, 153, 0, 0.3),
+            0 0 80px rgba(99, 102, 241, 0.2);
+    }
+    50% {
+        box-shadow:
+            var(--shadow-md),
+            0 0 60px rgba(255, 153, 0, 0.5),
+            0 0 100px rgba(99, 102, 241, 0.3);
+    }
+}
+
+.work-card.ai-project .card-image {
+    background: linear-gradient(135deg, #FF9900 0%, #FF6B00 50%, var(--primary) 100%);
+}
+
+/* Multiple badges container */
+.card-badges {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-4);
+    margin-top: var(--space-1);
+}
+
+.card-badge.latest {
+    background: linear-gradient(135deg, #FF9900 0%, #FF6B00 100%);
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 153, 0, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 153, 0, 0.8);
+    }
+}
+
+/* AWS Tech Badges */
+.card-tech span.aws-tech {
+    background: linear-gradient(135deg, rgba(255, 153, 0, 0.2) 0%, rgba(255, 153, 0, 0.1) 100%);
+    border: 1px solid rgba(255, 153, 0, 0.4);
+    color: #FF9900;
+    font-weight: var(--font-semibold);
+}
+
 .card-image {
     height: 200px;
     background: var(--gradient-primary);
