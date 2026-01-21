@@ -113,19 +113,6 @@
         </div>
     </div>
 
-    <!-- Shake Cursor Notification -->
-    <div id="shake-notification" class="shake-notification">
-        <div class="notification-content">
-            <i class="fas fa-hand-pointer"></i>
-            <span>Shake your cursor to view my resume! 🚀</span>
-            <button class="notification-close" onclick="closeShakeNotification()">×</button>
-        </div>
-        <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2); display: flex; gap: 0.5rem; font-size: 0.75rem;">
-            <button onclick="openResumeModal(); closeShakeNotification();" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; flex: 1;">Test Modal</button>
-            <button onclick="debugMode = true; console.log('Debug mode ON'); closeShakeNotification();" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; flex: 1;">Debug ON</button>
-        </div>
-    </div>
-
     <!-- Resume Modal -->
     <div id="resume-modal" class="resume-modal">
         <div class="resume-modal-content">
@@ -215,6 +202,10 @@
                         <span>Get In Touch</span>
                         <i class="fas fa-envelope" aria-hidden="true"></i>
                     </a>
+                    <button onclick="openResumeModal()" class="btn btn-outline" aria-label="View my resume">
+                        <span>View Resume</span>
+                        <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
             <div class="hero-visual">
