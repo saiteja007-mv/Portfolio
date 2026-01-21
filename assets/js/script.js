@@ -1010,15 +1010,19 @@ document.addEventListener('DOMContentLoaded', function() {
 let mousePositions = [];
 let shakeDetected = false;
 let shakeEnabled = false;
-const SHAKE_THRESHOLD = 800; // Minimum total pixels traveled (increased)
-const SHAKE_DIRECTION_CHANGES = 10; // Number of direction changes required (increased)
+const SHAKE_THRESHOLD = 600; // Minimum total pixels traveled
+const SHAKE_DIRECTION_CHANGES = 8; // Number of direction changes required
 const SHAKE_TIME = 500; // Time window in milliseconds
-const MIN_SPEED = 2500; // Minimum pixels per second (increased)
+const MIN_SPEED = 2000; // Minimum pixels per second
+const MIN_SAMPLE_COUNT = 10; // Samples required
+let debugMode = false; // Set to true to see shake detection values
 
 // Enable shake detection after 3 seconds to avoid false triggers on page load
 setTimeout(() => {
     shakeEnabled = true;
-    console.log('Shake detection enabled. Shake your cursor vigorously to view resume!');
+    console.log('%c✅ Shake detection enabled!', 'color: #10b981; font-weight: bold; font-size: 14px;');
+    console.log('%cShake your cursor vigorously (fast side-to-side or up-down) to view resume!', 'color: #6366f1; font-size: 12px;');
+    console.log('%cTip: Try shaking horizontally very fast!', 'color: #f59e0b; font-size: 12px;');
 }, 3000);
 
 function detectShake(currentX, currentY) {
@@ -1030,20 +1034,28 @@ function detectShake(currentX, currentY) {
     // Remove positions older than SHAKE_TIME
     mousePositions = mousePositions.filter(pos => now - pos.time < SHAKE_TIME);
     
-    // Need at least 8 positions to detect shake
-    if (mousePositions.length < 8) return false;
+    // Need many more positions to detect shake
+    if (mousePositions.length < MIN_SAMPLE_COUNT) return false;
     
     // Calculate total distance and direction changes
     let totalDistance = 0;
     let directionChanges = 0;
     let prevDirectionX = 0;
     let prevDirectionY = 0;
+    let totalHorizontalDistance = 0;
+    let totalVerticalDistance = 0;
     
     for (let i = 1; i < mousePositions.length; i++) {
         const dx = mousePositions[i].x - mousePositions[i-1].x;
         const dy = mousePositions[i].y - mousePositions[i-1].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        // Only count movements that are significant (more than 5 pixels)
+        if (distance < 5) continue;
+        
         totalDistance += distance;
+        totalHorizontalDistance += Math.abs(dx);
+        totalVerticalDistance += Math.abs(dy);
         
         // Check for direction change (back and forth movement)
         const currentDirectionX = dx > 0 ? 1 : (dx < 0 ? -1 : 0);
@@ -1060,17 +1072,37 @@ function detectShake(currentX, currentY) {
         prevDirectionY = currentDirectionY;
     }
     
+    // Must have significant movement in at least one axis (horizontal OR vertical)
+    const hasSignificantAxisMovement = totalHorizontalDistance > 400 || totalVerticalDistance > 400;
+    
     // Calculate speed (pixels per second)
     const timeElapsed = (now - mousePositions[0].time) / 1000; // Convert to seconds
     const speed = totalDistance / timeElapsed;
     
-    // Must have:
+    // Debug mode - log values when close to triggering
+    if (debugMode && mousePositions.length >= MIN_SAMPLE_COUNT) {
+        console.log('Shake values:', {
+            distance: totalDistance.toFixed(0),
+            directionChanges,
+            speed: speed.toFixed(0),
+            horizontalMovement: totalHorizontalDistance.toFixed(0),
+            verticalMovement: totalVerticalDistance.toFixed(0)
+        });
+    }
+    
+    // Must have ALL of these:
     // 1. Sufficient total distance traveled
-    // 2. Rapid direction changes (back and forth)
+    // 2. Many rapid direction changes (back and forth)
     // 3. High speed movement
-    return totalDistance > SHAKE_THRESHOLD && 
-           directionChanges >= SHAKE_DIRECTION_CHANGES && 
-           speed > MIN_SPEED;
+    // 4. Significant movement in at least one axis
+    const meetsThreshold = totalDistance > SHAKE_THRESHOLD;
+    const meetsDirectionChanges = directionChanges >= SHAKE_DIRECTION_CHANGES;
+    const meetsSpeed = speed > MIN_SPEED;
+    
+    return meetsThreshold && 
+           meetsDirectionChanges && 
+           meetsSpeed &&
+           hasSignificantAxisMovement;
 }
 
 document.addEventListener('mousemove', (e) => {
@@ -1078,7 +1110,7 @@ document.addEventListener('mousemove', (e) => {
     if (!shakeEnabled || shakeDetected) return;
     
     if (detectShake(e.clientX, e.clientY)) {
-        console.log('Shake detected! Opening resume...');
+        console.log('%c🎉 SHAKE DETECTED! Opening resume...', 'color: #10b981; font-weight: bold; font-size: 16px;');
         shakeDetected = true;
         openResumeModal();
         
@@ -1086,6 +1118,7 @@ document.addEventListener('mousemove', (e) => {
         setTimeout(() => {
             shakeDetected = false;
             mousePositions = [];
+            console.log('%c✨ Shake detection reset - you can trigger it again!', 'color: #6366f1; font-size: 12px;');
         }, 3000);
     }
 });
