@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venkata Sai Teja Mothukuri - Data Analyst Portfolio</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Data Analyst and Computer Science Graduate Student specializing in SQL, Python, Power BI, and Tableau. Transforming raw data into actionable business insights.">
+    <meta name="keywords" content="Data Analyst, SQL, Python, Power BI, Tableau, Data Science, Business Intelligence, Kansas City">
+    <meta name="author" content="Venkata Sai Teja Mothukuri">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Venkata Sai Teja Mothukuri - Data Analyst Portfolio">
+    <meta property="og:description" content="Data Analyst and Computer Science Graduate Student specializing in SQL, Python, Power BI, and Tableau.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://saitejamothukuri.com">
+    <meta property="og:image" content="https://saitejamothukuri.com/assets/images/og-image.svg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Venkata Sai Teja Mothukuri - Data Analyst Portfolio">
+    <meta name="twitter:description" content="Data Analyst and Computer Science Graduate Student specializing in SQL, Python, Power BI, and Tableau.">
+    <meta name="twitter:image" content="https://saitejamothukuri.com/assets/images/og-image.svg">
+    <meta name="twitter:url" content="https://saitejamothukuri.com">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://saitejamothukuri.com/">
+
+    <!-- Sitemap Reference -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/images/favicon.svg">
+    
+    <!-- Additional Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="VST Portfolio">
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Venkata Sai Teja Mothukuri",
+        "url": "https://saitejamothukuri.com",
+        "image": "https://saitejamothukuri.com/assets/images/Profile%20photo%20no%20bg.png",
+        "jobTitle": "Data Analyst",
+        "description": "Data Analyst and Computer Science Graduate Student specializing in SQL, Python, Power BI, and Tableau. Transforming raw data into actionable business insights.",
+        "email": "saiteja.motukuri@icloud.com",
+        "telephone": "913-263-4856",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Kansas City",
+            "addressRegion": "Missouri",
+            "addressCountry": "US"
+        },
+        "alumniOf": [
+            {
+                "@type": "EducationalOrganization",
+                "name": "University of Central Missouri"
+            },
+            {
+                "@type": "EducationalOrganization",
+                "name": "SRKR Engineering College"
+            }
+        ],
+        "knowsAbout": ["SQL", "Python", "Power BI", "Tableau", "Data Analysis", "Machine Learning", "AWS", "BigQuery", "Databricks"],
+        "sameAs": [
+            "https://saitejamothukuri.com",
+            "https://www.linkedin.com/in/venkatasaitejam",
+            "https://github.com/saiteja007-mv"
+        ]
+    }
+    </script>
+
+    <!-- WebSite Schema for Search -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Venkata Sai Teja Mothukuri - Data Analyst Portfolio",
+        "url": "https://saitejamothukuri.com",
+        "description": "Data Analyst and Computer Science Graduate Student specializing in SQL, Python, Power BI, and Tableau.",
+        "author": {
+            "@type": "Person",
+            "name": "Venkata Sai Teja Mothukuri"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Skip to Content Link for Accessibility -->
+    <a href="#home" class="skip-to-content">Skip to main content</a>
+
+    <!-- Cursor Follower -->
+    <div class="cursor-follower"></div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader">
+            <div class="loader-text">Venkata Sai Teja's Portfolio</div>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- Shake Cursor Notification -->
+    <div id="shake-notification" class="shake-notification">
+        <div class="notification-content">
+            <i class="fas fa-hand-pointer"></i>
+            <span>Shake your cursor to view my resume! 🚀</span>
+            <button class="notification-close" onclick="closeShakeNotification()">×</button>
+        </div>
+    </div>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="resume-modal">
+        <div class="resume-modal-content">
+            <div class="resume-modal-header">
+                <h3><i class="fas fa-file-pdf"></i> Venkata Sai Teja - Resume</h3>
+                <button class="resume-close" onclick="closeResumeModal()">×</button>
+            </div>
+            <div class="resume-modal-body">
+                <iframe id="resume-iframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+            <div class="resume-modal-footer">
+                <a href="docs/Venkata Sai Teja Mothukuri.pdf" download class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-text">Venkata Sai Teja</div>
+                <div class="logo-dot"></div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" data-text="Home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" data-text="About">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#journey" class="nav-link" data-text="Journey">Journey</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#work" class="nav-link" data-text="Work">Work</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#visualizations" class="nav-link" data-text="Visualizations">Visualizations</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link" data-text="Skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#certifications" class="nav-link" data-text="Certifications">Certifications</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-text="Contact">Contact</a>
+                </li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-grid"></div>
+            <div class="hero-particles"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>Available for opportunities</span>
+                    <div class="badge-dot"></div>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">Hello, I'm</span>
+                    <span class="title-name">Venkata Sai Teja</span>
+                    <span class="title-role">Data Analyst & AI Enthusiast</span>
+                </h1>
+                <p class="hero-description">
+                    Transforming complex data into compelling stories. 
+                    Building intelligent solutions that drive business growth.
+                </p>
+                <div class="hero-actions">
+                    <a href="#work" class="btn btn-primary" aria-label="View my portfolio projects">
+                        <span>View My Work</span>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                    <a href="mailto:saiteja.motukuri@icloud.com" class="btn btn-outline" aria-label="Contact me via email">
+                        <span>Get In Touch</span>
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="flip-card" style="width: 350px; height: 350px; max-width: 350px; overflow: visible;">
+                  <div class="flip-card-inner" style="overflow: visible;">
+                    <!-- Front Side: Standing Man with Pop-out Effect -->
+                    <div class="flip-card-front" style="overflow: visible;">
+                      <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; padding: 0; position: relative; overflow: visible;">
+                        <img src="assets/images/Profile photo no bg.png" alt="Venkata Sai Teja" style="
+                          width: 450px !important;
+                          max-width: none !important;
+                          height: auto;
+                          position: absolute;
+                          bottom: -0px;
+                          left: 50%;
+                          transform: translateX(-50%);
+                          z-index: 10;
+                          filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+                          animation: popOut 1s ease-out forwards;
+                        ">
+                      </div>
+                    </div>
+                    <!-- Back Side: TechRex Logo -->
+                    <div class="flip-card-back" style="overflow: visible;">
+                      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 1.5rem;">
+                        <a href="https://youtube.com/@The_TechRex" target="_blank" rel="noopener noreferrer" style="display: block; margin-bottom: 1rem; transition: transform 0.3s ease;">
+                          <img src="assets/images/TechRex_logo.png" alt="TechRex Logo" style="max-width: 250px; height: auto; cursor: pointer;">
+                        </a>
+                        <h3 style="font-size: 1.3rem; font-weight: 600; color: #1e293b; margin: 0;">Content Creator</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-text">Scroll to explore</div>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Building experience, one project at a time</p>
+            </div>
+            <div class="about-content" style="display: flex; justify-content: center; align-items: center;">
+                <div class="about-text" style="max-width: 900px; margin: 0 auto; text-align: center;">
+                    <div class="about-intro" style="background: rgba(99, 102, 241, 0.05); border-radius: 16px; padding: 3rem; border: 1px solid rgba(99, 102, 241, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+                        <p style="font-size: 1.35rem; line-height: 2; color: var(--text-primary); margin-bottom: 2rem; font-weight: 400;">
+                            I recently earned my <strong style="color: var(--primary);">Master's degree in Computer Science</strong> and I'm starting my career in data analytics. I don't have professional industry experience yet my experience comes from building projects, fixing bugs I created myself, and learning the hard way.
+                        </p>
+                        <div style="width: 60px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--secondary)); margin: 2rem auto; border-radius: 2px;"></div>
+                        <p style="font-size: 1.35rem; line-height: 2; color: var(--text-primary); font-weight: 400;">
+                            I build <strong style="color: var(--accent);">AI-powered applications</strong>, analyze data, create dashboards, and document the chaos on YouTube with my channel 
+                            <a href="https://youtube.com/@The_TechRex" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none; font-weight: 700; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem;">
+                                <i class="fab fa-youtube" style="font-size: 1.5rem;"></i>
+                                TechRex
+                            </a>, turning experiments into experience, one project at a time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section id="journey" class="journey">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Journey</h2>
+                <p class="section-subtitle">From student to data professional</p>
+            </div>
+            <div class="journey-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"><img src="assets/images/Accenture-Logo.png" alt="Accenture Logo" class="journey-logo"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Data Analyst</h3>
+                            <span class="timeline-company">Accenture North America</span>
+                            <span class="timeline-date">April 2025</span>
+                        </div>
+                        <p class="timeline-description">
+                            Virtual experience program focused on social media analytics and strategic insights.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li>Analyzed 7 datasets for content trend insights</li>
+                            <li>Created strategic presentations for stakeholders</li>
+                            <li>Developed data-driven recommendations</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"><img src="assets/images/UCM Logo.png" alt="UCM Logo" class="journey-logo"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>M.S. Computer Science</h3>
+                            <span class="timeline-company">University of Central Missouri</span>
+                            <span class="timeline-date">2024 - Present</span>
+                        </div>
+                        <p class="timeline-description">
+                            Graduate studies with specialization in Data Analytics and Database Management.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li>Advanced coursework in data analysis</li>
+                            <li>Research in machine learning applications</li>
+                            <li>Database systems and optimization</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"><img src="assets/images/SRKR Logo.png" alt="SRKR Logo" class="journey-logo"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>B.Tech Information Technology</h3>
+                            <span class="timeline-company">SRKR Engineering College</span>
+                            <span class="timeline-date">2019 - 2023</span>
+                        </div>
+                        <p class="timeline-description">
+                            Undergraduate studies with focus on data structures and emerging technologies.
+                        </p>
+                        <ul class="timeline-achievements">
+                            <li>Published research on AI-driven cyberbullying detection</li>
+                            <li>Event organizer for technical education society</li>
+                            <li>Comprehensive IT curriculum completion</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="work">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Work</h2>
+                <p class="section-subtitle">Projects that showcase my expertise</p>
+            </div>
+            <div class="work-grid">
+                <div class="work-card featured ai-project">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-comments"></i>
+                            <i class="fas fa-brain" style="position: absolute; bottom: 10px; right: 10px; font-size: 1.5rem; opacity: 0.8;"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badges">
+                            <div class="card-badge">Featured</div>
+                            <div class="card-badge latest">Latest Project</div>
+                        </div>
+                        <h3>AI-Powered RAG Chatbot using AWS</h3>
+                        <p>Production-ready serverless RAG (Retrieval-Augmented Generation) chatbot built with AWS Bedrock's Claude 3.5 Sonnet. Features intelligent document processing, vector embeddings via Titan V2, and semantic search with DynamoDB for scalable Q&A capabilities.</p>
+                        <div class="card-tech">
+                            <span class="aws-tech">AWS Bedrock</span>
+                            <span class="aws-tech">Lambda</span>
+                            <span class="aws-tech">DynamoDB</span>
+                            <span>Python</span>
+                            <span>Claude 3.5</span>
+                            <span>Vector Search</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="http://rag-chatbot-website-101002668362.s3-website.us-east-2.amazonaws.com/" class="btn btn-sm btn-primary" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="https://github.com/saiteja007-mv/AI-Rag-Chatbot-using-AWS-Services" class="btn btn-sm" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="docs/AI_RagChatbot_using_AWS.md" class="btn btn-sm btn-outline" target="_blank">
+                                <i class="fas fa-book"></i> Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-card featured ai-project">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-video"></i>
+                            <i class="fas fa-robot" style="position: absolute; bottom: 10px; right: 10px; font-size: 1.5rem; opacity: 0.8;"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badges">
+                            <div class="card-badge">Featured</div>
+                            <div class="card-badge latest">Automation</div>
+                        </div>
+                        <h3>AI-Powered YouTube Content Automation</h3>
+                        <p>Comprehensive n8n workflow automating YouTube content creation from script to SEO optimization. Uses local AI (Ollama with Qwen2.5:7b) for generating titles, descriptions, viral tags, and AI-generated thumbnails via OpenRouter API. Integrates Telegram, Google Drive, and YouTube API for complete content pipeline.</p>
+                        <div class="card-tech">
+                            <span>n8n</span>
+                            <span>Ollama</span>
+                            <span>Qwen2.5</span>
+                            <span class="aws-tech">YouTube API</span>
+                            <span>OpenRouter</span>
+                            <span>Google APIs</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="docs/Youtube_content_generation_workflow.md" class="btn btn-sm btn-primary" target="_blank">
+                                <i class="fas fa-book"></i> Learn More
+                            </a>
+                            <a href="https://github.com/saiteja007-mv/Youtube-Content-Generation-Workflow" class="btn btn-sm" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-card featured">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-badge">Featured</div>
+                        <h3>Employee Retention Analysis</h3>
+                        <p>Leading a data analysis project to explore employee retention trends using data from Forbes-listed companies and Glassdoor reviews with automated data collection.</p>
+                        <div class="card-tech">
+                            <span>Python</span>
+                            <span>Selenium</span>
+                            <span>Power BI</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="https://github.com/saiteja007-mv/Employee-Retention-Analysis.git" class="btn btn-sm" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="work-card">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Target Brazil E-commerce Data Analysis</h3>
+                        <p>Analysis of 100K+ orders using BigQuery and Tableau for sales optimization, uncovering trends in payment behaviors and shipping delays.</p>
+                        <div class="card-tech">
+                            <span>BigQuery</span>
+                            <span>SQL</span>
+                            <span>Tableau</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="https://github.com/saiteja007-mv/-Target-Brazil-Ecommerce-Data-Analysis-using-SQL.git" class="btn btn-sm" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="work-card">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>AI Cyberbullying Detection</h3>
+                        <p>Machine learning model with 89% accuracy for detecting harmful content across text, image, and audio. Published research in JETIR journal.</p>
+                        <div class="card-tech">
+                            <span>Machine Learning</span>
+                            <span>NLP</span>
+                            <span>Deep Learning</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="https://github.com/saiteja007-mv/Cyberbully-Detection-in-Texts-Images-and-Audios.git" class="btn btn-sm" target="_blank">View Project</a>
+                            <a href="https://www.jetir.org/view?paper=JETIR2304580" class="btn btn-sm btn-outline" target="_blank">Research Paper</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="work-card">
+                    <div class="card-image">
+                        <div class="image-overlay">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>LinkedIn Job Application Automation</h3>
+                        <p>AI-powered automation system for job applications with GPT-4 integration, reducing manual job search effort by over 80%.</p>
+                        <div class="card-tech">
+                            <span>Make.com</span>
+                            <span>OpenAI GPT-4</span>
+                            <span>Google Sheets</span>
+                        </div>
+                        <div class="card-actions">
+                            <a href="https://github.com/saiteja007-mv/LinkedIn-Job-Application-Automation-using-Make.com-Apify-OpenAI.git" class="btn btn-sm" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visualizations Section -->
+    <section id="visualizations" class="visualizations">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Data Visualizations</h2>
+                <p class="section-subtitle">Interactive dashboards and insights</p>
+            </div>
+            <div class="visualizations-grid">
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <div class="viz-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>IPL Analysis Dashboard</h3>
+                    </div>
+                    <div class="viz-content">
+                        <p>Comprehensive analysis of Indian Premier League data with interactive visualizations.</p>
+                        <div class="viz-tech">
+                            <span>Tableau</span>
+                            <span>Data Analysis</span>
+                        </div>
+                    </div>
+                    <div class="viz-actions">
+                        <a href="https://public.tableau.com/app/profile/venkata.sai.teja.mothukuri/viz/IPLAnalysis_16983213756910/IPLAnalysis" class="btn btn-sm" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Dashboard</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <div class="viz-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Sales Performance Analysis</h3>
+                    </div>
+                    <div class="viz-content">
+                        <p>Sales performance dashboard with trend analysis and KPI tracking.</p>
+                        <div class="viz-tech">
+                            <span>Tableau</span>
+                            <span>Sales Analytics</span>
+                        </div>
+                    </div>
+                    <div class="viz-actions">
+                        <a href="https://public.tableau.com/views/SaleAnalysis_17388930656530/Sales_Performance?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" class="btn btn-sm" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Dashboard</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="viz-card featured">
+                    <div class="viz-header">
+                        <div class="viz-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Prism Insurance Data Analysis</h3>
+                        <div class="viz-badge">Featured</div>
+                    </div>
+                    <div class="viz-content">
+                        <p>Comprehensive insurance data analysis with interactive Power BI dashboard.</p>
+                        <div class="viz-tech">
+                            <span>Power BI</span>
+                            <span>Insurance Analytics</span>
+                        </div>
+                    </div>
+                    <div class="viz-actions">
+                        <a href="https://app.powerbi.com/view?r=eyJrIjoiODhiNTAwNzAtYmY5YS00ZWM0LTk2ODMtZjQ5YjBjNTVmOTRhIiwidCI6IjdhZmI5ZTIyLTkzMDgtNDE4Ni04ZTI5LWVhMjMxZmYzYmFmNyIsImMiOjN9" class="btn btn-sm" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Dashboard</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <div class="viz-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3>Glassdoor Companies Review Analysis</h3>
+                    </div>
+                    <div class="viz-content">
+                        <p>Interactive Power BI dashboard exploring employee satisfaction, retention, and company benchmarks from 6,971 reviews across 127 US companies.</p>
+                        <div class="viz-tech">
+                            <span>Power BI</span>
+                            <span>HR Analytics</span>
+                        </div>
+                    </div>
+                    <div class="viz-actions">
+                        <a href="https://app.powerbi.com/view?r=eyJrIjoiODdiNzRlMjktNTc3ZS00NjkyLTk1MzYtZjU0NmQyYzJhZjcwIiwidCI6IjdhZmI5ZTIyLTkzMDgtNDE4Ni04ZTI5LWVhMjMxZmYzYmFmNyIsImMiOjN9" class="btn btn-sm" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Dashboard</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Skills & Expertise</h2>
+                <p class="section-subtitle">Technologies I work with</p>
+            </div>
+            <div class="skills-container">
+              <div class="skills-card-grid">
+                <div class="skill-card"><img src="assets/images/sql.png" alt="SQL Logo" class="skill-logo"><span>SQL</span></div>
+                <div class="skill-card"><img src="assets/images/Python Logo.png" alt="Python Logo" class="skill-logo"><span>Python</span></div>
+                <div class="skill-card"><img src="assets/images/Tableau Logo.png" alt="Tableau Logo" class="skill-logo"><span>Tableau</span></div>
+                <div class="skill-card"><img src="assets/images/PowerBI Logo.svg" alt="Power BI Logo" class="skill-logo"><span>Power BI</span></div>
+                <div class="skill-card"><img src="assets/images/Bigquery Logo.png" alt="Big Query Logo" class="skill-logo"><span>Big Query</span></div>
+                <div class="skill-card"><img src="assets/images/databricks logo.png" alt="Databricks Logo" class="skill-logo"><span>Databricks</span></div>
+                <div class="skill-card"><img src="assets/images/MS Excel Logo.svg" alt="MS Excel Logo" class="skill-logo"><span>MS Excel</span></div>
+                <div class="skill-card"><img src="assets/images/Snowflake logo.png" alt="Snowflake Logo" class="skill-logo"><span>Snowflake</span></div>
+                <div class="skill-card"><img src="assets/images/AWS Logo.png" alt="AWS Logo" class="skill-logo"><span>AWS</span></div>
+              </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Certifications & Achievements</h2>
+                <p class="section-subtitle">Professional credentials and recognition</p>
+            </div>
+            <div class="certifications-grid">
+                <div class="certification-card featured">
+                    <div class="cert-badge-container">
+                        <div class="cert-icon">
+                            <i class="fab fa-microsoft"></i>
+                        </div>
+                        <div class="cert-badge-image">
+                            <img src="assets/images/Microsoft_Data_Analyst_Associate-badgw.png" alt="Microsoft Data Analyst Associate Badge" class="badge-img">
+                        </div>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Microsoft Power BI Data Analyst Associate</h3>
+                        <p>Certified in Power BI data modeling and visualization with official Microsoft credential</p>
+                        <span class="cert-date">June 2025</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="https://learn.microsoft.com/en-us/users/venkatasaitejamothukuri-4152/credentials/d3845ff6e8b4a1e3?ref=https%3A%2F%2Fwww.linkedin.com%2F" class="cert-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Credential</span>
+                        </a>
+                        <a href="docs/Certifications/Microsoft PowerBI - Data Analysis Associate.pdf" class="cert-link" target="_blank">
+                            <i class="fas fa-download"></i>
+                            <span>Download PDF</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Data Analysis with Databricks</h3>
+                        <p>Hands-on data analysis and visualization using Databricks</p>
+                        <span class="cert-date">April 2025</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="docs/Certifications/DataBricks Data Analysis.pdf" class="cert-link" target="_blank">
+                            <i class="fas fa-download"></i>
+                            <span>Download PDF</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Complete Data Analyst Bootcamp</h3>
+                        <p>From basics to advanced data analysis techniques</p>
+                        <span class="cert-date">April 2025</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="https://www.udemy.com/certificate/UC-df898c28-56d0-4d70-b981-a13c35f505c8/" class="cert-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Credential</span>
+                        </a>
+                        <a href="docs/Certifications/Udemy Data Analyst Bootcamp.pdf" class="cert-link" target="_blank">
+                            <i class="fas fa-download"></i>
+                            <span>Download PDF</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="cert-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>NPTEL Data Analytics with Python</h3>
+                        <p>Certified in Python-based data analysis and visualization</p>
+                        <span class="cert-date">April 2022</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="docs/Certifications/NPTEL_data analytics with python.jpg" class="cert-link" target="_blank">
+                            <i class="fas fa-download"></i>
+                            <span>Download Certificate</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certification-card featured">
+                    <div class="cert-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Published Research Paper</h3>
+                        <p>"Cyberbullying Detection in Text, Images, and Audio" - JETIR Journal</p>
+                        <span class="cert-date">2023</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="https://www.jetir.org/view?paper=JETIR2304580" class="cert-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Paper</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="cert-content">
+                        <h3>Accenture Data Analysis Simulation</h3>
+                        <p>Virtual experience program focused on social media analytics</p>
+                        <span class="cert-date">April 2025</span>
+                    </div>
+                    <div class="cert-actions">
+                        <a href="docs/Certifications/Accenture Data Analysis Simulation.pdf" class="cert-link" target="_blank">
+                            <i class="fas fa-download"></i>
+                            <span>Download PDF</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Connect</h2>
+                <p class="section-subtitle">Ready to work together?</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-intro">
+                        <h3>Get In Touch</h3>
+                        <p>
+                            I'm always open to discussing new opportunities, interesting projects, 
+                            or just having a chat about data and technology.
+                        </p>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <a href="mailto:saiteja.motukuri@icloud.com">saiteja.motukuri@icloud.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <a href="tel:913-263-4856">913-263-4856</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Location</h4>
+                                <span>Kansas City, Missouri</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/venkatasaitejam" class="social-link" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/saiteja007-mv" class="social-link" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="mailto:saiteja.motukuri@icloud.com" class="social-link" title="Send Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required placeholder=" ">
+                            <label for="name">Your Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required placeholder=" ">
+                            <label for="email">Your Email</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" required placeholder=" ">
+                            <label for="subject">Subject</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" required placeholder=" "></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <span id="btnText">Send Message</span>
+                            <i class="fas fa-paper-plane" id="btnIcon"></i>
+                        </button>
+
+                        <div id="formStatus" class="form-status" style="display: none;"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">Venkata Sai Teja</div>
+                    <p>Data Analyst & Developer</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#work">Work</a>
+                    <a href="#visualizations">Visualizations</a>
+                    <a href="#certifications">Certifications</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/venkatasaitejam" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/saiteja007-mv" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Venkata Sai Teja Mothukuri. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html> 

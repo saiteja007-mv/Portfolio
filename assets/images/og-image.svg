@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#334155;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#374151" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="80" fill="url(#accentGrad)" opacity="0.1"/>
+  <circle cx="1100" cy="530" r="120" fill="url(#accentGrad)" opacity="0.1"/>
+  <circle cx="1000" cy="150" r="60" fill="url(#accentGrad)" opacity="0.1"/>
+  
+  <!-- Main content -->
+  <g transform="translate(100, 200)">
+    <!-- Logo -->
+    <rect x="0" y="0" width="80" height="80" rx="12" fill="url(#accentGrad)"/>
+    <text x="40" y="52" font-family="Inter, sans-serif" font-size="24" font-weight="700" text-anchor="middle" fill="white">VST</text>
+    
+    <!-- Name and title -->
+    <text x="120" y="35" font-family="Inter, sans-serif" font-size="48" font-weight="700" fill="white">Venkata Sai Teja</text>
+    <text x="120" y="70" font-family="Inter, sans-serif" font-size="24" font-weight="400" fill="#94a3b8">Data Analyst & Developer</text>
+    
+    <!-- Tagline -->
+    <text x="120" y="120" font-family="Inter, sans-serif" font-size="18" font-weight="400" fill="#cbd5e1" max-width="800">
+      Transforming complex data into compelling stories
+    </text>
+    
+    <!-- Skills -->
+    <g transform="translate(120, 180)">
+      <text x="0" y="0" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#e2e8f0">SQL • Python • Power BI • Tableau • Machine Learning</text>
+    </g>
+  </g>
+  
+  <!-- Bottom accent -->
+  <rect x="0" y="580" width="1200" height="50" fill="url(#accentGrad)" opacity="0.8"/>
+</svg> 

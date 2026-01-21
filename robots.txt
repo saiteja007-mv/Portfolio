@@ -1,0 +1,24 @@
+# Robots.txt for Venkata Sai Teja's Portfolio
+# https://saitejamothukuri.com
+
+User-agent: *
+Allow: /
+
+# Allow all search engines to index the site
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Sitemap location
+Sitemap: https://saitejamothukuri.com/sitemap.xml
+
+# Crawl-delay for polite crawling (optional)
+Crawl-delay: 10
