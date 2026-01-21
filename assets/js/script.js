@@ -1009,10 +1009,17 @@ document.addEventListener('DOMContentLoaded', function() {
 // Shake Cursor Detection for Resume
 let mousePositions = [];
 let shakeDetected = false;
-const SHAKE_THRESHOLD = 500; // Minimum total pixels traveled
-const SHAKE_DIRECTION_CHANGES = 6; // Number of direction changes required
-const SHAKE_TIME = 400; // Time window in milliseconds
-const MIN_SPEED = 1500; // Minimum pixels per second
+let shakeEnabled = false;
+const SHAKE_THRESHOLD = 800; // Minimum total pixels traveled (increased)
+const SHAKE_DIRECTION_CHANGES = 10; // Number of direction changes required (increased)
+const SHAKE_TIME = 500; // Time window in milliseconds
+const MIN_SPEED = 2500; // Minimum pixels per second (increased)
+
+// Enable shake detection after 3 seconds to avoid false triggers on page load
+setTimeout(() => {
+    shakeEnabled = true;
+    console.log('Shake detection enabled. Shake your cursor vigorously to view resume!');
+}, 3000);
 
 function detectShake(currentX, currentY) {
     const now = Date.now();
@@ -1067,9 +1074,11 @@ function detectShake(currentX, currentY) {
 }
 
 document.addEventListener('mousemove', (e) => {
-    if (shakeDetected) return;
+    // Only detect shake if enabled (after page load delay)
+    if (!shakeEnabled || shakeDetected) return;
     
     if (detectShake(e.clientX, e.clientY)) {
+        console.log('Shake detected! Opening resume...');
         shakeDetected = true;
         openResumeModal();
         
@@ -1087,7 +1096,9 @@ function openResumeModal() {
     const iframe = document.getElementById('resume-iframe');
     
     if (modal && iframe) {
-        iframe.src = 'docs/Venkata Sai Teja Mothukuri.pdf';
+        // Use absolute path for better compatibility
+        const resumePath = window.location.origin + '/docs/Venkata%20Sai%20Teja%20Mothukuri.pdf';
+        iframe.src = resumePath;
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
         
@@ -1096,6 +1107,12 @@ function openResumeModal() {
         if (notification) {
             notification.classList.add('hide');
         }
+        
+        // Fallback: If iframe fails to load, open in new tab
+        iframe.onerror = function() {
+            window.open(resumePath, '_blank');
+            closeResumeModal();
+        };
     }
 }
 
