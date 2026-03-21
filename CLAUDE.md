@@ -18,7 +18,7 @@ Personal portfolio website for Venkata Sai Teja Mothukuri (Data Analyst). A sing
 - API endpoint: `https://6dh439dgoj.execute-api.us-east-1.amazonaws.com/prod/contact`
 - `ses_html.html` is the SES email template (uses `${escapeHtml(...)}` template literals)
 
-**Hosting:** AWS S3 static website. Previously also configured with Vercel (`.vercel/` dir exists).
+**Hosting:** Vercel (auto-deploys from GitHub). Custom domain: saitejamothukuri.com.
 
 ## Development
 

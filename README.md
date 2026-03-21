@@ -1,6 +1,6 @@
 # Venkata Sai Teja Portfolio
 
-A modern, fully responsive portfolio website showcasing my skills, projects, and professional journey as a Data Analyst & AI Enthusiast. Deployed on AWS S3 with a serverless contact form using AWS Lambda and SES.
+A modern, fully responsive portfolio website showcasing my skills, projects, and professional journey as a Data Analyst & AI Enthusiast. Deployed on Vercel with a serverless contact form using AWS Lambda and SES.
 
 🌐 **Live Site:** [saitejamothukuri.com](https://saitejamothukuri.com)
 📺 **YouTube:** [TechRex](https://youtube.com/@The_TechRex)
@@ -16,8 +16,8 @@ A modern, fully responsive portfolio website showcasing my skills, projects, and
 - **Font Awesome 6**: Iconography via CDN
 - **Google Fonts**: Inter & JetBrains Mono
 
-### Backend & Infrastructure
-- **AWS S3**: Static website hosting
+### Hosting & Infrastructure
+- **Vercel**: Static website hosting with edge CDN and automatic deployments from GitHub
 - **AWS Lambda (Node.js 22)**: Serverless contact form handler
 - **AWS API Gateway**: REST API endpoint for form submissions
 - **Amazon SES**: Email delivery with custom HTML templates
@@ -122,11 +122,11 @@ SQL · Python · Tableau · Power BI · BigQuery · Databricks · MS Excel · Sn
 
 ## 🏗️ Architecture
 
-### Frontend (S3 Static Website)
+### Frontend (Vercel)
 ```
 User Browser
     ↓
-S3 Static Website (index.html, CSS, JS)
+Vercel Edge CDN (index.html, CSS, JS)
     ↓
 Form Submission
 ```
