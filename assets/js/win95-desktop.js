@@ -24,7 +24,13 @@
      The page opens on the CRT "power screen". Clicking the power button
      runs the boot splash, then opens the desktop (About window).
   ══════════════════════════════════════════════════════════════════ */
-  function runBoot(done) {
+  // Boot length tracks the boot sound (assets/win95/sounds/Bootup sound.mp3 ≈ 6.7s).
+  var BOOT_SECONDS = 6.7;
+
+  // Runs the boot splash. Progress bar follows the boot audio when it plays,
+  // otherwise a timer of BOOT_SECONDS. Completes on the audio's 'ended' event
+  // (or the timer as a safety net), THEN calls done() to reveal the desktop.
+  function startBoot(audio, done) {
     var splash = document.getElementById('boot-splash');
     if (!splash) { if (done) done(); return; }
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -34,46 +40,74 @@
     }
     splash.style.display = 'flex';
     var bar = document.getElementById('boot-bar');
-    var pct = 0;
-    var interval = setInterval(function () {
-      pct += Math.random() * 18 + 6;
-      if (pct >= 100) {
-        pct = 100;
-        clearInterval(interval);
+    var start = Date.now();
+    var audioOk = false;
+    var finished = false;
+
+    function finish() {
+      if (finished) return;
+      finished = true;
+      clearInterval(iv);
+      if (bar) bar.style.width = '100%';
+      setTimeout(function () {
+        splash.classList.add('fade-out');
         setTimeout(function () {
-          splash.classList.add('fade-out');
-          setTimeout(function () {
-            splash.style.display = 'none';
-            if (done) done();
-          }, 500);
-        }, 200);
-      }
-      if (bar) bar.style.width = Math.min(pct, 100) + '%';
-    }, 80);
+          splash.style.display = 'none';
+          if (done) done();              // desktop revealed only now
+        }, 500);
+      }, 150);
+    }
+
+    if (audio) {
+      audio.addEventListener('timeupdate', function () {
+        if (audio.duration && isFinite(audio.duration)) {
+          audioOk = true;
+          if (bar) bar.style.width = Math.min(100, (audio.currentTime / audio.duration) * 100) + '%';
+        }
+      });
+      audio.addEventListener('ended', finish);
+    }
+
+    var iv = setInterval(function () {
+      var elapsed = (Date.now() - start) / 1000;
+      if (!audioOk && bar) bar.style.width = Math.min(100, (elapsed / BOOT_SECONDS) * 100) + '%';
+      if (elapsed >= BOOT_SECONDS + 1.2) finish();   // safety net if 'ended' never fires
+    }, 60);
   }
 
   (function setupPowerOn() {
     var screen = document.getElementById('power-screen');
+    var audio = document.getElementById('boot-sound');
+
     // No power screen? Boot straight to the desktop.
-    if (!screen) { runBoot(function () { WM.open('win-about'); }); return; }
+    if (!screen) { startBoot(audio, function () { WM.open('win-about'); }); return; }
 
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function powerOn() {
       if (screen.dataset.done) return;
       screen.dataset.done = '1';
+
+      // Start the boot sound inside the click gesture (autoplay-policy safe).
+      if (audio) {
+        try { audio.currentTime = 0; var p = audio.play(); if (p && p.catch) p.catch(function () {}); } catch (e) {}
+      }
+
       if (reduce) {
+        if (audio) { try { audio.pause(); } catch (e) {} }
         screen.style.display = 'none';
         WM.open('win-about');
         return;
       }
-      screen.classList.add('powering');           // CRT flash on the glass
+
+      screen.classList.add('powering');              // CRT flash on the glass
       setTimeout(function () {
-        screen.classList.add('off');               // fade the intro out
-        setTimeout(function () {
-          screen.style.display = 'none';
-          runBoot(function () { WM.open('win-about'); });
-        }, 450);
+        // Show the boot splash FIRST (it sits below the power screen at a lower
+        // z-index), THEN fade the intro out to reveal it — so the desktop is
+        // never visible until boot finishes.
+        startBoot(audio, function () { WM.open('win-about'); });
+        screen.classList.add('off');
+        setTimeout(function () { screen.style.display = 'none'; }, 450);
       }, 550);
     }
     window.powerOn = powerOn;
