@@ -166,16 +166,27 @@ html, body {
 /* About window layout */
 .win-about-layout {
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+/* Top row: photo + name/tagline side by side */
+.about-header {
+  display: flex;
   gap: 16px;
-  align-items: flex-start;
+  align-items: center;
 }
 .about-photo {
-  width: 100px;
-  height: 100px;
+  width: 132px;
+  height: 164px;
   object-fit: cover;
   border: 2px solid var(--w95-gray-dark);
-  flex: 0 0 100px;
+  background: #fff;
+  flex: 0 0 132px;
 }
+.about-id { flex: 1 1 auto; }
+.about-id .win-section-title { font-size: 18px; margin: 0 0 5px; }
+.about-id .win-subtitle { font-size: 12px; margin: 0; }
 .about-text-block { flex: 1 1 auto; }
 .about-contact-row {
   display: flex;
@@ -416,8 +427,11 @@ html, body {
   left: 0;
   z-index: 6000;
   min-width: 200px;
-  max-height: calc(100vh - 50px);
-  overflow-y: auto;
+  /* No overflow clipping: cascading Programs ▸ Accessories flyouts must
+     escape the menu box to the right, like a real Win95 Start menu.
+     (overflow-y:auto here forced overflow-x to auto too, trapping the
+     submenu inside and adding a scrollbar.) */
+  overflow: visible;
 }
 .w95-startmenu[hidden] { display: none; }
 
@@ -462,8 +476,7 @@ html, body {
   .contact-info-col { flex: none; width: 100%; }
 
   /* About layout stacks */
-  .win-about-layout { flex-direction: column; }
-  .about-photo { width: 80px; height: 80px; }
+  .about-photo { width: 104px; height: 128px; flex-basis: 104px; }
 
   /* viz items stack */
   .viz-item { flex-wrap: wrap; }
@@ -903,3 +916,339 @@ html, body {
   line-height: 1.3;
   max-width: 76px;
 }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   TWEAKS v2 — outline drag, cascading menus, apps, IE pages, shutdown
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Window move: dotted "ghost" outline (Win95 outline drag) ─────── */
+.win-drag-outline {
+  position: fixed;
+  z-index: 9990;
+  pointer-events: none;
+  background: transparent;
+  border: 2px dotted #c0c0c0;
+  mix-blend-mode: difference;   /* authentic inverting drag rectangle */
+  display: none;
+}
+
+/* ── Cascading START MENU flyouts (Programs ▸ Accessories ▸ apps) ─── */
+.w95-startmenu__item--sub { position: relative; }
+.w95-startmenu__arrow { margin-left: auto; font-size: 9px; line-height: 1; }
+.w95-startmenu__sub {
+  position: absolute;
+  left: 100%;
+  top: -3px;
+  min-width: 168px;
+  display: none;
+  z-index: 6000;
+  padding: 2px;
+  background: var(--w95-face);
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out), inset 1px 1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),  inset 2px 2px var(--w95-hi-in);
+}
+.w95-startmenu__item--sub:hover > .w95-startmenu__sub,
+.w95-startmenu__item--sub:focus-within > .w95-startmenu__sub { display: block; }
+.w95-startmenu__sub .w95-startmenu__item { font-size: 12px; }
+
+/* ── Cascading CONTEXT MENU flyouts (Arrange Icons / New) ─────────── */
+.desktop-context-menu__item--sub { position: relative; padding-right: 24px; }
+.ctx-arrow { position: absolute; right: 6px; top: 5px; font-size: 9px; }
+.desktop-context-menu__sub {
+  position: absolute;
+  left: 100%;
+  top: -3px;
+  min-width: 158px;
+  display: none;
+  z-index: 6600;
+  padding: 2px;
+  background: var(--w95-face);
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out), inset 1px 1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),  inset 2px 2px var(--w95-hi-in);
+}
+.desktop-context-menu__item--sub:hover > .desktop-context-menu__sub,
+.desktop-context-menu__item--sub:focus-within > .desktop-context-menu__sub { display: block; }
+/* "New ▸" rows carry a small type icon */
+.ctx-new { display: flex !important; align-items: center; gap: 8px; padding-left: 8px; }
+.ctx-ico { width: 16px; height: 16px; display: inline-block; image-rendering: pixelated; flex: 0 0 16px; }
+.desktop-context-menu__item.is-checked::before { content: "\2713"; position: absolute; left: 6px; }
+
+/* ── New desktop item: inline rename box ─────────────────────────── */
+.w95-deskicon--new { position: absolute; }
+.w95-deskicon__rename {
+  width: 70px;
+  font-family: var(--w95-font);
+  font-size: 11px;
+  text-align: center;
+  border: 1px solid #000;
+  padding: 1px;
+  margin-top: 2px;
+}
+
+/* ═══════════ CALCULATOR ═══════════ */
+.calc-body { display: flex !important; flex-direction: column; gap: 4px; padding: 6px !important; background: var(--w95-face); }
+.calc-display { text-align: right; font-size: 15px; height: 24px; padding: 2px 6px; background: #fff; }
+.calc-keys { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; }
+.calc-key { min-width: 0; padding: 4px 0; font-size: 12px; }
+.calc-key--mem { grid-column: span 2; }
+.calc-key--op, .calc-key--m, .calc-key--eq { color: #aa0000; font-weight: bold; }
+.calc-key--m { color: #aa0000; }
+
+/* ═══════════ NOTEPAD ═══════════ */
+.notepad-body { padding: 0 !important; display: flex !important; }
+.notepad-area {
+  flex: 1 1 auto;
+  width: 100%;
+  border: none;
+  resize: none;
+  padding: 4px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 13px;
+  background: #fff;
+  outline: none;
+  box-shadow: inset 1px 1px var(--w95-sh-in), inset -1px -1px var(--w95-hi-out);
+}
+
+/* ═══════════ PAINT ═══════════ */
+.paint-body { display: flex !important; flex-direction: row; gap: 3px; padding: 3px !important; background: var(--w95-face); }
+.paint-toolbox {
+  display: grid; grid-template-columns: repeat(2, 22px); gap: 2px;
+  align-content: start; padding: 3px;
+  box-shadow: inset -1px -1px var(--w95-hi-out), inset 1px 1px var(--w95-sh-in);
+}
+.paint-tool {
+  width: 22px; height: 22px; font-size: 11px; cursor: pointer;
+  background: var(--w95-face); color: #000;
+  box-shadow: inset -1px -1px var(--w95-sh-out), inset 1px 1px var(--w95-hi-out),
+              inset -2px -2px var(--w95-sh-in), inset 2px 2px var(--w95-hi-in);
+  border: none;
+}
+.paint-tool.is-active { box-shadow: inset 1px 1px var(--w95-sh-out), inset -1px -1px var(--w95-hi-out), inset 2px 2px var(--w95-sh-in); }
+.paint-canvas-wrap {
+  flex: 1 1 auto; overflow: auto; background: #808080; padding: 2px;
+  box-shadow: inset 1px 1px var(--w95-sh-in), inset -1px -1px var(--w95-hi-out);
+}
+.paint-canvas { display: block; background: #fff; cursor: crosshair; }
+.paint-statusbar { display: flex !important; align-items: center; }
+.paint-palette { display: grid; grid-template-columns: repeat(8, 14px); grid-auto-rows: 14px; gap: 1px; margin-left: auto; padding-left: 6px; }
+.paint-swatch { width: 14px; height: 14px; padding: 0; border: 1px solid #808080; cursor: pointer; }
+.paint-swatch.is-active { outline: 1px dotted #000; outline-offset: 1px; border-color: #000; }
+
+/* ═══════════ WORDPAD ═══════════ */
+.wordpad-toolbar { gap: 3px; align-items: center; }
+.wordpad-btn { min-width: 24px; padding: 2px 6px; font-size: 12px; }
+.wordpad-sep { width: 2px; height: 18px; box-shadow: inset 1px 0 var(--w95-sh-in), inset -1px 0 var(--w95-hi-out); }
+.wordpad-body { padding: 2px !important; display: flex !important; background: #808080; }
+.wordpad-area {
+  flex: 1 1 auto; width: 100%; overflow: auto; padding: 8px;
+  background: #fff; outline: none; font-family: Arial, Helvetica, sans-serif; font-size: 13px;
+  box-shadow: inset 1px 1px var(--w95-sh-in);
+}
+
+/* ═══════════ PHONE DIALER ═══════════ */
+.dialer-body { display: flex !important; flex-direction: column; gap: 8px; padding: 8px !important; background: var(--w95-face); }
+.dialer-num-row { display: flex; flex-direction: column; gap: 3px; }
+.dialer-label { font-size: 11px; }
+.dialer-display { font-size: 14px; height: 22px; padding: 2px 6px; }
+.dialer-main { display: flex; gap: 8px; }
+.dialer-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; flex: 1 1 auto; }
+.dialer-key { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; height: 38px; line-height: 1; }
+.dialer-key b { font-size: 15px; }
+.dialer-key small { font-size: 8px; color: var(--w95-gray-dark); letter-spacing: 1px; }
+.dialer-actions { display: flex; flex-direction: column; gap: 6px; width: 86px; }
+.dialer-actions .w95-btn { min-width: 0; }
+.dialer-dial { height: 38px; }
+
+/* ═══════════ SOUND RECORDER ═══════════ */
+.sound-body { display: flex !important; flex-direction: column; gap: 4px; padding: 8px !important; background: var(--w95-face); }
+.sound-meta { display: flex; justify-content: space-between; font-size: 11px; }
+.sound-wave { height: 30px; background: #fff; box-shadow: inset 1px 1px var(--w95-sh-in); display: flex; align-items: center; justify-content: center; }
+.sound-wave span { width: 80%; height: 1px; background: #000; }
+.sound-seek { width: 100%; }
+.sound-transport { display: flex; gap: 3px; justify-content: center; }
+.sound-tbtn { min-width: 30px; padding: 2px 4px; }
+
+/* ═══════════ SHUTDOWN ═══════════ */
+.shutdown-dialog__body { padding: 16px !important; display: flex; flex-direction: column; gap: 14px; }
+.shutdown-dialog__row { display: flex; gap: 12px; align-items: flex-start; }
+.shutdown-dialog__opts { border: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.shutdown-dialog__opts legend { padding: 0 0 6px; font-size: 12px; }
+.shutdown-dialog__opts label { display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
+.shutdown-dialog__actions { display: flex; gap: 8px; justify-content: flex-end; }
+.shutdown-dialog__actions .w95-btn { min-width: 70px; }
+#shutdown-screen {
+  position: fixed; inset: 0; z-index: 99990;
+  background: #000; display: flex; align-items: center; justify-content: center;
+}
+.shutdown-screen__big {
+  color: #e8b35a; font-size: 26px; line-height: 1.6; text-align: center; font-weight: bold;
+  font-family: "MS Sans Serif", Tahoma, sans-serif; text-shadow: 0 0 6px rgba(232,179,90,0.4);
+}
+
+/* ═══════════ IE RETRO PAGES ═══════════ */
+.ie-page { flex: 1 1 auto; overflow: auto; background: #fff; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #1a1a1a; }
+.iep h1, .iep h2 { margin: 0; }
+.iep a { color: #0a66c2; text-decoration: none; }
+.iep a:hover { text-decoration: underline; }
+
+/* LinkedIn */
+.iep--li { background: #f4f2ee; min-height: 100%; }
+.iep-li-top { background: #fff; border-bottom: 1px solid #ddd; padding: 8px 16px; }
+.iep-li-logo { color: #0a66c2; font-weight: bold; font-size: 20px; }
+.iep-li-logo b { background: #0a66c2; color: #fff; padding: 0 3px; border-radius: 3px; }
+.iep-li-card { background: #fff; margin: 12px; border: 1px solid #ddd; border-radius: 8px; position: relative; padding-bottom: 16px; }
+.iep-li-banner { height: 70px; background: linear-gradient(120deg, #0a66c2, #378fe9); border-radius: 8px 8px 0 0; }
+.iep-li-avatar { width: 92px; height: 92px; border-radius: 50%; border: 3px solid #fff; background: #fff; position: absolute; left: 20px; top: 28px; object-fit: cover; }
+.iep-li-id { padding: 48px 20px 0; }
+.iep-li-id h1 { font-size: 22px; }
+.iep-li-head { font-size: 14px; margin: 4px 0; }
+.iep-li-loc, .iep-li-conn { font-size: 12px; color: #666; margin: 2px 0; }
+.iep-li-conn { color: #0a66c2; font-weight: 600; }
+.iep-li-btns { margin-top: 10px; display: flex; gap: 8px; }
+.iep-li-btn { border: 1px solid #0a66c2; color: #0a66c2; border-radius: 16px; padding: 4px 14px; font-size: 13px; font-weight: 600; }
+.iep-li-btn--p { background: #0a66c2; color: #fff; }
+.iep-li-sec { background: #fff; margin: 12px; border: 1px solid #ddd; border-radius: 8px; padding: 14px 20px; }
+.iep-li-sec h2 { font-size: 18px; margin-bottom: 8px; }
+.iep-li-muted { color: #666; }
+
+/* GitHub */
+.iep--gh { background: #fff; min-height: 100%; }
+.iep-gh-top { background: #24292e; color: #fff; padding: 10px 16px; font-size: 15px; font-weight: 600; }
+.iep-gh-mark { font-size: 18px; margin-right: 6px; }
+.iep-gh-nav { font-weight: 400; font-size: 13px; margin-left: 14px; color: #d0d0d0; }
+.iep-gh-wrap { display: flex; gap: 20px; padding: 20px; align-items: flex-start; }
+.iep-gh-side { width: 200px; flex: 0 0 200px; }
+.iep-gh-avatar { width: 160px; height: 160px; border-radius: 50%; border: 1px solid #ddd; object-fit: cover; }
+.iep-gh-name { font-size: 20px; margin-top: 8px; }
+.iep-gh-login { color: #666; font-size: 16px; font-weight: 300; }
+.iep-gh-bio { font-size: 13px; margin: 8px 0; }
+.iep-gh-loc { font-size: 12px; color: #444; }
+.iep-gh-main { flex: 1 1 auto; min-width: 0; }
+.iep-gh-tabs { border-bottom: 1px solid #e1e4e8; padding-bottom: 6px; margin-bottom: 12px; display: flex; gap: 16px; font-size: 13px; color: #444; }
+.iep-gh-tabs .is-active { font-weight: 600; border-bottom: 2px solid #f9826c; padding-bottom: 6px; }
+.iep-gh-tabs b { background: #eaecef; border-radius: 10px; padding: 0 6px; font-weight: 600; }
+.iep-gh-repos { list-style: none; margin: 0; padding: 0; }
+.iep-gh-repo { border-top: 1px solid #e1e4e8; padding: 14px 0; }
+.iep-gh-repo-name { font-size: 18px; font-weight: 600; }
+.iep-gh-repo-desc { color: #586069; font-size: 13px; margin: 6px 0; }
+.iep-gh-repo-meta { font-size: 12px; color: #586069; }
+.iep-gh-dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: #f1e05a; margin-right: 5px; vertical-align: -1px; }
+.iep-gh-repohdr { padding: 14px 20px 0; font-size: 18px; }
+.iep--gh .iep-gh-tabs { padding: 10px 20px 0; }
+.iep-gh-repobody { padding: 12px 20px; }
+.iep-gh-readme { border: 1px solid #e1e4e8; border-radius: 6px; margin-top: 12px; }
+.iep-gh-readme-hd { background: #f6f8fa; border-bottom: 1px solid #e1e4e8; padding: 8px 12px; font-size: 12px; font-weight: 600; }
+.iep-gh-readme-bd { padding: 16px; }
+.iep-gh-readme-bd h2 { font-size: 20px; margin-bottom: 8px; text-transform: capitalize; }
+.iep-gh-back { padding: 0 20px 16px; }
+
+/* JETIR */
+.iep--jetir { background: #fff; min-height: 100%; }
+.iep-jetir-top { background: #6a1b1b; color: #fff; padding: 10px 18px; font-size: 14px; }
+.iep-jetir-top span { float: right; font-size: 11px; opacity: .85; }
+.iep-jetir-body { padding: 18px 24px; max-width: 720px; }
+.iep-jetir-tag { color: #6a1b1b; font-weight: 600; font-size: 12px; }
+.iep-jetir-title { font-size: 22px; margin: 8px 0; line-height: 1.3; font-family: Georgia, "Times New Roman", serif; }
+.iep-jetir-auth { font-style: italic; color: #444; margin-bottom: 12px; }
+.iep--jetir h2 { font-size: 16px; color: #6a1b1b; margin: 14px 0 6px; }
+.iep--jetir p { line-height: 1.6; }
+.iep-jetir-dl { display: inline-block; margin-top: 14px; background: #6a1b1b; color: #fff !important; padding: 8px 16px; border-radius: 4px; font-weight: 600; }
+.iep-jetir-dl:hover { text-decoration: none; background: #531313; }
+
+/* YouTube */
+.iep--yt { background: #fff; min-height: 100%; }
+.iep-yt-top { padding: 8px 16px; border-bottom: 1px solid #ddd; }
+.iep-yt-logo { font-weight: 700; font-size: 18px; color: #0f0f0f; }
+.iep-yt-logo { color: #ff0000; }
+.iep-yt-banner { height: 80px; background: linear-gradient(120deg, #ff0000, #c4302b); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; letter-spacing: 1px; }
+.iep-yt-id { display: flex; align-items: center; gap: 16px; padding: 16px; }
+.iep-yt-ava { width: 72px; height: 72px; border-radius: 50%; background: #c4302b; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; flex: 0 0 72px; }
+.iep-yt-id h1 { font-size: 20px; }
+.iep-yt-id p { font-size: 13px; color: #606060; margin: 2px 0; }
+.iep-yt-sub { margin-left: auto; background: #ff0000; color: #fff; padding: 8px 16px; border-radius: 18px; font-weight: 600; font-size: 13px; }
+.iep-yt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; padding: 0 16px 16px; }
+.iep-yt-thumb { background: #000; color: #fff; height: 96px; display: flex; align-items: center; justify-content: center; font-size: 28px; border-radius: 6px; }
+.iep-yt-vid p { font-size: 12px; margin: 6px 0 0; line-height: 1.3; }
+.iep-yt-muted { color: #606060; }
+
+/* ── Desktop icon using a Font Awesome glyph (e.g. TechRex / YouTube) ── */
+.w95-deskicon__fa { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; }
+.w95-deskicon__fa i { font-size: 30px; line-height: 1; }
+.w95-deskicon__fa--yt i { color: #ff0000; }
+
+/* ── Working menubar dropdowns (Notepad / WordPad File·Edit·…) ── */
+.w95-menu-dropdown {
+  position: absolute;
+  z-index: 7000;
+  min-width: 168px;
+  padding: 2px;
+  background: var(--w95-face);
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out), inset 1px 1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),  inset 2px 2px var(--w95-hi-in);
+}
+.w95-menu-dropdown__item {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  width: 100%; padding: 3px 16px; border: none; background: transparent;
+  font-family: var(--w95-font); font-size: 12px; color: var(--w95-black);
+  text-align: left; cursor: pointer; white-space: nowrap;
+}
+.w95-menu-dropdown__item:hover:not(.is-disabled) { background: var(--w95-navy); color: #fff; }
+.w95-menu-dropdown__item.is-disabled { color: var(--w95-gray-dark); cursor: default; }
+.w95-menu-accel { font-size: 11px; opacity: .85; }
+.w95-menu-dropdown__sep { height: 2px; margin: 3px 2px; box-shadow: inset 0 -1px var(--w95-hi-out), inset 0 1px var(--w95-sh-in); }
+
+/* ── Save As / Open file dialog (over the virtual file system) ── */
+.filedlg-body { display: flex !important; flex-direction: column; gap: 8px; padding: 10px !important; }
+.filedlg-row { display: flex; align-items: center; gap: 6px; }
+.filedlg-lbl { flex: 0 0 70px; font-size: 11px; }
+.filedlg-where { flex: 1 1 auto; height: 20px; padding: 1px 6px; font-size: 11px; display: flex; align-items: center; background: #fff; }
+.filedlg-tool { min-width: 26px; padding: 2px 4px; }
+.filedlg-list {
+  flex: 1 1 auto; min-height: 130px; overflow: auto; background: #fff; padding: 2px;
+  box-shadow: inset 1px 1px var(--w95-sh-in), inset -1px -1px var(--w95-hi-out);
+}
+.filedlg-item {
+  display: flex; align-items: center; gap: 6px; width: 100%; padding: 2px 4px;
+  border: none; background: transparent; font-family: var(--w95-font); font-size: 12px;
+  color: #000; text-align: left; cursor: pointer; white-space: nowrap;
+}
+.filedlg-item:hover { background: rgba(0, 0, 128, .08); }
+.filedlg-item.is-selected { background: var(--w95-navy); color: #fff; }
+.filedlg-name { flex: 1 1 auto; height: 20px; padding: 1px 4px; font-size: 12px; }
+.filedlg-type { flex: 1 1 auto; }
+.filedlg-action { flex: 0 0 auto; min-width: 74px; }
+
+/* ── Modal dialogs: Access Denied error + file Properties ── */
+.w95-modal-overlay { position: fixed; inset: 0; z-index: 9995; display: flex; align-items: center; justify-content: center; }
+.w95-modal { min-width: 300px; max-width: 460px; }
+.w95-modal__body { padding: 16px !important; }
+.w95-modal__actions { display: flex; gap: 8px; justify-content: center; padding: 0 16px 14px; background: var(--w95-face); }
+.w95-modal__actions .w95-btn { min-width: 75px; }
+.w95-errrow { display: flex; align-items: flex-start; gap: 14px; }
+.w95-errrow p { font-size: 12px; line-height: 1.5; margin: 2px 0; }
+.w95-erricon { flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%; background: #d40000; color: #fff; font-size: 24px; font-weight: bold; line-height: 1; display: flex; align-items: center; justify-content: center; }
+.w95-erricon--q { background: #000080; }
+.w95-erricon--i { background: #000080; font-family: Georgia, "Times New Roman", serif; font-style: italic; }
+
+/* ── Power-on credit (Win95 UI Kit attribution) ── */
+.power-credit { margin: 10px 0 0; font-size: 11px; color: rgba(255, 255, 255, 0.6); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); }
+.power-credit a { color: #9dff9d; }
+
+/* ── Journey: TechRex / YouTube logo tile ── */
+.journey-logo--yt { display: inline-flex !important; align-items: center; justify-content: center; }
+.journey-logo--yt i { color: #ff0000; font-size: 26px; line-height: 1; }
+.w95-props { font-size: 12px; border-collapse: collapse; }
+.w95-props td { padding: 4px 12px 4px 0; vertical-align: top; }
+.w95-props td:first-child { color: var(--w95-gray-dark); white-space: nowrap; }
+
+/* ── Explorer View menu modes ── */
+.exp-view--small .exp-tile { width: 66px; }
+.exp-view--small .exp-tile .w95-ico-32,
+.exp-view--list .exp-tile .w95-ico-32 { width: 16px !important; height: 16px !important; background-size: contain; background-repeat: no-repeat; background-position: center; }
+.exp-view--list { flex-direction: column !important; flex-wrap: nowrap !important; align-content: stretch; }
+.exp-view--list .exp-tile { flex-direction: row !important; width: 100%; justify-content: flex-start; gap: 6px; padding: 1px 4px; }
+.exp-view--list .exp-tile__label { margin-top: 0; max-width: none; text-align: left; }
