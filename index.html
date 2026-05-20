@@ -94,9 +94,36 @@
   <a href="#desktop-icons" class="skip-to-content">Skip to main content</a>
 
   <!-- ═══════════════════════════════════════════════════
-       BOOT SPLASH (overlay, removed by JS after ~1.5s)
+       POWER-ON INTRO — CRT computer; click power to boot
   ════════════════════════════════════════════════════ -->
-  <div id="boot-splash" role="status" aria-label="Loading portfolio" aria-live="polite">
+  <div id="power-screen" role="dialog" aria-label="Power on the computer to enter the portfolio">
+    <div class="power-stage">
+      <div class="power-computer" id="power-computer">
+        <img class="power-computer__img" src="assets/win95/intro/computer.png"
+             alt="Windows 95 desktop computer" draggable="false">
+
+        <!-- Monitor glass (positioned over the screen) -->
+        <div class="power-glass" id="power-glass" aria-hidden="true">
+          <div class="power-glass__inner">
+            <p class="power-glass__welcome">Welcome! Ready to get nostalgic?</p>
+            <p class="power-glass__sub">Sai Teja Mothukuri — Data Analyst</p>
+            <p class="power-glass__hint"><span class="blink">▮</span> Press the power button to enter</p>
+          </div>
+        </div>
+
+        <!-- Power button on the monitor bezel -->
+        <button type="button" class="power-btn" id="power-btn" aria-label="Power on the computer">
+          <span class="power-btn__icon" aria-hidden="true">⏻</span>
+        </button>
+      </div>
+      <p class="power-caption">Click the <span aria-hidden="true">⏻</span> power button to start</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       BOOT SPLASH (shown by JS after power-on)
+  ════════════════════════════════════════════════════ -->
+  <div id="boot-splash" role="status" aria-label="Loading portfolio" aria-live="polite" style="display:none">
     <div class="boot-inner">
       <div class="boot-logo">
         <span class="boot-logo-win">Windows</span><span class="boot-logo-95">95</span>

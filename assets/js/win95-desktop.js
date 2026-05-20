@@ -20,29 +20,70 @@
   'use strict';
 
   /* ══════════════════════════════════════════════════════════════════
-     BOOT SPLASH
+     POWER-ON INTRO  +  BOOT SPLASH
+     The page opens on the CRT "power screen". Clicking the power button
+     runs the boot splash, then opens the desktop (About window).
   ══════════════════════════════════════════════════════════════════ */
-  (function bootSplash() {
-    // Honor prefers-reduced-motion — CSS already hides it; also skip in JS
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
+  function runBoot(done) {
     var splash = document.getElementById('boot-splash');
-    if (!splash) return;
-
+    if (!splash) { if (done) done(); return; }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      splash.style.display = 'none';
+      if (done) done();
+      return;
+    }
+    splash.style.display = 'flex';
     var bar = document.getElementById('boot-bar');
     var pct = 0;
     var interval = setInterval(function () {
-      pct += Math.random() * 18 + 4;
+      pct += Math.random() * 18 + 6;
       if (pct >= 100) {
         pct = 100;
         clearInterval(interval);
         setTimeout(function () {
           splash.classList.add('fade-out');
-          setTimeout(function () { splash.style.display = 'none'; }, 500);
-        }, 250);
+          setTimeout(function () {
+            splash.style.display = 'none';
+            if (done) done();
+          }, 500);
+        }, 200);
       }
       if (bar) bar.style.width = Math.min(pct, 100) + '%';
-    }, 90);
+    }, 80);
+  }
+
+  (function setupPowerOn() {
+    var screen = document.getElementById('power-screen');
+    // No power screen? Boot straight to the desktop.
+    if (!screen) { runBoot(function () { WM.open('win-about'); }); return; }
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function powerOn() {
+      if (screen.dataset.done) return;
+      screen.dataset.done = '1';
+      if (reduce) {
+        screen.style.display = 'none';
+        WM.open('win-about');
+        return;
+      }
+      screen.classList.add('powering');           // CRT flash on the glass
+      setTimeout(function () {
+        screen.classList.add('off');               // fade the intro out
+        setTimeout(function () {
+          screen.style.display = 'none';
+          runBoot(function () { WM.open('win-about'); });
+        }, 450);
+      }, 550);
+    }
+    window.powerOn = powerOn;
+
+    var btn = document.getElementById('power-btn');
+    var glass = document.getElementById('power-glass');
+    if (btn) btn.addEventListener('click', powerOn);
+    if (glass) glass.addEventListener('click', powerOn);
+    // Focus the power button so keyboard users can hit Enter/Space
+    if (btn) setTimeout(function () { try { btn.focus(); } catch (e) {} }, 200);
   })();
 
 
@@ -777,14 +818,7 @@
   })();
 
 
-  /* ══════════════════════════════════════════════════════════════════
-     AUTO-OPEN WELCOME (About window on load for first-time visitors)
-  ══════════════════════════════════════════════════════════════════ */
-  window.addEventListener('load', function () {
-    // Small delay so boot splash runs first
-    setTimeout(function () {
-      WM.open('win-about');
-    }, 1600);
-  });
+  /* The About window now auto-opens after the power-on boot sequence
+     completes (see setupPowerOn → runBoot above). */
 
 })();
