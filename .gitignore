@@ -5,3 +5,7 @@ AWS Domain/
 robots.txt
 sitemap.xml
 .vercel
+.gstack/
+
+# Claude Code git worktrees (local only, never committed)
+.claude/worktrees/
