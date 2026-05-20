@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>win95.css — Components Preview</title>
+<link rel="stylesheet" href="assets/css/win95.css">
+<style>
+  body { margin: 0; background: #008080; font-family: "MS Sans Serif", sans-serif; }
+  .sheet { display: flex; flex-wrap: wrap; gap: 20px; padding: 24px; align-items: flex-start; }
+  .demo { width: 320px; }
+  h1 { color: #fff; padding: 16px 24px 0; margin: 0; font-size: 16px; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0; }
+  .iconwall { display: flex; flex-wrap: wrap; gap: 14px; }
+  .iconwall figure { margin: 0; width: 64px; text-align: center; color: #fff; font-size: 10px; }
+</style>
+</head>
+<body class="w95">
+<h1>win95.css — component preview</h1>
+<div class="sheet">
+
+  <!-- Window with everything -->
+  <div class="demo">
+    <div class="w95-window">
+      <div class="w95-titlebar">
+        <img class="w95-titlebar__icon" src="assets/win95/icons/my-computer.png" alt="">
+        <span class="w95-titlebar__caption">My Computer</span>
+        <div class="w95-titlebar__controls">
+          <button class="w95-ctrl" aria-label="Minimize">_</button>
+          <button class="w95-ctrl" aria-label="Maximize">□</button>
+          <button class="w95-ctrl" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="w95-window__body">
+        <p style="margin:0 0 8px">Active window. The titlebar uses the navy gradient.</p>
+        <div class="row">
+          <button class="w95-btn">OK</button>
+          <button class="w95-btn w95-btn--default">Default</button>
+          <button class="w95-btn is-pressed">Pressed</button>
+          <button class="w95-btn" disabled>Disabled</button>
+        </div>
+      </div>
+      <div class="w95-window__statusbar">
+        <span class="w95-statusfield w95-statusfield--grow">Ready</span>
+        <span class="w95-statusfield">2 object(s)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inactive window + form controls -->
+  <div class="demo">
+    <div class="w95-window">
+      <div class="w95-titlebar is-inactive">
+        <img class="w95-titlebar__icon" src="assets/win95/icons/notepad.png" alt="">
+        <span class="w95-titlebar__caption">Untitled — Notepad (inactive)</span>
+        <div class="w95-titlebar__controls">
+          <button class="w95-ctrl">_</button><button class="w95-ctrl">□</button><button class="w95-ctrl">✕</button>
+        </div>
+      </div>
+      <div class="w95-window__body">
+        <div class="row"><label>Name <input class="w95-input" value="Sai Teja"></label></div>
+        <div class="row"><textarea class="w95-textarea" rows="3" style="width:100%">Sunken textarea well.</textarea></div>
+        <div class="row">
+          <select class="w95-select"><option>Tableau</option><option>Power BI</option></select>
+        </div>
+        <div class="row">
+          <label class="w95-check"><input type="checkbox" checked><span class="w95-check__box"></span>Checkbox</label>
+          <label class="w95-check w95-check--radio"><input type="radio" name="r" checked><span class="w95-check__box"></span>Radio</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu bar + bevels + start menu -->
+  <div class="demo">
+    <div class="w95-window">
+      <div class="w95-titlebar">
+        <img class="w95-titlebar__icon" src="assets/win95/icons/folder.png" alt="">
+        <span class="w95-titlebar__caption">Bevels &amp; Menu</span>
+        <div class="w95-titlebar__controls"><button class="w95-ctrl">_</button><button class="w95-ctrl">□</button><button class="w95-ctrl">✕</button></div>
+      </div>
+      <div class="w95-menubar">
+        <button class="w95-menubar__item"><u>F</u>ile</button>
+        <button class="w95-menubar__item"><u>E</u>dit</button>
+        <button class="w95-menubar__item is-open"><u>V</u>iew</button>
+        <button class="w95-menubar__item"><u>H</u>elp</button>
+      </div>
+      <div class="w95-window__body">
+        <div class="row">
+          <div class="w95-raised" style="width:60px;height:36px"></div>
+          <div class="w95-sunken" style="width:60px;height:36px"></div>
+          <div class="w95-sunken-thin" style="width:60px;height:36px"></div>
+        </div>
+        <div class="w95-fieldset" style="margin-top:8px">
+          <legend>Group</legend>
+          <span>Fieldset content well.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="w95-startmenu" style="margin-top:16px">
+      <div class="w95-startmenu__banner">Sai Teja<b>95</b></div>
+      <div class="w95-startmenu__list">
+        <a class="w95-startmenu__item"><img src="assets/win95/icons/my-computer.png" alt="">About Me</a>
+        <a class="w95-startmenu__item"><img src="assets/win95/icons/folder.png" alt="">My Work</a>
+        <a class="w95-startmenu__item"><img src="assets/win95/icons/programs.png" alt="">Skills</a>
+        <div class="w95-startmenu__divider"></div>
+        <a class="w95-startmenu__item"><img src="assets/win95/icons/internet-explorer.png" alt="">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop icons -->
+  <div class="demo">
+    <div class="w95-window">
+      <div class="w95-titlebar"><span class="w95-titlebar__caption">Desktop icons</span>
+        <div class="w95-titlebar__controls"><button class="w95-ctrl">_</button><button class="w95-ctrl">□</button><button class="w95-ctrl">✕</button></div></div>
+      <div class="w95-window__body w95-desktop" style="display:flex;gap:6px;flex-wrap:wrap">
+        <div class="w95-deskicon"><img src="assets/win95/icons/my-computer.png" alt=""><span class="w95-deskicon__label">About Me</span></div>
+        <div class="w95-deskicon is-selected"><img src="assets/win95/icons/folder.png" alt=""><span class="w95-deskicon__label">My Work</span></div>
+        <div class="w95-deskicon"><img src="assets/win95/icons/notepad.png" alt=""><span class="w95-deskicon__label">Contact</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- All icons -->
+  <div class="demo" style="width:680px">
+    <div class="w95-window">
+      <div class="w95-titlebar"><span class="w95-titlebar__caption">All icons (32px)</span>
+        <div class="w95-titlebar__controls"><button class="w95-ctrl">_</button><button class="w95-ctrl">□</button><button class="w95-ctrl">✕</button></div></div>
+      <div class="w95-window__body iconwall" id="iconwall"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Taskbar -->
+<div class="w95-taskbar" style="position:fixed;bottom:0;left:0;right:0">
+  <button class="w95-start"><img class="w95-start__logo" src="assets/win95/icons/start.png" alt="">Start</button>
+  <div class="w95-taskbar__divider"></div>
+  <div class="w95-taskbar__tasks">
+    <button class="w95-task is-active"><img class="w95-task__icon" src="assets/win95/icons/my-computer.png" alt=""><span class="w95-task__label">My Computer</span></button>
+    <button class="w95-task"><img class="w95-task__icon" src="assets/win95/icons/notepad.png" alt=""><span class="w95-task__label">Contact</span></button>
+  </div>
+  <div class="w95-tray"><span id="clock">10:36 AM</span></div>
+</div>
+
+<script>
+  // Populate icon wall from the known icon set
+  var icons = ["my-computer","internet-explorer","folder","documents","programs","program","settings","hard-drive","search-pc","search-sheet","notepad","file","files","help","recycle-full","recycle-empty","tree","paint","tools","run-program","hand","scan-cd","start","midi-file"];
+  var wall = document.getElementById("iconwall");
+  icons.forEach(function(n){
+    var fig = document.createElement("figure");
+    fig.innerHTML = '<img src="assets/win95/icons/'+n+'.png" width="32" height="32" style="image-rendering:pixelated" alt=""><figcaption>'+n+'</figcaption>';
+    wall.appendChild(fig);
+  });
+  // Live clock
+  function tick(){ var d=new Date(); var h=d.getHours(), m=d.getMinutes(); var ap=h>=12?'PM':'AM'; h=h%12||12; document.getElementById("clock").textContent=h+':'+(m<10?'0':'')+m+' '+ap; }
+  tick(); setInterval(tick,10000);
+</script>
+</body>
+</html>

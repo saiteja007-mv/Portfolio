@@ -1,0 +1,519 @@
+/* ============================================================================
+   win95.css — Windows 95 component library (shared base)
+   Source: Figma "Windows 95 UI Kit" (file 0CeknIYfTElGQfiALkaDsH)
+   Framework-free. Used by both portfolio variants (desktop sim + themed layout).
+
+   Sections:
+     1. Fonts
+     2. Tokens (:root)
+     3. Base / reset
+     4. Bevels (raised / sunken / pressed)  ← the signature 3D look
+     5. Window frame (titlebar, controls, body, statusbar)
+     6. Buttons
+     7. Form controls (text, textarea, select, number, checkbox, radio)
+     8. Menu bar
+     9. Taskbar + Start button + clock
+    10. Start menu
+    11. Desktop + desktop icons
+    12. Icon sprite helpers (maps to assets/win95/icons/*.png)
+    13. Utilities
+   ========================================================================== */
+
+/* 1. Fonts ----------------------------------------------------------------- */
+@font-face {
+  font-family: "MS Sans Serif";
+  src: url("../win95/fonts/ms_sans_serif.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "MS Sans Serif";
+  src: url("../win95/fonts/ms_sans_serif_bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Tokens ---------------------------------------------------------------- */
+:root {
+  /* Palette (from kit Color Codes) */
+  --w95-teal:        #008080;
+  --w95-silver:      #c0c0c0;
+  --w95-navy:        #000080;
+  --w95-gray-dark:   #7f7f7f;
+  --w95-gray-light:  #dfdfdf;
+  --w95-white:       #ffffff;
+  --w95-black:       #000000;
+  --w95-titlebar-inactive: #7f7f7f;
+  --w95-navy-grad:   linear-gradient(90deg, #000080 0%, #1084d0 100%);
+
+  /* Surfaces */
+  --w95-face:        var(--w95-silver);
+  --w95-text:        var(--w95-black);
+  --w95-text-disabled: var(--w95-gray-dark);
+  --w95-link:        #0000ff;
+
+  /* Bevel ink */
+  --w95-hi-out: #ffffff;   /* outer highlight */
+  --w95-hi-in:  #dfdfdf;   /* inner highlight */
+  --w95-sh-in:  #808080;   /* inner shadow (mid gray) */
+  --w95-sh-out: #0a0a0a;   /* outer shadow (near-black) */
+
+  /* Metrics */
+  --w95-font: "MS Sans Serif", "Pixelated MS Sans Serif", Tahoma, Geneva, sans-serif;
+  --w95-font-size: 12px;
+  --w95-titlebar-h: 22px;
+  --w95-radius: 0px;
+}
+
+/* 3. Base / reset ---------------------------------------------------------- */
+.w95 {
+  font-family: var(--w95-font);
+  font-size: var(--w95-font-size);
+  line-height: 1.4;
+  color: var(--w95-text);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
+  text-rendering: optimizeSpeed;
+}
+.w95 *,
+.w95 *::before,
+.w95 *::after { box-sizing: border-box; }
+
+/* 4. Bevels ---------------------------------------------------------------
+   Classic 4-layer box-shadow bevels. Apply to any element with a silver face. */
+.w95-raised {
+  background: var(--w95-face);
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out),
+    inset  1px  1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),
+    inset  2px  2px var(--w95-hi-in);
+}
+.w95-sunken {
+  background: var(--w95-face);
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-in),
+    inset -2px -2px var(--w95-hi-in),
+    inset  2px  2px var(--w95-sh-out);
+}
+/* Thin single-line sunken (used for wells, status fields, content areas) */
+.w95-sunken-thin {
+  background: var(--w95-white);
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-in);
+}
+/* Window outer bevel (lighter inner highlight than a button) */
+.w95-window-bevel {
+  background: var(--w95-face);
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out),
+    inset  1px  1px var(--w95-hi-in),
+    inset -2px -2px var(--w95-sh-in),
+    inset  2px  2px var(--w95-hi-out);
+}
+
+/* 5. Window frame ---------------------------------------------------------- */
+.w95-window {
+  background: var(--w95-face);
+  border: 1px solid var(--w95-black);
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out),
+    inset  1px  1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),
+    inset  2px  2px var(--w95-hi-in);
+  padding: 3px;
+  color: var(--w95-text);
+  font-family: var(--w95-font);
+}
+
+.w95-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: var(--w95-titlebar-h);
+  padding: 2px 2px 2px 3px;
+  background: var(--w95-navy-grad);
+  color: var(--w95-white);
+  font-weight: bold;
+  user-select: none;
+}
+.w95-titlebar.is-inactive {
+  background: var(--w95-titlebar-inactive);
+  color: var(--w95-gray-light);
+}
+.w95-titlebar__icon { width: 16px; height: 16px; flex: 0 0 16px; image-rendering: pixelated; }
+.w95-titlebar__caption {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+.w95-titlebar__controls { display: flex; gap: 2px; }
+
+/* Title bar control buttons (minimize / maximize / close) */
+.w95-ctrl {
+  width: 16px;
+  height: 14px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  background: var(--w95-face);
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out),
+    inset  1px  1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),
+    inset  2px  2px var(--w95-hi-in);
+  font-family: var(--w95-font);
+  font-size: 9px;
+  font-weight: bold;
+  line-height: 1;
+  color: var(--w95-black);
+  cursor: pointer;
+}
+.w95-ctrl:active {
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-out),
+    inset -2px -2px var(--w95-hi-in),
+    inset  2px  2px var(--w95-sh-in);
+}
+.w95-ctrl svg { display: block; }
+
+.w95-window__body {
+  padding: 8px;
+  background: var(--w95-face);
+}
+.w95-window__statusbar {
+  display: flex;
+  gap: 2px;
+  margin-top: 3px;
+  padding: 1px;
+}
+.w95-statusfield {
+  flex: 1 1 auto;
+  padding: 2px 4px;
+  background: var(--w95-face);
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-in);
+  font-size: 11px;
+}
+.w95-statusfield--grow { flex: 4 1 auto; }
+
+/* 6. Buttons --------------------------------------------------------------- */
+.w95-btn {
+  min-width: 75px;
+  min-height: 23px;
+  padding: 4px 12px;
+  border: none;
+  background: var(--w95-face);
+  color: var(--w95-black);
+  font-family: var(--w95-font);
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out),
+    inset  1px  1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),
+    inset  2px  2px var(--w95-hi-in);
+}
+.w95-btn:active,
+.w95-btn.is-pressed {
+  padding: 5px 11px 3px 13px;       /* nudge content down-right */
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-out),
+    inset -2px -2px var(--w95-hi-in),
+    inset  2px  2px var(--w95-sh-in);
+}
+.w95-btn:focus-visible {
+  outline: 1px dotted var(--w95-black);
+  outline-offset: -4px;
+}
+.w95-btn--default {                 /* "preferred" / default action */
+  box-shadow:
+    inset 0 0 0 1px var(--w95-black),
+    inset -1px -1px var(--w95-sh-out),
+    inset  1px  1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),
+    inset  2px  2px var(--w95-hi-in);
+}
+.w95-btn:disabled,
+.w95-btn.is-disabled {
+  color: var(--w95-gray-dark);
+  text-shadow: 1px 1px 0 var(--w95-white);
+  cursor: default;
+}
+.w95-btn:disabled:active { padding: 4px 12px; }
+
+/* 7. Form controls --------------------------------------------------------- */
+.w95-input,
+.w95-textarea,
+.w95-select {
+  padding: 3px 4px;
+  border: none;
+  background: var(--w95-white);
+  color: var(--w95-black);
+  font-family: var(--w95-font);
+  font-size: 12px;
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-in),
+    inset -2px -2px var(--w95-hi-in),
+    inset  2px  2px var(--w95-sh-out);
+}
+.w95-input:focus,
+.w95-textarea:focus,
+.w95-select:focus { outline: none; }
+.w95-textarea { resize: vertical; }
+.w95-input:disabled,
+.w95-textarea:disabled { background: var(--w95-face); color: var(--w95-gray-dark); }
+
+/* Select with classic dropdown arrow button */
+.w95-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 22px;
+  background-image:
+    linear-gradient(var(--w95-face), var(--w95-face));
+  background-repeat: no-repeat;
+  background-position: right 2px center;
+  background-size: 16px 18px;
+}
+
+/* Checkbox / radio (custom pixel indicators) */
+.w95-check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+.w95-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+.w95-check__box {
+  width: 13px; height: 13px; flex: 0 0 13px;
+  background: var(--w95-white);
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-in),
+    inset -2px -2px var(--w95-hi-in),
+    inset  2px  2px var(--w95-sh-out);
+  display: grid; place-items: center;
+}
+.w95-check input:checked + .w95-check__box::after {
+  content: "";
+  width: 7px; height: 7px;
+  background:
+    linear-gradient(45deg, transparent 45%, var(--w95-black) 45% 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, var(--w95-black) 45% 55%, transparent 55%);
+}
+.w95-check--radio .w95-check__box { border-radius: 50%; }
+.w95-check--radio input:checked + .w95-check__box::after {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--w95-black);
+}
+.w95-check input:focus-visible + .w95-check__box { outline: 1px dotted var(--w95-black); outline-offset: 1px; }
+
+/* 8. Menu bar -------------------------------------------------------------- */
+.w95-menubar {
+  display: flex;
+  gap: 0;
+  padding: 1px 2px;
+  background: var(--w95-face);
+  font-size: 12px;
+}
+.w95-menubar__item {
+  padding: 3px 8px;
+  cursor: pointer;
+  color: var(--w95-black);
+  background: transparent;
+  border: none;
+  font-family: var(--w95-font);
+  font-size: 12px;
+}
+.w95-menubar__item:hover,
+.w95-menubar__item.is-open {
+  background: var(--w95-navy);
+  color: var(--w95-white);
+}
+.w95-menubar__item u { text-decoration: underline; }
+
+/* 9. Taskbar --------------------------------------------------------------- */
+.w95-taskbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 30px;
+  padding: 2px 3px;
+  background: var(--w95-face);
+  box-shadow:
+    inset 0 1px var(--w95-hi-out),
+    inset 0 2px var(--w95-hi-in);
+}
+.w95-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 2px 6px 2px 4px;
+  font-weight: bold;
+  font-size: 12px;
+  border: none;
+  background: var(--w95-face);
+  color: var(--w95-black);
+  cursor: pointer;
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out),
+    inset  1px  1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),
+    inset  2px  2px var(--w95-hi-in);
+}
+.w95-start.is-pressed,
+.w95-start:active {
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-out),
+    inset -2px -2px var(--w95-hi-in),
+    inset  2px  2px var(--w95-sh-in);
+}
+.w95-start__logo { width: 16px; height: 16px; image-rendering: pixelated; }
+.w95-taskbar__divider { width: 2px; align-self: stretch; margin: 2px 1px;
+  box-shadow: inset -1px 0 var(--w95-hi-out), inset 1px 0 var(--w95-sh-in); }
+.w95-taskbar__tasks { display: flex; gap: 3px; flex: 1 1 auto; overflow: hidden; }
+.w95-task {
+  display: inline-flex; align-items: center; gap: 5px;
+  min-width: 0; max-width: 160px; height: 22px; padding: 2px 6px;
+  font-size: 11px; border: none; cursor: pointer;
+  background: var(--w95-face); color: var(--w95-black);
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out),
+    inset  1px  1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),
+    inset  2px  2px var(--w95-hi-in);
+}
+.w95-task.is-active {
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-out),
+    inset -2px -2px var(--w95-hi-in),
+    inset  2px  2px var(--w95-sh-in);
+  font-weight: bold;
+}
+.w95-task__icon { width: 16px; height: 16px; flex: 0 0 16px; image-rendering: pixelated; }
+.w95-task__label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.w95-tray {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 22px; padding: 2px 8px; font-size: 11px;
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-in);
+}
+
+/* 10. Start menu ----------------------------------------------------------- */
+.w95-startmenu {
+  display: flex;
+  min-width: 200px;
+  background: var(--w95-face);
+  box-shadow:
+    inset -1px -1px var(--w95-sh-out),
+    inset  1px  1px var(--w95-hi-out),
+    inset -2px -2px var(--w95-sh-in),
+    inset  2px  2px var(--w95-hi-in);
+  padding: 2px;
+}
+.w95-startmenu__banner {
+  width: 28px; flex: 0 0 28px;
+  background: linear-gradient(0deg, #808080, var(--w95-navy));
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: var(--w95-white);
+  font-weight: bold;
+  font-size: 18px;
+  text-align: right;
+  padding: 6px 4px;
+  letter-spacing: 1px;
+}
+.w95-startmenu__banner b { color: var(--w95-white); }
+.w95-startmenu__list { flex: 1 1 auto; padding: 2px; }
+.w95-startmenu__item {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 5px 16px 5px 6px;
+  border: none; background: transparent; cursor: pointer;
+  font-family: var(--w95-font); font-size: 13px; color: var(--w95-black);
+  text-align: left; text-decoration: none;
+}
+.w95-startmenu__item:hover,
+.w95-startmenu__item:focus-visible {
+  background: var(--w95-navy); color: var(--w95-white); outline: none;
+}
+.w95-startmenu__item img { width: 24px; height: 24px; image-rendering: pixelated; }
+.w95-startmenu__divider { height: 2px; margin: 3px 2px;
+  box-shadow: inset 0 -1px var(--w95-hi-out), inset 0 1px var(--w95-sh-in); }
+
+/* 11. Desktop + desktop icons --------------------------------------------- */
+.w95-desktop { background: var(--w95-teal); }
+.w95-deskicon {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  width: 80px; padding: 6px 4px; cursor: pointer; user-select: none;
+  background: transparent; border: 1px solid transparent;
+  color: var(--w95-white); font-size: 12px; text-align: center;
+}
+.w95-deskicon img { width: 32px; height: 32px; image-rendering: pixelated;
+  filter: drop-shadow(1px 1px 0 rgba(0,0,0,.4)); }
+.w95-deskicon__label { padding: 1px 3px; line-height: 1.2; }
+.w95-deskicon.is-selected { }
+.w95-deskicon.is-selected .w95-deskicon__label {
+  background: var(--w95-navy); color: var(--w95-white);
+  outline: 1px dotted var(--w95-white);
+}
+.w95-deskicon:focus-visible { outline: 1px dotted var(--w95-white); }
+
+/* 12. Icon helpers --------------------------------------------------------
+   Background-image helpers. Add .w95-ico + a modifier; set width/height
+   (16 or 32). Files live in assets/win95/icons/. */
+[class*="w95-ico--"] { background-repeat: no-repeat; background-position: center;
+  background-size: contain; image-rendering: pixelated; display: inline-block; }
+.w95-ico--my-computer   { background-image: url("../win95/icons/my-computer.png"); }
+.w95-ico--internet      { background-image: url("../win95/icons/internet-explorer.png"); }
+.w95-ico--folder        { background-image: url("../win95/icons/folder.png"); }
+.w95-ico--documents     { background-image: url("../win95/icons/documents.png"); }
+.w95-ico--programs      { background-image: url("../win95/icons/programs.png"); }
+.w95-ico--program       { background-image: url("../win95/icons/program.png"); }
+.w95-ico--settings      { background-image: url("../win95/icons/settings.png"); }
+.w95-ico--hard-drive    { background-image: url("../win95/icons/hard-drive.png"); }
+.w95-ico--search-pc     { background-image: url("../win95/icons/search-pc.png"); }
+.w95-ico--search-sheet  { background-image: url("../win95/icons/search-sheet.png"); }
+.w95-ico--notepad       { background-image: url("../win95/icons/notepad.png"); }
+.w95-ico--file          { background-image: url("../win95/icons/file.png"); }
+.w95-ico--files         { background-image: url("../win95/icons/files.png"); }
+.w95-ico--help          { background-image: url("../win95/icons/help.png"); }
+.w95-ico--recycle-full  { background-image: url("../win95/icons/recycle-full.png"); }
+.w95-ico--recycle-empty { background-image: url("../win95/icons/recycle-empty.png"); }
+.w95-ico--tree          { background-image: url("../win95/icons/tree.png"); }
+.w95-ico--paint         { background-image: url("../win95/icons/paint.png"); }
+.w95-ico--tools         { background-image: url("../win95/icons/tools.png"); }
+.w95-ico--run           { background-image: url("../win95/icons/run-program.png"); }
+.w95-ico--hand          { background-image: url("../win95/icons/hand.png"); }
+.w95-ico--scan-cd       { background-image: url("../win95/icons/scan-cd.png"); }
+.w95-ico--start         { background-image: url("../win95/icons/start.png"); }
+.w95-ico--midi          { background-image: url("../win95/icons/midi-file.png"); }
+.w95-ico-16 { width: 16px; height: 16px; }
+.w95-ico-32 { width: 32px; height: 32px; }
+
+/* 13. Utilities ------------------------------------------------------------ */
+.w95-link { color: var(--w95-link); text-decoration: underline; cursor: pointer; }
+.w95-link:hover { color: #1084d0; }
+.w95-divider-h { height: 2px; margin: 4px 0;
+  box-shadow: inset 0 -1px var(--w95-hi-out), inset 0 1px var(--w95-sh-in); }
+.w95-fieldset {
+  padding: 10px; margin: 0;
+  border: none;
+  box-shadow:
+    inset -1px -1px var(--w95-hi-out),
+    inset  1px  1px var(--w95-sh-in);
+}
+.w95-fieldset legend { padding: 0 4px; background: var(--w95-face); }
+.w95-scroll { scrollbar-width: auto; }
+.w95-marquee { background: var(--w95-navy); color: var(--w95-white); }
