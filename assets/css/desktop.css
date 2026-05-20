@@ -17,11 +17,6 @@ html, body {
   cursor: default;
 }
 
-/* Win95 cursor */
-@media (pointer: fine) {
-  body { cursor: url("../win95/cursors/arrow.cur"), default; }
-}
-
 /* Skip link */
 .skip-to-content {
   position: absolute;
