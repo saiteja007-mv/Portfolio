@@ -828,6 +828,43 @@
       </footer>
     </article>
 
+    <!-- DISPLAY PROPERTIES window (wallpaper picker) -->
+    <article id="win-display" class="w95-window desk-window" role="dialog"
+             aria-labelledby="win-display-title" aria-modal="true" style="display:none">
+      <header class="w95-titlebar" data-win="win-display">
+        <span class="w95-titlebar__icon w95-ico--settings w95-ico-16" aria-hidden="true"></span>
+        <span class="w95-titlebar__caption" id="win-display-title">Display Properties</span>
+        <div class="w95-titlebar__controls">
+          <button class="w95-ctrl" title="Minimize" aria-label="Minimize Display Properties" onclick="WM.minimize('win-display')">_</button>
+          <button class="w95-ctrl" title="Maximize" aria-label="Maximize Display Properties" onclick="WM.toggleMax('win-display')">□</button>
+          <button class="w95-ctrl win-close" title="Close" aria-label="Close Display Properties" onclick="WM.close('win-display')">✕</button>
+        </div>
+      </header>
+      <div class="w95-window__body win-body wp-display-body">
+        <div class="wp-tab">Background</div>
+        <!-- Monitor preview -->
+        <div class="wp-monitor" aria-hidden="true">
+          <div class="wp-monitor__screen" id="wp-preview"></div>
+          <div class="wp-monitor__stand"></div>
+        </div>
+        <p class="wp-label">Wallpaper</p>
+        <div class="wp-listbox" id="wp-listbox" role="listbox" aria-label="Wallpaper" tabindex="0"></div>
+        <div class="wp-row">
+          <label for="wp-mode">Display:</label>
+          <select id="wp-mode" class="w95-select">
+            <option value="stretch">Stretch</option>
+            <option value="center">Center</option>
+            <option value="tile">Tile</option>
+          </select>
+        </div>
+        <div class="wp-actions">
+          <button class="w95-btn w95-btn--default" id="wp-ok">OK</button>
+          <button class="w95-btn" id="wp-cancel">Cancel</button>
+          <button class="w95-btn" id="wp-apply">Apply</button>
+        </div>
+      </div>
+    </article>
+
   </div><!-- /desktop -->
 
 
@@ -899,6 +936,10 @@
         <span class="w95-ico--file" style="width:24px;height:24px;display:inline-block;image-rendering:pixelated" aria-hidden="true"></span>
         Resume.pdf
       </button>
+      <button class="w95-startmenu__item" role="menuitem" onclick="openDisplay();closeStartMenu()">
+        <span class="w95-ico--settings" style="width:24px;height:24px;display:inline-block;image-rendering:pixelated" aria-hidden="true"></span>
+        Display Properties
+      </button>
 
       <div class="w95-startmenu__divider" role="separator"></div>
 
@@ -924,6 +965,16 @@
 
     </div>
   </div><!-- /startmenu -->
+
+  <!-- Desktop right-click context menu -->
+  <div id="desktop-context-menu" class="desktop-context-menu" role="menu" aria-label="Desktop menu" hidden>
+    <button class="desktop-context-menu__item is-disabled" role="menuitem" disabled>Arrange Icons</button>
+    <button class="desktop-context-menu__item is-disabled" role="menuitem" disabled>Line up Icons</button>
+    <div class="desktop-context-menu__sep" role="separator"></div>
+    <button class="desktop-context-menu__item" role="menuitem" id="ctx-refresh">Refresh</button>
+    <div class="desktop-context-menu__sep" role="separator"></div>
+    <button class="desktop-context-menu__item" role="menuitem" id="ctx-properties">Properties</button>
+  </div>
 
   <!-- Shut Down dialog -->
   <div id="shutdown-dialog" class="w95-window shutdown-dialog" role="alertdialog"

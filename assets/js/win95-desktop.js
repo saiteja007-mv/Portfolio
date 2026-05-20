@@ -83,8 +83,11 @@
     }
     var desktopW = window.innerWidth;
     var desktopH = window.innerHeight - 30;
-    var w = Math.min(680, desktopW - 40);
-    var h = Math.min(520, desktopH - 40);
+    // Per-window default size overrides (smaller dialogs)
+    var SIZE_OVERRIDE = { 'win-display': { w: 320, h: 472 } };
+    var sz = SIZE_OVERRIDE[winId];
+    var w = Math.min(sz ? sz.w : 680, desktopW - 40);
+    var h = Math.min(sz ? sz.h : 520, desktopH - 40);
     // Cascade offset
     var offset = (cascadeStep % 8) * CASCADE_X;
     var x = 60 + offset;
@@ -324,7 +327,8 @@
     'win-certs':   'w95-ico--help',
     'win-contact': 'w95-ico--notepad',
     'win-resume':  'w95-ico--file',
-    'win-recycle': 'w95-ico--recycle-empty'
+    'win-recycle': 'w95-ico--recycle-empty',
+    'win-display': 'w95-ico--settings'
   };
 
   // Label map
@@ -337,7 +341,8 @@
     'win-certs':   'Certifications',
     'win-contact': 'Contact',
     'win-resume':  'Resume.pdf',
-    'win-recycle': 'Recycle Bin'
+    'win-recycle': 'Recycle Bin',
+    'win-display': 'Display Properties'
   };
 
   function taskBtnCreate(winId) {
@@ -605,6 +610,170 @@
         setTimeout(function () { el.style.display = 'none'; }, 6000);
       }
     }
+  })();
+
+
+  /* ══════════════════════════════════════════════════════════════════
+     WALLPAPER  +  DISPLAY PROPERTIES
+     Right-click desktop -> Properties (or Start -> Display Properties)
+     opens a Win95 dialog to pick a wallpaper. Choice persists in
+     localStorage and is re-applied on load.
+  ══════════════════════════════════════════════════════════════════ */
+  (function setupWallpaper() {
+    var DIR = 'assets/win95/wallpapers/';
+    var WALLPAPERS = [
+      { file: 'Sky_windows-95-wallpaper-hd.jpg',                 name: 'Blue Skies' },
+      { file: 'windows-95-desktop-background.jpg',               name: 'Clouds (Logo)' },
+      { file: 'windows-95-desktop-background_2.jpg',             name: 'Logo Blue' },
+      { file: 'windows-95-desktop-background_5.jpg',             name: 'Windows 95' },
+      { file: 'windows-95-desktop-background_6.jpg',             name: 'Flag' },
+      { file: 'windows-95-wallpaper-hd_3.webp',                  name: 'Deep Teal' },
+      { file: 'windows-95-wallpaper-hd_4.png',                   name: 'Clouds 95' },
+      { file: 'wp2625450-windows-95-desktop-background.jpg',     name: 'Sky' },
+      { file: 'wp2625467-windows-95-desktop-background.png',     name: 'Maroon' },
+      { file: 'wp2660136-windows-95-wallpaper-hd.png',           name: 'Royal Blue' },
+      { file: 'wp2660141-windows-95-wallpaper-hd.png',           name: 'Clouds' },
+      { file: 'wp2660142-windows-95-wallpaper-hd.jpg',           name: 'Teal' },
+      { file: 'wp2660148-windows-95-wallpaper-hd.png',           name: 'Maze' },
+      { file: 'wp2660154-windows-95-wallpaper-hd.jpg',           name: 'Horizon' }
+    ];
+    var LS_FILE = 'w95.wallpaper', LS_MODE = 'w95.wallpaperMode';
+
+    var desktop = document.getElementById('desktop');
+    var listbox = document.getElementById('wp-listbox');
+    var preview = document.getElementById('wp-preview');
+    var modeSel = document.getElementById('wp-mode');
+
+    function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+    function url(file) { return DIR + file.split('/').map(encodeURIComponent).join('/'); }
+
+    // Committed (applied to real desktop) + pending (preview, pre-Apply)
+    var current = { file: lsGet(LS_FILE) || 'none', mode: lsGet(LS_MODE) || 'stretch' };
+    var pending = { file: current.file, mode: current.mode };
+
+    function bgProps(mode) {
+      if (mode === 'tile')   return ['auto', 'repeat', 'top left'];
+      if (mode === 'center') return ['auto', 'no-repeat', 'center'];
+      return ['cover', 'no-repeat', 'center']; // stretch
+    }
+
+    function applyTo(el, file, mode) {
+      if (!el) return;
+      if (!file || file === 'none') {
+        el.style.backgroundImage = '';
+        return; // CSS teal shows through
+      }
+      var p = bgProps(mode);
+      el.style.backgroundImage = 'url("' + url(file) + '")';
+      el.style.backgroundSize = p[0];
+      el.style.backgroundRepeat = p[1];
+      el.style.backgroundPosition = p[2];
+    }
+
+    // Apply persisted choice to the real desktop immediately
+    applyTo(desktop, current.file, current.mode);
+
+    function buildList() {
+      if (!listbox) return;
+      listbox.innerHTML = '';
+      [{ file: 'none', name: '(None)' }].concat(WALLPAPERS).forEach(function (w) {
+        var item = document.createElement('div');
+        item.className = 'wp-listbox__item';
+        item.setAttribute('role', 'option');
+        item.dataset.file = w.file;
+
+        var thumb = document.createElement('span');
+        thumb.className = 'wp-thumb';
+        if (w.file === 'none') thumb.style.background = 'var(--w95-teal)';
+        else thumb.style.backgroundImage = 'url("' + url(w.file) + '")';
+
+        var label = document.createElement('span');
+        label.textContent = w.name;
+
+        item.appendChild(thumb);
+        item.appendChild(label);
+        item.addEventListener('click', function () { selectPending(w.file); });
+        listbox.appendChild(item);
+      });
+    }
+
+    function selectPending(file) {
+      pending.file = file;
+      if (listbox) {
+        Array.prototype.forEach.call(listbox.querySelectorAll('.wp-listbox__item'), function (it) {
+          it.classList.toggle('is-selected', it.dataset.file === file);
+        });
+      }
+      applyTo(preview, file, pending.mode);
+    }
+
+    function syncDialog() {
+      pending.file = current.file;
+      pending.mode = current.mode;
+      if (modeSel) modeSel.value = current.mode;
+      selectPending(current.file);
+    }
+
+    if (modeSel) modeSel.addEventListener('change', function () {
+      pending.mode = modeSel.value;
+      applyTo(preview, pending.file, pending.mode);
+    });
+
+    function commit() {
+      current.file = pending.file;
+      current.mode = pending.mode;
+      lsSet(LS_FILE, current.file);
+      lsSet(LS_MODE, current.mode);
+      applyTo(desktop, current.file, current.mode);
+    }
+
+    var okBtn = document.getElementById('wp-ok');
+    var applyBtn = document.getElementById('wp-apply');
+    var cancelBtn = document.getElementById('wp-cancel');
+    if (applyBtn)  applyBtn.addEventListener('click', commit);
+    if (okBtn)     okBtn.addEventListener('click', function () { commit(); WM.close('win-display'); });
+    if (cancelBtn) cancelBtn.addEventListener('click', function () { syncDialog(); WM.close('win-display'); });
+
+    buildList();
+
+    // Public opener (used by Start menu + context menu)
+    window.openDisplay = function () {
+      WM.open('win-display');
+      syncDialog();
+    };
+
+    /* ── Desktop right-click context menu ───────────────────────────── */
+    var menu = document.getElementById('desktop-context-menu');
+    function hideMenu() { if (menu) menu.hidden = true; }
+    function showMenu(x, y) {
+      if (!menu) return;
+      menu.hidden = false;
+      var mw = menu.offsetWidth, mh = menu.offsetHeight;
+      if (x + mw > window.innerWidth)  x = window.innerWidth - mw - 2;
+      if (y + mh > window.innerHeight - 30) y = window.innerHeight - 30 - mh;
+      menu.style.left = Math.max(0, x) + 'px';
+      menu.style.top  = Math.max(0, y) + 'px';
+    }
+
+    if (desktop) {
+      desktop.addEventListener('contextmenu', function (e) {
+        // Only on bare desktop / icon grid — not inside open windows
+        if (e.target.closest('.desk-window') || e.target.closest('.w95-taskbar')) return;
+        e.preventDefault();
+        showMenu(e.clientX, e.clientY);
+      });
+    }
+    document.addEventListener('mousedown', function (e) {
+      if (menu && !menu.hidden && !menu.contains(e.target)) hideMenu();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hideMenu(); });
+
+    var ctxProps = document.getElementById('ctx-properties');
+    if (ctxProps) ctxProps.addEventListener('click', function () { hideMenu(); window.openDisplay(); });
+    var ctxRefresh = document.getElementById('ctx-refresh');
+    if (ctxRefresh) ctxRefresh.addEventListener('click', hideMenu);
   })();
 
 
