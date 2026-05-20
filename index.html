@@ -210,13 +210,22 @@
         <span class="w95-deskicon__label">Contact</span>
       </button>
 
-      <!-- Resume.pdf (File) -->
+      <!-- Resume.pdf (opens in IE) -->
       <button class="w95-deskicon" role="listitem" tabindex="0"
-              data-win="win-resume" aria-label="Resume PDF - double-click to open"
-              ondblclick="WM.open('win-resume')"
-              onkeydown="if(event.key==='Enter')WM.open('win-resume')">
+              aria-label="Resume PDF - double-click to open"
+              ondblclick="openIE('docs/Sai%20Teja%20Mothukuri%20-%20Resume.pdf','Resume — Sai Teja Mothukuri')"
+              onkeydown="if(event.key==='Enter')openIE('docs/Sai%20Teja%20Mothukuri%20-%20Resume.pdf','Resume — Sai Teja Mothukuri')">
         <span class="w95-ico--file w95-ico-32" aria-hidden="true"></span>
         <span class="w95-deskicon__label">Resume.pdf</span>
+      </button>
+
+      <!-- My Computer (File Explorer) -->
+      <button class="w95-deskicon" role="listitem" tabindex="0"
+              data-win="win-explorer" aria-label="My Computer - double-click to open"
+              ondblclick="openExplorer()"
+              onkeydown="if(event.key==='Enter')openExplorer()">
+        <span class="w95-ico--hard-drive w95-ico-32" aria-hidden="true"></span>
+        <span class="w95-deskicon__label">My Computer</span>
       </button>
 
       <!-- Recycle Bin (decorative) -->
@@ -805,35 +814,102 @@
     </article>
 
 
-    <!-- RESUME window -->
-    <article id="win-resume" class="w95-window desk-window" role="dialog"
-             aria-labelledby="win-resume-title" aria-modal="true" style="display:none">
-      <header class="w95-titlebar" data-win="win-resume">
-        <span class="w95-titlebar__icon w95-ico--file w95-ico-16" aria-hidden="true"></span>
-        <span class="w95-titlebar__caption" id="win-resume-title">Resume.pdf — Sai Teja Mothukuri</span>
+    <!-- INTERNET EXPLORER window (Feature 3 + 4) -->
+    <article id="win-ie" class="w95-window desk-window" role="dialog"
+             aria-labelledby="win-ie-title" aria-modal="true" style="display:none">
+      <header class="w95-titlebar" data-win="win-ie">
+        <span class="w95-titlebar__icon w95-ico--internet w95-ico-16" aria-hidden="true"></span>
+        <span class="w95-titlebar__caption" id="win-ie-title">Internet Explorer</span>
         <div class="w95-titlebar__controls">
-          <button class="w95-ctrl" title="Minimize" aria-label="Minimize" onclick="WM.minimize('win-resume')">_</button>
-          <button class="w95-ctrl" title="Maximize" aria-label="Maximize" onclick="WM.toggleMax('win-resume')">□</button>
-          <button class="w95-ctrl win-close" title="Close" aria-label="Close" onclick="WM.close('win-resume')">✕</button>
+          <button class="w95-ctrl" title="Minimize" aria-label="Minimize" onclick="WM.minimize('win-ie')">_</button>
+          <button class="w95-ctrl" title="Maximize" aria-label="Maximize" onclick="WM.toggleMax('win-ie')">□</button>
+          <button class="w95-ctrl win-close" title="Close" aria-label="Close" onclick="WM.close('win-ie')">✕</button>
         </div>
       </header>
-      <div class="w95-window__body win-body" style="padding:0;display:flex;flex-direction:column;height:100%">
-        <div style="padding:6px;display:flex;gap:6px;align-items:center;background:var(--w95-face)">
-          <a href="https://drive.google.com/file/d/1Uz4okqwLBLWZJfxSkgXNsmI6eNCon4y7/view?usp=sharing"
-             target="_blank" rel="noopener" class="w95-btn" style="min-width:auto">
-            <i class="fas fa-external-link-alt"></i> Open in Drive
-          </a>
-          <span style="font-size:11px">Venkata Sai Teja Mothukuri — Data Analyst</span>
+      <!-- IE menu bar -->
+      <div class="w95-menubar">
+        <button class="w95-menubar__item"><u>F</u>ile</button>
+        <button class="w95-menubar__item"><u>E</u>dit</button>
+        <button class="w95-menubar__item"><u>V</u>iew</button>
+        <button class="w95-menubar__item">F<u>a</u>vorites</button>
+        <button class="w95-menubar__item"><u>T</u>ools</button>
+        <button class="w95-menubar__item"><u>H</u>elp</button>
+      </div>
+      <!-- IE toolbar -->
+      <div class="ie-toolbar">
+        <button class="w95-btn ie-nav-btn" id="ie-back" disabled title="Back" aria-label="Back">◄ Back</button>
+        <button class="w95-btn ie-nav-btn" id="ie-fwd"  disabled title="Forward" aria-label="Forward">Forward ►</button>
+        <button class="w95-btn ie-nav-btn" id="ie-stop"    title="Stop" aria-label="Stop">■ Stop</button>
+        <button class="w95-btn ie-nav-btn" id="ie-refresh" title="Refresh" aria-label="Refresh">↻ Refresh</button>
+        <button class="w95-btn ie-nav-btn" id="ie-home"    title="Home" aria-label="Home">⌂ Home</button>
+        <div class="ie-addr-row">
+          <label for="ie-addr" class="ie-addr-label">Address</label>
+          <input type="text" id="ie-addr" class="ie-addr-input w95-input" value="" aria-label="Address bar">
+          <button class="w95-btn ie-nav-btn" id="ie-go" aria-label="Go">Go</button>
         </div>
-        <iframe id="resume-iframe"
-                src="https://drive.google.com/file/d/1Uz4okqwLBLWZJfxSkgXNsmI6eNCon4y7/preview"
-                style="flex:1;border:none;width:100%;min-height:400px"
-                title="Resume PDF"
-                loading="lazy"></iframe>
+      </div>
+      <!-- IE body: iframe or no-page panel -->
+      <div class="w95-window__body win-body ie-body">
+        <iframe id="ie-frame" src="about:blank" style="width:100%;height:100%;border:none;display:block"
+                title="Internet Explorer content" referrerpolicy="no-referrer"></iframe>
+        <!-- "This page cannot be displayed" panel -->
+        <div id="ie-nopage" class="ie-nopage" style="display:none">
+          <div class="ie-nopage__inner">
+            <h2 class="ie-nopage__title">The page cannot be displayed</h2>
+            <hr class="ie-nopage__hr">
+            <p>The page you are looking for is currently unavailable. The Web site might be experiencing technical difficulties, or you may need to adjust your browser settings.</p>
+            <p class="ie-nopage__url-label">URL: <code id="ie-nopage-url"></code></p>
+            <p>Please try the following:</p>
+            <ul>
+              <li>Click the <strong>Open in a new tab</strong> button below.</li>
+              <li>If you typed the page address in the Address bar, make sure that it is spelled correctly.</li>
+              <li>Click the <button class="w95-btn" id="ie-nopage-open" style="display:inline;padding:1px 6px;font-size:11px">Open in a new tab</button> button to open the page in your browser.</li>
+            </ul>
+          </div>
+        </div>
       </div>
       <footer class="w95-window__statusbar">
-        <span class="w95-statusfield w95-statusfield--grow">Resume.pdf</span>
-        <span class="w95-statusfield">Google Drive</span>
+        <span class="w95-statusfield w95-statusfield--grow" id="ie-status">Done</span>
+        <span class="w95-statusfield w95-ico--internet w95-ico-16" aria-hidden="true"></span>
+      </footer>
+    </article>
+
+
+    <!-- FILE EXPLORER / MY COMPUTER window (Feature 5) -->
+    <article id="win-explorer" class="w95-window desk-window" role="dialog"
+             aria-labelledby="win-explorer-title" aria-modal="true" style="display:none">
+      <header class="w95-titlebar" data-win="win-explorer">
+        <span class="w95-titlebar__icon w95-ico--hard-drive w95-ico-16" aria-hidden="true"></span>
+        <span class="w95-titlebar__caption" id="win-explorer-title">My Computer</span>
+        <div class="w95-titlebar__controls">
+          <button class="w95-ctrl" title="Minimize" aria-label="Minimize" onclick="WM.minimize('win-explorer')">_</button>
+          <button class="w95-ctrl" title="Maximize" aria-label="Maximize" onclick="WM.toggleMax('win-explorer')">□</button>
+          <button class="w95-ctrl win-close" title="Close" aria-label="Close" onclick="WM.close('win-explorer')">✕</button>
+        </div>
+      </header>
+      <!-- Explorer menu bar -->
+      <div class="w95-menubar">
+        <button class="w95-menubar__item"><u>F</u>ile</button>
+        <button class="w95-menubar__item"><u>E</u>dit</button>
+        <button class="w95-menubar__item"><u>V</u>iew</button>
+        <button class="w95-menubar__item"><u>G</u>o</button>
+        <button class="w95-menubar__item"><u>H</u>elp</button>
+      </div>
+      <!-- Explorer toolbar -->
+      <div class="ie-toolbar">
+        <button class="w95-btn ie-nav-btn" id="exp-back" disabled title="Back" aria-label="Back">◄ Back</button>
+        <button class="w95-btn ie-nav-btn" id="exp-up"   disabled title="Up" aria-label="Up one level">Up ↑</button>
+        <div class="ie-addr-row">
+          <label for="exp-addr" class="ie-addr-label">Address</label>
+          <input type="text" id="exp-addr" class="ie-addr-input w95-input" value="My Computer" readonly aria-label="Current path">
+        </div>
+      </div>
+      <!-- Explorer icon view -->
+      <div class="w95-window__body win-body exp-body" id="exp-body" role="list" aria-label="Folder contents">
+        <!-- Populated by JS -->
+      </div>
+      <footer class="w95-window__statusbar">
+        <span class="w95-statusfield w95-statusfield--grow" id="exp-status">0 object(s)</span>
       </footer>
     </article>
 
@@ -964,9 +1040,13 @@
         <span class="w95-ico--notepad" style="width:24px;height:24px;display:inline-block;image-rendering:pixelated" aria-hidden="true"></span>
         Contact
       </button>
-      <button class="w95-startmenu__item" role="menuitem" onclick="WM.open('win-resume');closeStartMenu()">
+      <button class="w95-startmenu__item" role="menuitem" onclick="openIE('docs/Sai%20Teja%20Mothukuri%20-%20Resume.pdf','Resume — Sai Teja Mothukuri');closeStartMenu()">
         <span class="w95-ico--file" style="width:24px;height:24px;display:inline-block;image-rendering:pixelated" aria-hidden="true"></span>
         Resume.pdf
+      </button>
+      <button class="w95-startmenu__item" role="menuitem" onclick="openExplorer();closeStartMenu()">
+        <span class="w95-ico--hard-drive" style="width:24px;height:24px;display:inline-block;image-rendering:pixelated" aria-hidden="true"></span>
+        My Computer
       </button>
       <button class="w95-startmenu__item" role="menuitem" onclick="openDisplay();closeStartMenu()">
         <span class="w95-ico--settings" style="width:24px;height:24px;display:inline-block;image-rendering:pixelated" aria-hidden="true"></span>

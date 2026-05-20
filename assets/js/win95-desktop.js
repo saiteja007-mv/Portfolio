@@ -394,30 +394,32 @@
 
   // Icon class map: window id → w95-ico class
   var iconMap = {
-    'win-about':   'w95-ico--my-computer',
-    'win-work':    'w95-ico--folder',
-    'win-journey': 'w95-ico--tree',
-    'win-viz':     'w95-ico--paint',
-    'win-skills':  'w95-ico--programs',
-    'win-certs':   'w95-ico--help',
-    'win-contact': 'w95-ico--notepad',
-    'win-resume':  'w95-ico--file',
-    'win-recycle': 'w95-ico--recycle-empty',
-    'win-display': 'w95-ico--settings'
+    'win-about':    'w95-ico--my-computer',
+    'win-work':     'w95-ico--folder',
+    'win-journey':  'w95-ico--tree',
+    'win-viz':      'w95-ico--paint',
+    'win-skills':   'w95-ico--programs',
+    'win-certs':    'w95-ico--help',
+    'win-contact':  'w95-ico--notepad',
+    'win-ie':       'w95-ico--internet',
+    'win-explorer': 'w95-ico--hard-drive',
+    'win-recycle':  'w95-ico--recycle-empty',
+    'win-display':  'w95-ico--settings'
   };
 
   // Label map
   var labelMap = {
-    'win-about':   'About Me',
-    'win-work':    'My Work',
-    'win-journey': 'Journey',
-    'win-viz':     'Visualizations',
-    'win-skills':  'Skills',
-    'win-certs':   'Certifications',
-    'win-contact': 'Contact',
-    'win-resume':  'Resume.pdf',
-    'win-recycle': 'Recycle Bin',
-    'win-display': 'Display Properties'
+    'win-about':    'About Me',
+    'win-work':     'My Work',
+    'win-journey':  'Journey',
+    'win-viz':      'Visualizations',
+    'win-skills':   'Skills',
+    'win-certs':    'Certifications',
+    'win-contact':  'Contact',
+    'win-ie':       'Internet Explorer',
+    'win-explorer': 'My Computer',
+    'win-recycle':  'Recycle Bin',
+    'win-display':  'Display Properties'
   };
 
   function taskBtnCreate(winId) {
@@ -559,6 +561,8 @@
       // Mouse: single click selects, double-click opens
       icon.addEventListener('click', function (e) {
         e.stopPropagation();
+        // If a drag just finished, swallow the click
+        if (icon.dataset.wasDragged) return;
         if (clickTimer) {
           // Double-click detected
           clearTimeout(clickTimer);
@@ -599,6 +603,430 @@
         closeStartMenu();
       }
     });
+  })();
+
+
+  /* ══════════════════════════════════════════════════════════════════
+     FEATURE 1 — DRAGGABLE DESKTOP ICONS (persist positions)
+  ══════════════════════════════════════════════════════════════════ */
+  (function setupDraggableIcons() {
+    var isMobile = window.innerWidth <= 700;
+    var grid = document.getElementById('desktop-icons');
+    var desktop = document.getElementById('desktop');
+    if (!grid || !desktop) return;
+
+    var LS_KEY = 'w95.iconPos';
+    function lsGet() { try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch(e) { return {}; } }
+    function lsSave(pos) { try { localStorage.setItem(LS_KEY, JSON.stringify(pos)); } catch(e) {} }
+
+    // Switch grid to absolute positioning within desktop
+    grid.style.position = 'absolute';
+    grid.style.display = 'block'; // override flex column
+    grid.style.top = '0';
+    grid.style.left = '0';
+    grid.style.width = '0';
+    grid.style.height = '0';
+    grid.style.overflow = 'visible';
+
+    var icons = Array.prototype.slice.call(grid.querySelectorAll('.w95-deskicon'));
+    var ICON_W = 72, ICON_H = 72, ICON_GAP = 6, START_X = 8, START_Y = 8;
+    var savedPos = lsGet();
+
+    // Place icons: use saved pos or compute default column layout
+    icons.forEach(function(icon, i) {
+      var winId = icon.dataset.win || ('icon-' + i);
+      icon.style.position = 'absolute';
+      icon.style.width = ICON_W + 'px';
+      icon.style.textAlign = 'center';
+      if (savedPos[winId]) {
+        icon.style.left = savedPos[winId].x + 'px';
+        icon.style.top  = savedPos[winId].y + 'px';
+      } else {
+        icon.style.left = START_X + 'px';
+        icon.style.top  = (START_Y + i * (ICON_H + ICON_GAP)) + 'px';
+      }
+    });
+
+    if (isMobile) return; // no drag on mobile
+
+    var DRAG_THRESHOLD = 5;
+
+    icons.forEach(function(icon) {
+      var startMX, startMY, startIX, startIY, isDragging = false, moved = false;
+
+      icon.addEventListener('mousedown', function(e) {
+        // Only left button, not on child links
+        if (e.button !== 0) return;
+        startMX = e.clientX; startMY = e.clientY;
+        startIX = parseInt(icon.style.left, 10) || 0;
+        startIY = parseInt(icon.style.top,  10) || 0;
+        isDragging = true; moved = false;
+        e.stopPropagation(); // don't trigger desktop deselect
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        var dx = e.clientX - startMX, dy = e.clientY - startMY;
+        if (!moved && Math.sqrt(dx*dx + dy*dy) < DRAG_THRESHOLD) return;
+        moved = true;
+        var deskH = desktop.offsetHeight || (window.innerHeight - 30);
+        var deskW = desktop.offsetWidth || window.innerWidth;
+        var newX = Math.max(0, Math.min(deskW - ICON_W, startIX + dx));
+        var newY = Math.max(0, Math.min(deskH - ICON_H, startIY + dy));
+        icon.style.left = newX + 'px';
+        icon.style.top  = newY + 'px';
+        icon.style.zIndex = 50; // raise above desktop surface, below windows
+      });
+
+      document.addEventListener('mouseup', function() {
+        if (!isDragging) return;
+        isDragging = false;
+        icon.style.zIndex = '';
+        if (moved) {
+          // Save position
+          var pos = lsGet();
+          var winId = icon.dataset.win || '';
+          pos[winId] = { x: parseInt(icon.style.left, 10), y: parseInt(icon.style.top, 10) };
+          lsSave(pos);
+          // Mark as dragged so click handler doesn't open window
+          icon.dataset.wasDragged = '1';
+          setTimeout(function() { delete icon.dataset.wasDragged; }, 50);
+        }
+      });
+    });
+  })();
+
+
+  /* ══════════════════════════════════════════════════════════════════
+     FEATURE 2 — RESIZABLE WINDOWS (bottom-right grip)
+  ══════════════════════════════════════════════════════════════════ */
+  (function setupResize() {
+    var isMobile = window.innerWidth <= 700;
+    if (isMobile) return;
+
+    var MIN_W = 300, MIN_H = 200;
+    var resizing = false, resizeId = null;
+    var startMX, startMY, startW, startH;
+
+    // Append resize grip to every existing desk-window
+    document.querySelectorAll('.desk-window').forEach(function(win) {
+      var grip = document.createElement('div');
+      grip.className = 'win-resize-grip';
+      grip.setAttribute('aria-hidden', 'true');
+      win.appendChild(grip);
+
+      grip.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var st = windows[win.id];
+        if (!st || st.maximized) return;
+        resizing = true;
+        resizeId = win.id;
+        startMX = e.clientX; startMY = e.clientY;
+        startW = st.w; startH = st.h;
+      });
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!resizing || !resizeId) return;
+      var st = windows[resizeId];
+      if (!st) return;
+      var deskW = window.innerWidth, deskH = window.innerHeight - 30;
+      var newW = Math.max(MIN_W, Math.min(deskW - st.x, startW + (e.clientX - startMX)));
+      var newH = Math.max(MIN_H, Math.min(deskH - st.y, startH + (e.clientY - startMY)));
+      st.w = newW; st.h = newH;
+      st.el.style.width  = newW + 'px';
+      st.el.style.height = newH + 'px';
+    });
+
+    document.addEventListener('mouseup', function() {
+      resizing = false; resizeId = null;
+    });
+  })();
+
+
+  /* ══════════════════════════════════════════════════════════════════
+     FEATURE 3 — INTERNET EXPLORER WINDOW  +  LINK INTERCEPTION
+  ══════════════════════════════════════════════════════════════════ */
+  (function setupIE() {
+    var FRAMABLE_HOSTS = ['drive.google.com', 'public.tableau.com', 'app.powerbi.com'];
+
+    function isFramable(url) {
+      if (!url) return false;
+      // Relative / same-origin paths
+      if (url.charAt(0) !== 'h' || url.indexOf('://') === -1) return true;
+      try {
+        var host = new URL(url).hostname;
+        // Explicit allow-list
+        for (var i = 0; i < FRAMABLE_HOSTS.length; i++) {
+          if (host === FRAMABLE_HOSTS[i] || host.endsWith('.' + FRAMABLE_HOSTS[i])) return true;
+        }
+        // Same origin
+        if (host === window.location.hostname) return true;
+      } catch(e) {}
+      return false;
+    }
+
+    var ieHistory = [];
+    var iePos = -1;
+
+    window.openIE = function(url, title) {
+      var win = document.getElementById('win-ie');
+      if (!win) return;
+      WM.open('win-ie');
+
+      var caption  = win.querySelector('.w95-titlebar__caption');
+      var addrBar  = document.getElementById('ie-addr');
+      var frame    = document.getElementById('ie-frame');
+      var noPage   = document.getElementById('ie-nopage');
+      var noUrl    = document.getElementById('ie-nopage-url');
+
+      var t = title || url;
+      if (caption) caption.textContent = t + ' — Internet Explorer';
+      if (addrBar) addrBar.value = url;
+
+      // History push
+      if (iePos < 0 || ieHistory[iePos] !== url) {
+        ieHistory = ieHistory.slice(0, iePos + 1);
+        ieHistory.push(url);
+        iePos = ieHistory.length - 1;
+      }
+      updateNavBtns();
+
+      if (isFramable(url)) {
+        if (frame)  { frame.style.display = 'block'; frame.src = url; }
+        if (noPage) noPage.style.display = 'none';
+      } else {
+        if (frame)  { frame.style.display = 'none'; frame.src = 'about:blank'; }
+        if (noPage) noPage.style.display = 'flex';
+        if (noUrl)  noUrl.textContent = url;
+        var openBtn = document.getElementById('ie-nopage-open');
+        if (openBtn) {
+          openBtn.onclick = function() { window.open(url, '_blank', 'noopener,noreferrer'); };
+        }
+      }
+    };
+
+    function updateNavBtns() {
+      var back = document.getElementById('ie-back');
+      var fwd  = document.getElementById('ie-fwd');
+      if (back) back.disabled = (iePos <= 0);
+      if (fwd)  fwd.disabled  = (iePos >= ieHistory.length - 1);
+    }
+
+    // Back / Forward / Refresh / Go
+    var backBtn    = document.getElementById('ie-back');
+    var fwdBtn     = document.getElementById('ie-fwd');
+    var refreshBtn = document.getElementById('ie-refresh');
+    var goBtn      = document.getElementById('ie-go');
+    var addrInput  = document.getElementById('ie-addr');
+
+    if (backBtn) backBtn.addEventListener('click', function() {
+      if (iePos > 0) { iePos--; window.openIE(ieHistory[iePos], ieHistory[iePos]); }
+    });
+    if (fwdBtn) fwdBtn.addEventListener('click', function() {
+      if (iePos < ieHistory.length - 1) { iePos++; window.openIE(ieHistory[iePos], ieHistory[iePos]); }
+    });
+    if (refreshBtn) refreshBtn.addEventListener('click', function() {
+      var frame = document.getElementById('ie-frame');
+      if (frame && frame.style.display !== 'none') { try { frame.contentWindow.location.reload(); } catch(e) { frame.src = frame.src; } }
+    });
+    function goToAddr() {
+      var url = addrInput ? addrInput.value.trim() : '';
+      if (url) window.openIE(url, url);
+    }
+    if (goBtn) goBtn.addEventListener('click', goToAddr);
+    if (addrInput) addrInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') goToAddr(); });
+
+    // Link interception — route target="_blank" through IE
+    document.addEventListener('click', function(e) {
+      var a = e.target.closest('a');
+      if (!a) return;
+      var href = a.getAttribute('href');
+      if (!href || href.charAt(0) === '#' || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+      // Only intercept links that would open a new tab or external
+      var isExternal = href.startsWith('http://') || href.startsWith('https://');
+      var isBlank    = a.getAttribute('target') === '_blank';
+      if (!isExternal && !isBlank) return;
+      // Don't intercept the "open in new tab" button inside the no-page panel
+      if (a.id === 'ie-nopage-open') return;
+      e.preventDefault();
+      var title = a.textContent.trim() || href;
+      window.openIE(href, title);
+    }, true); // capture phase so it fires before onclick
+
+  })();
+
+
+  /* ══════════════════════════════════════════════════════════════════
+     FEATURE 5 — FILE EXPLORER (My Computer)
+  ══════════════════════════════════════════════════════════════════ */
+  (function setupExplorer() {
+    var FS = {
+      'My Computer': {
+        type: 'root',
+        children: {
+          'C:': {
+            type: 'drive',
+            children: {
+              'Certificates': {
+                type: 'folder',
+                children: {
+                  'Microsoft PowerBI Data Analyst.pdf': { type: 'file', icon: 'w95-ico--file', url: 'docs/Certifications/Microsoft%20PowerBI%20-%20Data%20Analysis%20Associate.pdf' },
+                  'DataBricks Data Analysis.pdf':       { type: 'file', icon: 'w95-ico--file', url: 'docs/Certifications/DataBricks%20Data%20Analysis.pdf' },
+                  'Accenture Data Analysis.pdf':        { type: 'file', icon: 'w95-ico--file', url: 'docs/Certifications/Accenture%20Data%20Analysis%20Simulation.pdf' },
+                  'Udemy Data Analyst.pdf':             { type: 'file', icon: 'w95-ico--file', url: 'docs/Certifications/Udemy%20Data%20Analyst%20Bootcamp.pdf' },
+                  'NPTEL Analytics Python.jpg':         { type: 'file', icon: 'w95-ico--paint', url: 'docs/Certifications/NPTEL_data%20analytics%20with%20python.jpg' },
+                  'Udemy Data Analyst.jpg':             { type: 'file', icon: 'w95-ico--paint', url: 'docs/Certifications/Udemy%20Data%20Analyst%20Bootcamp.jpg' }
+                }
+              },
+              'Resume': {
+                type: 'folder',
+                children: {
+                  'Sai Teja Mothukuri - Resume.pdf': { type: 'file', icon: 'w95-ico--file', url: 'docs/Sai%20Teja%20Mothukuri%20-%20Resume.pdf' }
+                }
+              },
+              'Research Papers': {
+                type: 'folder',
+                children: {
+                  'Cyberbullying Detection (JETIR)': { type: 'file', icon: 'w95-ico--internet', url: 'https://www.jetir.org/view?paper=JETIR2304580' }
+                }
+              },
+              'Projects': {
+                type: 'folder',
+                children: {
+                  'AI RAG Chatbot using AWS.md':           { type: 'file', icon: 'w95-ico--notepad', url: 'docs/AI_RagChatbot_using_AWS.md' },
+                  'YouTube Content Generation.md':          { type: 'file', icon: 'w95-ico--notepad', url: 'docs/Youtube_content_generation_workflow.md' }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    var explorerHistory = [['My Computer']];
+    var explorerPos = 0;
+
+    function getNode(pathArr) {
+      var node = FS;
+      for (var i = 0; i < pathArr.length; i++) {
+        if (!node) return null;
+        if (node[pathArr[i]]) node = node[pathArr[i]];
+        else if (node.children && node.children[pathArr[i]]) node = node.children[pathArr[i]];
+        else return null;
+      }
+      return node;
+    }
+
+    function renderExplorer(pathArr) {
+      var win = document.getElementById('win-explorer');
+      if (!win) return;
+
+      var titleEl  = win.querySelector('.w95-titlebar__caption');
+      var addrEl   = document.getElementById('exp-addr');
+      var bodyEl   = document.getElementById('exp-body');
+      var statusEl = document.getElementById('exp-status');
+
+      var pathStr = pathArr.join('\\');
+      if (titleEl) titleEl.textContent = pathArr[pathArr.length - 1] || 'My Computer';
+      if (addrEl)  addrEl.value = pathStr;
+
+      var node = getNode(pathArr);
+      if (!node) return;
+
+      var children = node.children || (node.type === 'file' ? null : {});
+      if (!children) return;
+
+      bodyEl.innerHTML = '';
+      var names = Object.keys(children);
+      // Folders first, then files
+      var folders = names.filter(function(n) { return children[n].type === 'folder' || children[n].type === 'drive' || children[n].type === 'root'; });
+      var files   = names.filter(function(n) { return children[n].type === 'file'; });
+      var sorted  = folders.concat(files);
+
+      sorted.forEach(function(name) {
+        var entry = children[name];
+        var tile = document.createElement('button');
+        tile.className = 'exp-tile';
+        tile.setAttribute('aria-label', name);
+
+        var ico = document.createElement('span');
+        ico.setAttribute('aria-hidden', 'true');
+        if (entry.type === 'folder' || entry.type === 'drive') {
+          ico.className = 'w95-ico--folder w95-ico-32';
+        } else {
+          ico.className = (entry.icon || 'w95-ico--file') + ' w95-ico-32';
+        }
+
+        var lbl = document.createElement('span');
+        lbl.className = 'exp-tile__label';
+        lbl.textContent = name;
+
+        tile.appendChild(ico);
+        tile.appendChild(lbl);
+
+        tile.addEventListener('dblclick', function() {
+          if (entry.type === 'folder' || entry.type === 'drive') {
+            var newPath = pathArr.concat([name]);
+            explorerHistory = explorerHistory.slice(0, explorerPos + 1);
+            explorerHistory.push(newPath);
+            explorerPos = explorerHistory.length - 1;
+            renderExplorer(newPath);
+          } else if (entry.url) {
+            window.openIE(entry.url, name);
+          }
+        });
+
+        bodyEl.appendChild(tile);
+      });
+
+      if (statusEl) statusEl.textContent = sorted.length + ' object(s)';
+      updateExpNav();
+    }
+
+    function updateExpNav() {
+      var upBtn   = document.getElementById('exp-up');
+      var backBtn = document.getElementById('exp-back');
+      if (backBtn) backBtn.disabled = (explorerPos <= 0);
+      if (upBtn) {
+        var cur = explorerHistory[explorerPos] || [];
+        upBtn.disabled = (cur.length <= 1);
+      }
+    }
+
+    var upBtn   = document.getElementById('exp-up');
+    var backBtn = document.getElementById('exp-back');
+
+    if (backBtn) backBtn.addEventListener('click', function() {
+      if (explorerPos > 0) { explorerPos--; renderExplorer(explorerHistory[explorerPos]); }
+    });
+    if (upBtn) upBtn.addEventListener('click', function() {
+      var cur = explorerHistory[explorerPos] || [];
+      if (cur.length > 1) {
+        var up = cur.slice(0, -1);
+        explorerHistory = explorerHistory.slice(0, explorerPos + 1);
+        explorerHistory.push(up);
+        explorerPos = explorerHistory.length - 1;
+        renderExplorer(up);
+      }
+    });
+
+    window.openExplorer = function() {
+      explorerHistory = [['My Computer']];
+      explorerPos = 0;
+      WM.open('win-explorer');
+      renderExplorer(['My Computer']);
+    };
+
+    // Re-render when window opens
+    var origOpen = WM.open.bind(WM);
+    WM.open = function(winId) {
+      origOpen(winId);
+      if (winId === 'win-explorer') {
+        renderExplorer(explorerHistory[explorerPos] || ['My Computer']);
+      }
+    };
   })();
 
 
