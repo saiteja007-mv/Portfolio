@@ -1,0 +1,494 @@
+/* =============================================================================
+   desktop.css — Variant A: Windows 95 Desktop OS Simulation
+   Extends win95.css. Do NOT modify win95.css here — all variant-only layout
+   lives in this file.
+   ========================================================================== */
+
+/* ── Global ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  height: 100%;
+  overflow: hidden;        /* desktop never scrolls */
+  font-family: var(--w95-font);
+  font-size: var(--w95-font-size);
+  -webkit-font-smoothing: none;
+  cursor: default;
+}
+
+/* Win95 cursor */
+@media (pointer: fine) {
+  body { cursor: url("../win95/cursors/arrow.cur"), default; }
+}
+
+/* Skip link */
+.skip-to-content {
+  position: absolute;
+  top: -9999px; left: 0;
+  background: var(--w95-navy);
+  color: #fff;
+  padding: 4px 8px;
+  z-index: 99999;
+  font-size: 11px;
+}
+.skip-to-content:focus { top: 0; }
+
+
+/* ── Boot Splash ─────────────────────────────────────────────────────────── */
+#boot-splash {
+  position: fixed; inset: 0;
+  background: #000;
+  color: #c0c0c0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9000;
+  transition: opacity 0.5s ease;
+}
+#boot-splash.fade-out { opacity: 0; pointer-events: none; }
+
+.boot-inner { text-align: center; }
+
+.boot-logo { font-size: 32px; font-weight: bold; letter-spacing: 2px; }
+.boot-logo-win { color: #c0c0c0; }
+.boot-logo-95  { color: #ffdd00; margin-left: 6px; }
+
+.boot-tagline { margin: 8px 0 20px; font-size: 14px; color: #888; }
+
+.boot-bar-wrap {
+  width: 200px;
+  height: 20px;
+  border: 2px solid #444;
+  margin: 0 auto 12px;
+  background: #111;
+}
+.boot-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--w95-navy);
+  transition: width 0.1s linear;
+}
+.boot-hint { font-size: 11px; color: #666; }
+
+@media (prefers-reduced-motion: reduce) {
+  #boot-splash { display: none; }
+}
+
+
+/* ── Desktop Surface ─────────────────────────────────────────────────────── */
+#desktop {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: calc(100% - 30px); /* taskbar at bottom */
+  background: var(--w95-teal);
+  overflow: hidden;
+}
+
+
+/* ── Desktop Icon Grid (top-left column) ────────────────────────────────── */
+.desktop-icon-grid {
+  position: absolute;
+  top: 8px; left: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1;
+}
+
+.w95-deskicon {
+  background: transparent;
+  border: 1px solid transparent;
+  outline: none;
+  padding: 4px;
+  border-radius: 0;
+  /* Win95 white text on teal */
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  font-family: var(--w95-font);
+  font-size: 11px;
+  cursor: pointer;
+}
+.w95-deskicon:focus-visible {
+  outline: 1px dotted #fff;
+  outline-offset: 2px;
+}
+.w95-deskicon:hover .w95-deskicon__label {
+  background: rgba(0,0,128,0.4);
+}
+.w95-deskicon.is-selected .w95-deskicon__label {
+  background: var(--w95-navy);
+  outline: 1px dotted #fff;
+}
+
+
+/* ── Windows ─────────────────────────────────────────────────────────────── */
+.desk-window {
+  position: absolute;
+  min-width: 300px;
+  min-height: 200px;
+  max-width: calc(100vw - 20px);
+  max-height: calc(100vh - 50px);  /* leave taskbar room */
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  resize: none;  /* no resize handles per spec (YAGNI) */
+}
+
+/* titlebar drag cursor */
+.w95-titlebar { cursor: move; }
+.w95-titlebar .w95-ctrl { cursor: pointer; }
+
+/* window body: scrollable area */
+.win-body {
+  flex: 1 1 auto;
+  overflow: auto;
+  background: var(--w95-face);
+  min-height: 0;
+}
+.win-body--scroll { overflow-y: auto; }
+
+/* Active vs inactive titlebar — handled by JS adding .is-inactive */
+
+
+/* ── Window content styles ───────────────────────────────────────────────── */
+.win-section-title {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.win-subtitle {
+  color: var(--w95-gray-dark);
+  font-size: 11px;
+  margin: 0 0 8px;
+}
+.win-section-desc {
+  font-style: italic;
+  color: var(--w95-gray-dark);
+  margin: 0 0 10px;
+}
+
+/* About window layout */
+.win-about-layout {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.about-photo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 2px solid var(--w95-gray-dark);
+  flex: 0 0 100px;
+}
+.about-text-block { flex: 1 1 auto; }
+.about-contact-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* Projects */
+.project-card {
+  border: 1px solid var(--w95-gray-dark);
+  background: var(--w95-white);
+  padding: 10px;
+  margin-bottom: 12px;
+}
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.project-title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: bold;
+  flex: 1 1 auto;
+}
+.project-badge {
+  font-size: 10px;
+  background: var(--w95-navy);
+  color: #fff;
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+.project-desc {
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 0 0 8px;
+}
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.project-tech span {
+  background: var(--w95-gray-light);
+  border: 1px solid var(--w95-gray-dark);
+  font-size: 10px;
+  padding: 1px 6px;
+}
+.project-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.project-actions .w95-btn {
+  min-width: auto;
+  font-size: 11px;
+  padding: 2px 8px;
+  min-height: 20px;
+}
+
+/* Journey */
+.journey-entry {
+  padding: 10px 0;
+}
+.journey-meta {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.journey-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border: 1px solid var(--w95-gray-dark);
+  background: #fff;
+  flex: 0 0 40px;
+}
+.journey-role {
+  margin: 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+.journey-company {
+  display: block;
+  font-size: 11px;
+  color: var(--w95-navy);
+  font-weight: bold;
+}
+.journey-date {
+  display: block;
+  font-size: 10px;
+  color: var(--w95-gray-dark);
+}
+.journey-achievements {
+  margin: 6px 0 0 16px;
+  padding: 0;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* Visualizations */
+.viz-list { display: flex; flex-direction: column; gap: 10px; }
+.viz-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  border: 1px solid var(--w95-gray-dark);
+  background: var(--w95-white);
+  padding: 10px;
+}
+.viz-icon-wrap {
+  font-size: 24px;
+  color: var(--w95-navy);
+  flex: 0 0 36px;
+  text-align: center;
+  padding-top: 4px;
+}
+.viz-info { flex: 1 1 auto; }
+.viz-info h3 { margin: 0 0 4px; font-size: 12px; font-weight: bold; }
+.viz-info p  { margin: 0 0 6px; font-size: 11px; }
+.viz-open-btn {
+  flex: 0 0 auto;
+  min-width: auto;
+  font-size: 11px;
+  align-self: center;
+  white-space: nowrap;
+}
+
+/* Skills */
+.skills-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 8px;
+}
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  background: var(--w95-white);
+  border: 1px solid var(--w95-gray-dark);
+  font-size: 10px;
+  text-align: center;
+}
+.skill-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* Certifications */
+.cert-entry {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 10px 0;
+}
+.cert-badge-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  flex: 0 0 64px;
+}
+.cert-icon-fa {
+  width: 64px;
+  flex: 0 0 64px;
+  text-align: center;
+  color: var(--w95-navy);
+  padding-top: 8px;
+}
+.cert-info h3 { margin: 0 0 4px; font-size: 12px; font-weight: bold; }
+.cert-info p  { margin: 0 0 4px; font-size: 11px; }
+.cert-date { font-size: 10px; color: var(--w95-gray-dark); }
+.featured-cert { background: var(--w95-gray-light); padding: 8px; }
+
+/* Contact */
+.contact-layout {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.contact-info-col { flex: 0 0 200px; }
+.contact-form-col { flex: 1 1 auto; }
+.contact-table { border-collapse: collapse; font-size: 11px; }
+.contact-table td { padding: 3px 6px; vertical-align: top; }
+.contact-social-row { display: flex; gap: 6px; }
+.contact-social-row .w95-btn { min-width: auto; padding: 4px 8px; }
+
+.form-row-w95 {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+.form-row-w95 label { font-size: 11px; font-weight: bold; }
+.form-actions-w95 { display: flex; gap: 8px; justify-content: flex-end; margin-top: 10px; }
+
+.form-status-w95 {
+  margin-top: 8px;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+.form-status-w95.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.form-status-w95.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+
+/* ── Taskbar ─────────────────────────────────────────────────────────────── */
+.w95-taskbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 30px;
+  z-index: 5000;
+}
+
+/* Task buttons */
+.w95-task {
+  font-family: var(--w95-font);
+  overflow: hidden;
+}
+
+/* ── Start Menu ──────────────────────────────────────────────────────────── */
+.w95-startmenu {
+  position: fixed;
+  bottom: 30px;    /* above taskbar */
+  left: 0;
+  z-index: 6000;
+  min-width: 200px;
+  max-height: calc(100vh - 50px);
+  overflow-y: auto;
+}
+.w95-startmenu[hidden] { display: none; }
+
+
+/* ── Shut Down Dialog ────────────────────────────────────────────────────── */
+.shutdown-dialog {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 7000;
+  width: 300px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE / MOBILE FALLBACK
+   On small screens: windows open maximized, single-tap works
+   ═════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  .desk-window {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: calc(100vh - 30px) !important;
+    max-width: 100vw !important;
+    max-height: calc(100vh - 30px) !important;
+  }
+
+  .desktop-icon-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    top: 4px; left: 4px;
+    right: 4px;
+    gap: 4px;
+  }
+
+  .w95-deskicon { width: 70px; }
+
+  /* Contact layout stacks */
+  .contact-layout { flex-direction: column; }
+  .contact-info-col { flex: none; width: 100%; }
+
+  /* About layout stacks */
+  .win-about-layout { flex-direction: column; }
+  .about-photo { width: 80px; height: 80px; }
+
+  /* viz items stack */
+  .viz-item { flex-wrap: wrap; }
+  .viz-open-btn { width: 100%; text-align: center; }
+
+  /* Cert entry stacks */
+  .cert-entry { flex-wrap: wrap; }
+}
+
+@media (max-width: 400px) {
+  .w95-startmenu { min-width: 160px; }
+  .desktop-icon-grid { gap: 2px; }
+  .w95-deskicon { width: 60px; }
+}
+
+/* High contrast / focus improvements */
+.w95-ctrl:focus-visible,
+.w95-btn:focus-visible,
+.w95-startmenu__item:focus-visible,
+.w95-deskicon:focus-visible {
+  outline: 2px dotted var(--w95-black);
+  outline-offset: 1px;
+}
