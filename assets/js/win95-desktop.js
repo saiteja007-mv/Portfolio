@@ -102,12 +102,10 @@
 
       screen.classList.add('powering');              // CRT flash on the glass
       setTimeout(function () {
-        // Show the boot splash FIRST (it sits below the power screen at a lower
-        // z-index), THEN fade the intro out to reveal it — so the desktop is
-        // never visible until boot finishes.
-        startBoot(audio, function () { WM.open('win-about'); });
+        // Fade the CRT intro out, then run the Windows 95 boot splash.
         screen.classList.add('off');
         setTimeout(function () { screen.style.display = 'none'; }, 450);
+        startBoot(audio, function () { WM.open('win-about'); });
       }, 550);
     }
     window.powerOn = powerOn;
@@ -178,6 +176,7 @@
     var desktopH = window.innerHeight - 30;
     // Per-window default size overrides (smaller dialogs)
     var SIZE_OVERRIDE = {
+      'win-ai':      { w: 440, h: 540 },
       'win-display': { w: 320, h: 472 },
       'win-calc':    { w: 264, h: 322 },
       'win-notepad': { w: 540, h: 400 },
@@ -455,10 +454,10 @@
 
   // Icon class map: window id → w95-ico class
   var iconMap = {
+    'win-ai':       'w95-ico--programs',
     'win-about':    'w95-ico--my-computer',
     'win-work':     'w95-ico--folder',
     'win-journey':  'w95-ico--tree',
-    'win-viz':      'w95-ico--paint',
     'win-skills':   'w95-ico--programs',
     'win-certs':    'w95-ico--help',
     'win-contact':  'w95-ico--notepad',
@@ -478,12 +477,12 @@
 
   // Label map
   var labelMap = {
+    'win-ai':       'Ask AI',
     'win-about':    'About Me',
     'win-work':     'My Work',
     'win-journey':  'Journey',
-    'win-viz':      'Visualizations',
     'win-skills':   'Skills',
-    'win-certs':    'Certifications',
+    'win-certs':    'Achievements',
     'win-contact':  'Contact',
     'win-ie':       'Internet Explorer',
     'win-explorer': 'My Computer',
@@ -856,12 +855,12 @@
        punting to a new browser tab. */
     var GH_USER = 'saiteja007-mv';
     var REPOS = [
+      { name: 'Cyberbully-Detection-in-Texts-Images-and-Audios', lang: 'Jupyter Notebook', desc: 'Multi-modal deep-learning pipeline (PyTorch, Bi-LSTM, VGG16) detecting cyberbullying across text, image and audio. Published in JETIR.' },
       { name: 'AI-Rag-Chatbot-using-AWS-Services', lang: 'Python', desc: 'Production-ready serverless RAG chatbot on AWS Bedrock (Claude 3.5 Sonnet) — document processing, Titan V2 embeddings, semantic search over DynamoDB.' },
       { name: 'Youtube-Content-Generation-Workflow', lang: 'JavaScript', desc: 'n8n workflow automating YouTube content from script to SEO — local Ollama (Qwen2.5:7b), AI thumbnails via OpenRouter, Telegram + Google Drive + YouTube API.' },
+      { name: 'LinkedIn-Job-Application-Automation-using-Make.com-Apify-OpenAI', lang: 'JavaScript', desc: 'AI job-application automation with GPT-4 — cut manual job-search effort by 80%+.' },
       { name: 'Employee-Retention-Analysis', lang: 'Python', desc: 'Employee retention trends from Forbes-listed companies and Glassdoor reviews with automated data collection.' },
-      { name: '-Target-Brazil-Ecommerce-Data-Analysis-using-SQL', lang: 'PLpgSQL', desc: 'Analysis of 100K+ orders using BigQuery and Tableau for sales optimization — payment behaviors and shipping delays.' },
-      { name: 'Cyberbully-Detection-in-Texts-Images-and-Audios', lang: 'Jupyter Notebook', desc: 'ML model with 89% accuracy detecting harmful content across text, image and audio. Published in JETIR.' },
-      { name: 'LinkedIn-Job-Application-Automation-using-Make.com-Apify-OpenAI', lang: 'JavaScript', desc: 'AI job-application automation with GPT-4 — cut manual job-search effort by 80%+.' }
+      { name: '-Target-Brazil-Ecommerce-Data-Analysis-using-SQL', lang: 'PLpgSQL', desc: 'Analysis of 100K+ orders using BigQuery and Tableau for sales optimization — payment behaviors and shipping delays.' }
     ];
     function repoUrl(name) { return 'https://github.com/' + GH_USER + '/' + name; }
     function findRepo(n) { n = String(n).toLowerCase().replace(/\.git$/, ''); for (var i = 0; i < REPOS.length; i++) { if (REPOS[i].name.toLowerCase() === n) return REPOS[i]; } return null; }
@@ -875,19 +874,21 @@
           '<img class="iep-li-avatar" src="assets/images/Profile photo no bg.png" alt="Sai Teja Mothukuri">' +
           '<div class="iep-li-id">' +
             '<h1>Sai Teja Mothukuri</h1>' +
-            '<p class="iep-li-head">Data Analyst &amp; AI Enthusiast · SQL · Python · Power BI · AWS</p>' +
-            '<p class="iep-li-loc">Kansas City, Missouri, United States · <a href="https://www.linkedin.com/in/venkatasaitejam">Contact info</a></p>' +
+            '<p class="iep-li-head">AI/ML Engineer · Deep Learning · Generative AI (RAG/LLM) · MLOps · PyTorch · AWS</p>' +
+            '<p class="iep-li-loc">Richmond, Virginia, United States · <a href="https://www.linkedin.com/in/venkatasaitejam">Contact info</a></p>' +
             '<p class="iep-li-conn">500+ connections</p>' +
             '<div class="iep-li-btns"><span class="iep-li-btn iep-li-btn--p">Connect</span><span class="iep-li-btn">Message</span><span class="iep-li-btn">More</span></div>' +
           '</div>' +
         '</div>' +
-        '<div class="iep-li-sec"><h2>About</h2><p>Data Analyst with 3+ years of experience leveraging SQL, Python, and BI tools to analyze large-scale datasets and deliver actionable insights across healthcare and technology domains. Master’s in Computer Science from the University of Central Missouri. Proven track record identifying cost drivers, building forecasting models, and developing KPI dashboards. Builds AI-powered applications and documents the journey on YouTube as <a href="https://youtube.com/@The_TechRex">TechRex</a>.</p></div>' +
+        '<div class="iep-li-sec"><h2>About</h2><p>AI/ML Engineer with 3+ years building and deploying machine-learning, deep-learning, and Generative AI systems end to end — from experimentation through real-time production inference. Trains multi-modal deep-learning models (PyTorch, Hugging Face), builds RAG and transformer-based NLP pipelines, and runs the MLOps behind them on AWS and Kubernetes. Master’s in Computer Science from the University of Central Missouri. Documents the journey on YouTube as <a href="https://youtube.com/@The_TechRex">TechRex</a>.</p></div>' +
         '<div class="iep-li-sec"><h2>Experience</h2>' +
-          '<p><b>Data Analyst</b> — Healthcare &amp; Technology<br><span class="iep-li-muted">3+ years · SQL, Python, Power BI, Tableau, AWS</span></p>' +
-          '<p style="margin-top:8px">Identified cost drivers, built forecasting models, and shipped KPI dashboards that drove decisions across teams.</p>' +
+          '<p><b>AI/ML Engineer</b> — Honeywell<br><span class="iep-li-muted">Aug 2025 – Present · PyTorch, Hugging Face, AWS, Kubernetes</span></p>' +
+          '<p style="margin-top:8px">Multi-modal deep-learning models served at sub-200 ms on edge; RAG + transformer NLP pipelines (+22% accuracy); MLOps with automated drift detection and model versioning.</p>' +
+          '<p style="margin-top:12px"><b>Machine Learning Scientist</b> — Accenture<br><span class="iep-li-muted">Sep 2021 – Dec 2023 · PySpark, Kafka, XGBoost, FastAPI</span></p>' +
+          '<p style="margin-top:8px">Large-scale ad recommendation engine with sub-3s targeting; XGBoost/LightGBM/LSTM models → +15% CTR, +20% ad revenue; real-time feature pipelines.</p>' +
         '</div>' +
         '<div class="iep-li-sec"><h2>Education</h2><p><b>University of Central Missouri</b><br><span class="iep-li-muted">Master of Science — Computer Science</span></p></div>' +
-        '<div class="iep-li-sec"><h2>Featured projects</h2><p><a href="' + repoUrl('AI-Rag-Chatbot-using-AWS-Services') + '">AI-Powered RAG Chatbot using AWS</a> · <a href="https://www.jetir.org/view?paper=JETIR2304580">AI Cyberbullying Detection (JETIR)</a></p></div>' +
+        '<div class="iep-li-sec"><h2>Featured projects</h2><p><a href="https://www.jetir.org/view?paper=JETIR2304580">Multi-Modal Cyberbullying Detection (PyTorch · JETIR)</a> · Intelligent Real-Time Traffic Flow Prediction (LSTM · MLOps)</p></div>' +
       '</div>';
     }
 
@@ -905,8 +906,8 @@
             '<img class="iep-gh-avatar" src="assets/images/Profile photo no bg.png" alt="avatar">' +
             '<h1 class="iep-gh-name">Sai Teja Mothukuri</h1>' +
             '<p class="iep-gh-login">' + GH_USER + '</p>' +
-            '<p class="iep-gh-bio">Data Analyst &amp; AI Enthusiast. SQL · Python · Power BI · AWS. Building AI apps &amp; documenting on YouTube (TechRex).</p>' +
-            '<p class="iep-gh-loc">&#128205; Kansas City, MO</p>' +
+            '<p class="iep-gh-bio">AI/ML Engineer. PyTorch · Hugging Face · RAG/LLM · MLOps · AWS · Kubernetes. Building &amp; shipping ML systems end to end; documenting on YouTube (TechRex).</p>' +
+            '<p class="iep-gh-loc">&#128205; Richmond, VA</p>' +
           '</aside>' +
           '<main class="iep-gh-main">' +
             '<div class="iep-gh-tabs"><span class="is-active">&#128193; Repositories <b>' + REPOS.length + '</b></span><span>Projects</span><span>Packages</span><span>Stars</span></div>' +
@@ -1165,14 +1166,6 @@
       'My Computer': { type: 'root', children: {
         'C:': { type: 'drive', children: {
           'My Documents': { type: 'folder', children: {} },
-          'Certificates': { type: 'folder', children: {
-            'Microsoft PowerBI Data Analyst.pdf': { type: 'file', icon: 'w95-ico--file', url: 'docs/Certifications/Microsoft%20PowerBI%20-%20Data%20Analysis%20Associate.pdf' },
-            'DataBricks Data Analysis.pdf':       { type: 'file', icon: 'w95-ico--file', url: 'docs/Certifications/DataBricks%20Data%20Analysis.pdf' },
-            'Accenture Data Analysis.pdf':        { type: 'file', icon: 'w95-ico--file', url: 'docs/Certifications/Accenture%20Data%20Analysis%20Simulation.pdf' },
-            'Udemy Data Analyst.pdf':             { type: 'file', icon: 'w95-ico--file', url: 'docs/Certifications/Udemy%20Data%20Analyst%20Bootcamp.pdf' },
-            'NPTEL Analytics Python.jpg':         { type: 'file', icon: 'w95-ico--paint', url: 'docs/Certifications/NPTEL_data%20analytics%20with%20python.jpg' },
-            'Udemy Data Analyst.jpg':             { type: 'file', icon: 'w95-ico--paint', url: 'docs/Certifications/Udemy%20Data%20Analyst%20Bootcamp.jpg' }
-          } },
           'Resume': { type: 'folder', children: {
             'Sai Teja Mothukuri - Resume.pdf': { type: 'file', icon: 'w95-ico--file', url: 'docs/Sai%20Teja%20Mothukuri%20-%20Resume.pdf' }
           } },

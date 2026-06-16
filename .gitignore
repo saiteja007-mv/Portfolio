@@ -9,3 +9,11 @@ sitemap.xml
 
 # Claude Code git worktrees (local only, never committed)
 .claude/worktrees/
+
+# Secrets — never commit the real API key (.env.example is safe to commit)
+.env
+.env.local
+node_modules/
+
+# Local session scaffolding (internal notes, not for the public repo)
+Session_Handoff.md

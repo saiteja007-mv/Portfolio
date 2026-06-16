@@ -1252,3 +1252,99 @@ html, body {
 .exp-view--list { flex-direction: column !important; flex-wrap: nowrap !important; align-content: stretch; }
 .exp-view--list .exp-tile { flex-direction: row !important; width: 100%; justify-content: flex-start; gap: 6px; padding: 1px 4px; }
 .exp-view--list .exp-tile__label { margin-top: 0; max-width: none; text-align: left; }
+
+/* ══════════════════════════════════════════════════════════════════
+   ASK AI — desktop icon + start-menu glyphs + chat window
+══════════════════════════════════════════════════════════════════ */
+/* Font-Awesome glyph sized like a 32px desktop icon */
+.deskicon-fa {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; color: #ffe000;
+  filter: drop-shadow(1px 1px 0 #000);
+}
+.w95-startmenu__fa {
+  width: 24px; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 16px; color: #000080;
+}
+
+/* Chat body = full-height flex column: log grows & scrolls, input pinned bottom */
+.ai-chat {
+  display: flex !important; flex-direction: column;
+  padding: 0 !important; overflow: hidden !important; gap: 0;
+}
+.ai-chat__log {
+  flex: 1 1 auto; overflow-y: auto; min-height: 0;
+  background: #fff;
+  box-shadow: inset 1px 1px var(--w95-sh-in), inset -1px -1px var(--w95-hi-out);
+  padding: 12px; display: flex; flex-direction: column; gap: 12px;
+  /* Crisp readable font for conversation text (chrome keeps the pixel font) */
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  font-size: 13px; line-height: 1.5;
+}
+/* readable font for chat input + chips too */
+.ai-chat__input, .ai-chip {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+}
+
+/* One message row: avatar + bubble — full-width row, side chosen by justify */
+.ai-msg { display: flex; align-items: flex-end; gap: 7px; width: 100%; }
+.ai-msg--assistant { flex-direction: row; justify-content: flex-start; }
+.ai-msg--user { flex-direction: row-reverse; justify-content: flex-start; }
+
+.ai-msg__avatar {
+  flex: 0 0 26px; width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; border-radius: 50%;
+  border: 1px solid var(--w95-sh-out);
+}
+.ai-msg--assistant .ai-msg__avatar { background: #000080; color: #fff; }
+.ai-msg--user .ai-msg__avatar { background: #008080; color: #fff; }
+
+.ai-msg__bubble {
+  max-width: 80%; padding: 8px 11px; border-radius: 12px;
+  word-wrap: break-word; overflow-wrap: anywhere; white-space: pre-wrap;
+}
+.ai-msg--assistant .ai-msg__bubble {
+  background: #eef0f4; color: #000; border: 1px solid #c4c8d0;
+  border-bottom-left-radius: 3px;
+}
+.ai-msg--user .ai-msg__bubble {
+  background: #000080; color: #fff;
+  border-bottom-right-radius: 3px;
+}
+
+/* Suggestion chips (assistant side) */
+.ai-chips { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 33px; }
+.ai-chip {
+  font-family: inherit; font-size: 11px; cursor: pointer;
+  background: var(--w95-face); color: #000; padding: 4px 9px;
+  box-shadow: inset -1px -1px var(--w95-sh-out), inset 1px 1px var(--w95-hi-out),
+              inset -2px -2px var(--w95-sh-in), inset 2px 2px var(--w95-hi-in);
+}
+.ai-chip:active {
+  box-shadow: inset 1px 1px var(--w95-sh-out), inset -1px -1px var(--w95-hi-out);
+}
+
+/* Typing indicator */
+.ai-typing .ai-msg__bubble { display: flex; gap: 4px; align-items: center; padding: 10px 12px; }
+.ai-dot {
+  width: 6px; height: 6px; background: #888; border-radius: 50%;
+  display: inline-block; animation: ai-blink 1s infinite both;
+}
+.ai-dot:nth-child(2) { animation-delay: .2s; }
+.ai-dot:nth-child(3) { animation-delay: .4s; }
+@keyframes ai-blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+
+/* Input row — pinned at the bottom */
+.ai-chat__inputrow {
+  flex: 0 0 auto; display: flex; gap: 6px; padding: 8px;
+  background: var(--w95-face);
+  border-top: 1px solid var(--w95-sh-out);
+}
+.ai-chat__input { flex: 1 1 auto; min-width: 0; }
+.ai-chat__send { flex: 0 0 auto; min-width: 64px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-dot { animation: none; }
+}
