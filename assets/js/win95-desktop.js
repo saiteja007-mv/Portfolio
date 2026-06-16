@@ -1167,7 +1167,7 @@
         'C:': { type: 'drive', children: {
           'My Documents': { type: 'folder', children: {} },
           'Resume': { type: 'folder', children: {
-            'Sai Teja Mothukuri - Resume.pdf': { type: 'file', icon: 'w95-ico--file', url: 'docs/Sai%20Teja%20Mothukuri%20-%20Resume.pdf' }
+            'Sai Teja Mothukuri - AIML Engineer.pdf': { type: 'file', icon: 'w95-ico--file', url: 'docs/Sai%20Teja%20Mothukuri%20-%20AIML%20Engineer.pdf' }
           } },
           'Research Papers': { type: 'folder', children: {
             'Cyberbullying Detection (JETIR)': { type: 'file', icon: 'w95-ico--internet', url: 'https://www.jetir.org/view?paper=JETIR2304580' }
