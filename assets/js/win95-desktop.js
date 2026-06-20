@@ -648,6 +648,16 @@
     var DBLCLICK_DELAY = 300;
     var touchMoved = false;
 
+    // Single open path used by both mouse (dbl-click) and touch (tap).
+    // Window icons use data-win; "launch a URL in IE" icons use data-open-url.
+    // Icons with neither (Resume.pdf, Recycle) keep their inline ondblclick,
+    // which the native dblclick still fires on desktop.
+    function openIcon(icon) {
+      if (icon.dataset.win) { WM.open(icon.dataset.win); return true; }
+      if (icon.dataset.openUrl) { window.openIE(icon.dataset.openUrl, icon.dataset.openTitle || ''); return true; }
+      return false;
+    }
+
     icons.forEach(function (icon) {
       // Mouse: single click selects, double-click opens
       icon.addEventListener('click', function (e) {
@@ -658,8 +668,7 @@
           // Double-click detected
           clearTimeout(clickTimer);
           clickTimer = null;
-          var winId = icon.dataset.win;
-          if (winId) WM.open(winId);
+          openIcon(icon);
           icon.classList.remove('is-selected');
           selectedIcon = null;
         } else {
@@ -681,8 +690,9 @@
       icon.addEventListener('touchend', function (e) {
         if (touchMoved) return;
         e.preventDefault();
-        var winId = icon.dataset.win;
-        if (winId) WM.open(winId);
+        // Touch fires no native dblclick, so call the inline opener directly
+        // when there's no data-win / data-open-url to act on.
+        if (!openIcon(icon) && typeof icon.ondblclick === 'function') icon.ondblclick();
       });
     });
 
