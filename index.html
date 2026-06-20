@@ -85,7 +85,7 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="assets/css/win95.css">
-  <link rel="stylesheet" href="assets/css/desktop.css?v=ai8">
+  <link rel="stylesheet" href="assets/css/desktop.css?v=ai9">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="w95">
@@ -164,6 +164,33 @@
               onkeydown="if(event.key==='Enter')WM.open('win-ai')">
         <span class="deskicon-fa" aria-hidden="true"><i class="fas fa-robot"></i></span>
         <span class="w95-deskicon__label">Ask AI</span>
+      </button>
+
+      <!-- Hybrid Search RAG (live demo) -->
+      <button class="w95-deskicon" role="listitem" tabindex="0"
+              aria-label="Hybrid Search RAG live demo - double-click to open"
+              ondblclick="openIE('https://saitejamothukuri-hybrid-search-rag.hf.space','Hybrid Search RAG')"
+              onkeydown="if(event.key==='Enter')openIE('https://saitejamothukuri-hybrid-search-rag.hf.space','Hybrid Search RAG')">
+        <span class="deskicon-fa" aria-hidden="true"><i class="fas fa-magnifying-glass"></i></span>
+        <span class="w95-deskicon__label">Hybrid RAG</span>
+      </button>
+
+      <!-- Semantic Cache (live demo) -->
+      <button class="w95-deskicon" role="listitem" tabindex="0"
+              aria-label="Semantic Cache live demo - double-click to open"
+              ondblclick="openIE('https://saitejamothukuri-semantic-cache.hf.space','Semantic Cache for LLMs')"
+              onkeydown="if(event.key==='Enter')openIE('https://saitejamothukuri-semantic-cache.hf.space','Semantic Cache for LLMs')">
+        <span class="deskicon-fa" aria-hidden="true"><i class="fas fa-bolt"></i></span>
+        <span class="w95-deskicon__label">Semantic Cache</span>
+      </button>
+
+      <!-- Text-to-SQL (live demo) -->
+      <button class="w95-deskicon" role="listitem" tabindex="0"
+              aria-label="Text-to-SQL with Guardrails live demo - double-click to open"
+              ondblclick="openIE('https://saitejamothukuri-text-to-sql-guardrails.hf.space','Text-to-SQL with Guardrails')"
+              onkeydown="if(event.key==='Enter')openIE('https://saitejamothukuri-text-to-sql-guardrails.hf.space','Text-to-SQL with Guardrails')">
+        <span class="deskicon-fa" aria-hidden="true"><i class="fas fa-database"></i></span>
+        <span class="w95-deskicon__label">Text-to-SQL</span>
       </button>
 
       <!-- My Work (Folder) -->
@@ -348,7 +375,7 @@
              aria-labelledby="win-work-title" aria-modal="true" style="display:none">
       <header class="w95-titlebar" data-win="win-work">
         <span class="w95-titlebar__icon w95-ico--folder w95-ico-16" aria-hidden="true"></span>
-        <span class="w95-titlebar__caption" id="win-work-title">My Work — 2 Projects</span>
+        <span class="w95-titlebar__caption" id="win-work-title">My Work — 5 Projects</span>
         <div class="w95-titlebar__controls">
           <button class="w95-ctrl" title="Minimize" aria-label="Minimize" onclick="WM.minimize('win-work')">_</button>
           <button class="w95-ctrl" title="Maximize" aria-label="Maximize" onclick="WM.toggleMax('win-work')">□</button>
@@ -362,7 +389,70 @@
       </div>
       <div class="w95-window__body win-body win-body--scroll">
 
-        <!-- Project 1 -->
+        <!-- Hybrid Search RAG -->
+        <div class="project-card">
+          <div class="project-header">
+            <span class="w95-ico--files w95-ico-16" aria-hidden="true"></span>
+            <h3 class="project-title">Hybrid Search RAG</h3>
+            <span class="project-badge">Featured · RAG / LLM</span>
+          </div>
+          <p class="project-desc">Chat-with-your-docs: upload PDF/MD/TXT and get answers grounded in them with <strong>inline citations</strong>. Hybrid retrieval fuses <strong>BM25 + dense embeddings via Reciprocal Rank Fusion</strong>; fully API-backed, no GPU. Deployed live.</p>
+          <div class="project-tech">
+            <span>Python</span><span>RAG</span><span>BM25</span><span>Embeddings (RRF)</span><span>OpenRouter</span><span>Streamlit</span><span>Docker</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://saitejamothukuri-hybrid-search-rag.hf.space" target="_blank" rel="noopener" class="w95-btn">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+            <a href="https://github.com/saiteja007-mv/hybrid-search-rag" target="_blank" rel="noopener" class="w95-btn">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Text-to-SQL with Guardrails -->
+        <div class="project-card">
+          <div class="project-header">
+            <span class="w95-ico--files w95-ico-16" aria-hidden="true"></span>
+            <h3 class="project-title">Text-to-SQL with Guardrails</h3>
+            <span class="project-badge">Featured · LLM Safety</span>
+          </div>
+          <p class="project-desc">Natural-language → SQL where the LLM writes the query but a <strong>sqlglot AST guardrail</strong> validates it (read-only, single-statement, table-allowlist, no file functions) <strong>before any row is read</strong>, then runs on DuckDB. Self-correction retry + execution-accuracy eval.</p>
+          <div class="project-tech">
+            <span>Python</span><span>DuckDB</span><span>sqlglot</span><span>LLM Guardrails</span><span>OpenRouter</span><span>Streamlit</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://saitejamothukuri-text-to-sql-guardrails.hf.space" target="_blank" rel="noopener" class="w95-btn">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+            <a href="https://github.com/saiteja007-mv/text-to-sql-guardrails" target="_blank" rel="noopener" class="w95-btn">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Semantic Cache for LLMs -->
+        <div class="project-card">
+          <div class="project-header">
+            <span class="w95-ico--files w95-ico-16" aria-hidden="true"></span>
+            <h3 class="project-title">Semantic Cache for LLMs</h3>
+            <span class="project-badge">Featured · LLM Infra</span>
+          </div>
+          <p class="project-desc">Drop-in cache that keys on <strong>prompt embeddings</strong>, not exact text — paraphrased repeat questions hit the cache (<strong>cosine ≥ 0.85</strong>) and skip the LLM call to cut latency and token cost. O(1) hash + vectorized cosine, LRU + TTL, 13 offline tests.</p>
+          <div class="project-tech">
+            <span>Python</span><span>Embeddings</span><span>Semantic Cache</span><span>OpenRouter</span><span>NumPy</span><span>pytest</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://saitejamothukuri-semantic-cache.hf.space" target="_blank" rel="noopener" class="w95-btn">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+            <a href="https://github.com/saiteja007-mv/semantic-cache" target="_blank" rel="noopener" class="w95-btn">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Multi-Modal Cyberbullying Detection -->
         <div class="project-card">
           <div class="project-header">
             <span class="w95-ico--files w95-ico-16" aria-hidden="true"></span>
@@ -383,19 +473,19 @@
           </div>
         </div>
 
-        <!-- Project 2 -->
+        <!-- Traffic-Flow Prediction -->
         <div class="project-card">
           <div class="project-header">
             <span class="w95-ico--files w95-ico-16" aria-hidden="true"></span>
-            <h3 class="project-title">Intelligent Real-Time Traffic Flow Prediction</h3>
-            <span class="project-badge">Featured · MLOps</span>
+            <h3 class="project-title">Traffic-Flow Prediction</h3>
+            <span class="project-badge">Featured · Deep Learning</span>
           </div>
-          <p class="project-desc">Real-time traffic prediction with an <strong>LSTM</strong> model for smart-city signal optimization — <strong>+15–20% accuracy</strong> at <strong>&lt;2s inference</strong>. End-to-end MLOps pipeline: preprocessing → training → interactive dashboards.</p>
+          <p class="project-desc"><strong>Seq2Seq encoder–decoder LSTM</strong> forecasting traffic speed on METR-LA (207 LA loop detectors), served as a Dockerized <strong>FastAPI</strong> endpoint. <strong>Test MAE 3.80 / 4.51 / 5.62 mph</strong> @ 15/30/60 min — beats classical baselines by 5–16% and lands within ~0.4 mph of the published FC-LSTM benchmark.</p>
           <div class="project-tech">
-            <span>Python</span><span>LSTM</span><span>Time Series</span><span>MLOps</span><span>Dashboards</span>
+            <span>PyTorch</span><span>Seq2Seq LSTM</span><span>FastAPI</span><span>MLflow</span><span>Hydra</span><span>Prometheus</span><span>Docker</span>
           </div>
           <div class="project-actions">
-            <a href="https://github.com/saiteja007-mv" target="_blank" rel="noopener" class="w95-btn">
+            <a href="https://github.com/saiteja007-mv/traffic-flow-prediction" target="_blank" rel="noopener" class="w95-btn">
               <i class="fab fa-github"></i> GitHub
             </a>
           </div>
@@ -403,7 +493,7 @@
 
       </div><!-- /win-body -->
       <footer class="w95-window__statusbar">
-        <span class="w95-statusfield w95-statusfield--grow">2 objects</span>
+        <span class="w95-statusfield w95-statusfield--grow">5 objects</span>
         <span class="w95-statusfield">github.com/saiteja007-mv</span>
       </footer>
     </article>
@@ -1370,7 +1460,7 @@
   </div>
 
   <!-- Scripts -->
-  <script src="assets/js/win95-desktop.js?v=ai8"></script>
-  <script src="assets/js/ai-chat.js?v=ai8"></script>
+  <script src="assets/js/win95-desktop.js?v=ai9"></script>
+  <script src="assets/js/ai-chat.js?v=ai9"></script>
 </body>
 </html>

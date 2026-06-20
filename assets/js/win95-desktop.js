@@ -828,7 +828,7 @@
      FEATURE 3 — INTERNET EXPLORER WINDOW  +  LINK INTERCEPTION
   ══════════════════════════════════════════════════════════════════ */
   (function setupIE() {
-    var FRAMABLE_HOSTS = ['drive.google.com', 'public.tableau.com', 'app.powerbi.com'];
+    var FRAMABLE_HOSTS = ['drive.google.com', 'public.tableau.com', 'app.powerbi.com', 'hf.space'];
 
     function isFramable(url) {
       if (!url) return false;

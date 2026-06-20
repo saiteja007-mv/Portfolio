@@ -33,6 +33,7 @@ var llm = require('./lib/llm');
 
 var ROOT = __dirname;
 var PORT = process.env.PORT || 8099;
+var HOST = process.env.HOST || '0.0.0.0';  // 0.0.0.0 = reachable on LAN/Tailscale, not just localhost
 
 var MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -99,9 +100,13 @@ http.createServer(function (req, res) {
     return;
   }
   serveStatic(req, res);
-}).listen(PORT, '127.0.0.1', function () {
+}).listen(PORT, HOST, function () {
   var hasKey = !!process.env.OPENROUTER_API_KEY;
-  console.log('Portfolio dev server: http://localhost:' + PORT);
+  console.log('Portfolio dev server bound to ' + HOST + ':' + PORT);
+  console.log('  Local:     http://localhost:' + PORT);
+  if (process.env.TS_IP) {
+    console.log('  Tailscale: http://' + process.env.TS_IP + ':' + PORT);
+  }
   console.log('LLM: ' + llm.MODEL + ' | API key set: ' + hasKey);
   if (!hasKey) {
     console.log('  ! No OPENROUTER_API_KEY — chat will return a config error until you set it.');
