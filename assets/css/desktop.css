@@ -1369,6 +1369,14 @@ html, body {
 .app-status--ok { color: #006000; }
 .app-status--err { color: #a00000; font-weight: bold; }
 
+.app-datasrc { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.app-dslabel { font-weight: bold; font-size: 11px; }
+.app-schema {
+  font-family: "Courier New", Consolas, monospace; font-size: 11px; color: #000080;
+  background: #fff; padding: 3px 6px; word-break: break-word;
+  box-shadow: inset 1px 1px var(--w95-sh-in), inset -1px -1px var(--w95-hi-out);
+}
+
 .app-results { margin-top: 2px; }
 .app-tablewrap {
   overflow: auto; max-height: 220px; background: #fff;

@@ -85,7 +85,7 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="assets/css/win95.css">
-  <link rel="stylesheet" href="assets/css/desktop.css?v=ai12">
+  <link rel="stylesheet" href="assets/css/desktop.css?v=ai13">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="w95">
@@ -386,6 +386,16 @@
         <p class="app-intro">Ask in plain English. The LLM writes SQL, a guardrail validates it
           (read-only, single-statement, table-allowlist), then it runs on a real
           <strong>SQLite database in your browser</strong>.</p>
+
+        <div class="app-datasrc">
+          <span class="app-dslabel">Data source:</span>
+          <button type="button" class="w95-btn" id="tsql-src-sample">Sample DB</button>
+          <button type="button" class="w95-btn" id="tsql-src-csv">Upload CSV…</button>
+          <button type="button" class="w95-btn" id="tsql-src-sql">Upload .sql…</button>
+          <input type="file" id="tsql-csv" accept=".csv" hidden>
+          <input type="file" id="tsql-sqlfile" accept=".sql,.txt" hidden>
+        </div>
+        <div class="app-status app-schema" id="tsql-schema"></div>
 
         <div class="app-chips" id="tsql-chips">
           <button type="button" class="ai-chip">Top 5 highest paid employees</button>
@@ -1591,10 +1601,10 @@
   </div>
 
   <!-- Scripts -->
-  <script src="assets/js/win95-desktop.js?v=ai12"></script>
-  <script src="assets/js/ai-chat.js?v=ai12"></script>
-  <script src="assets/js/apps/textsql.js?v=ai12"></script>
-  <script src="assets/js/apps/semcache.js?v=ai12"></script>
-  <script src="assets/js/apps/rag.js?v=ai12"></script>
+  <script src="assets/js/win95-desktop.js?v=ai13"></script>
+  <script src="assets/js/ai-chat.js?v=ai13"></script>
+  <script src="assets/js/apps/textsql.js?v=ai13"></script>
+  <script src="assets/js/apps/semcache.js?v=ai13"></script>
+  <script src="assets/js/apps/rag.js?v=ai13"></script>
 </body>
 </html>
