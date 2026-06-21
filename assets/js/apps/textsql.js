@@ -10,8 +10,9 @@
 
   var SQLJS_VER = '1.10.3';
   var SQLJS_BASE = 'https://cdn.jsdelivr.net/npm/sql.js@' + SQLJS_VER + '/dist/';
-  // code-specialized model first for cleaner SQL; rest are fallbacks (max 3).
-  var SQLGEN_MODELS = ['cohere/north-mini-code:free', 'meta-llama/llama-3.3-70b-instruct:free', 'qwen/qwen3-next-80b-a3b-instruct:free'];
+  // Instruction-following models only — SQL gen needs clean, finished output.
+  // (north-mini-code is a reasoning model: returns content=null, unusable here.)
+  var SQLGEN_MODELS = ['meta-llama/llama-3.3-70b-instruct:free', 'qwen/qwen3-next-80b-a3b-instruct:free'];
   var MAX_ROWS = 5000;
 
   var SAMPLE_SQL =

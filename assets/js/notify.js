@@ -45,13 +45,15 @@
       trayBtn.classList.add('is-pulsing');
       setTimeout(show, BOOT_DELAY_MS);
     }
+    function hidden(id) { var e = document.getElementById(id); return !e || getComputedStyle(e).display === 'none'; }
     var ps = document.getElementById('power-screen');
     if (!ps) { setTimeout(bootNotify, 1500); return; }   // no power gate → just show
     var tries = 0;
     var iv = setInterval(function () {
       tries++;
-      if (getComputedStyle(ps).display === 'none') { clearInterval(iv); bootNotify(); }
-      else if (tries > 150) { clearInterval(iv); }        // ~60s safety stop
+      // Only after BOTH the power-on screen AND the boot splash are gone.
+      if (hidden('power-screen') && hidden('boot-splash')) { clearInterval(iv); bootNotify(); }
+      else if (tries > 200) { clearInterval(iv); }        // ~80s safety stop
     }, 400);
   }
 
