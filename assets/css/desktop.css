@@ -1405,3 +1405,50 @@ html, body {
 .rag-src { background: #fff; border: 1px solid #d4d4d4; padding: 4px 6px; margin-top: 4px; }
 .rag-srcn { color: #000080; font-weight: bold; }
 .rag-rank { color: #777; }
+
+/* ══════════════════════════════════════════════════════════════════
+   NOTIFICATION TOAST + TRAY BUTTON (action center)
+══════════════════════════════════════════════════════════════════ */
+.w95-tray-btn {
+  font-family: inherit; font-size: 12px; line-height: 1; cursor: pointer;
+  padding: 1px 4px; margin-right: 4px; background: var(--w95-face);
+  box-shadow: inset -1px -1px var(--w95-sh-out), inset 1px 1px var(--w95-hi-out),
+              inset -2px -2px var(--w95-sh-in), inset 2px 2px var(--w95-hi-in);
+}
+.w95-tray-btn:active { box-shadow: inset 1px 1px var(--w95-sh-out), inset -1px -1px var(--w95-hi-out); }
+.w95-tray-btn.is-pulsing { animation: tray-pulse 1.2s ease-in-out infinite; }
+@keyframes tray-pulse { 0%,100% { background: var(--w95-face); } 50% { background: #fff3a0; } }
+
+.notify-toast {
+  position: fixed; right: 8px; bottom: 38px; width: 310px; max-width: calc(100vw - 16px);
+  z-index: 9000; background: var(--w95-face); color: #000;
+  border: 1px solid var(--w95-black);
+  box-shadow: inset -1px -1px var(--w95-sh-out), inset 1px 1px var(--w95-hi-out),
+              inset -2px -2px var(--w95-sh-in), inset 2px 2px var(--w95-hi-in),
+              3px 3px 10px rgba(0,0,0,0.35);
+  padding: 3px;
+  animation: toast-in 0.28s ease-out;
+}
+.notify-toast.is-hiding { animation: toast-out 0.28s ease-in forwards; }
+@keyframes toast-in  { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes toast-out { from { transform: translateY(0); opacity: 1; } to { transform: translateY(16px); opacity: 0; } }
+.notify-toast__bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--w95-navy-grad); color: #fff; padding: 3px 4px 3px 6px;
+}
+.notify-toast__title { font-weight: bold; font-size: 12px; }
+.notify-toast__close {
+  width: 16px; height: 14px; display: grid; place-items: center; border: none; cursor: pointer;
+  background: var(--w95-face); color: #000; font-size: 9px; font-weight: bold; font-family: inherit;
+  box-shadow: inset -1px -1px var(--w95-sh-out), inset 1px 1px var(--w95-hi-out),
+              inset -2px -2px var(--w95-sh-in), inset 2px 2px var(--w95-hi-in);
+}
+.notify-toast__body {
+  padding: 9px 10px; font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  font-size: 12px; line-height: 1.5;
+}
+.notify-toast__hint { margin-top: 7px; font-size: 11px; color: #444; }
+@media (prefers-reduced-motion: reduce) {
+  .notify-toast, .notify-toast.is-hiding { animation: none; }
+  .w95-tray-btn.is-pulsing { animation: none; }
+}

@@ -85,7 +85,7 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="assets/css/win95.css">
-  <link rel="stylesheet" href="assets/css/desktop.css?v=ai13">
+  <link rel="stylesheet" href="assets/css/desktop.css?v=ai15">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="w95">
@@ -1380,12 +1380,31 @@
 
     <div class="w95-taskbar__divider" role="separator"></div>
 
-    <!-- System tray clock -->
-    <div class="w95-tray" id="taskbar-clock" aria-label="System clock" aria-live="off">
+    <!-- System tray: notification button + clock -->
+    <div class="w95-tray" id="taskbar-clock" aria-label="System tray" aria-live="off">
+      <button class="w95-tray-btn" id="notify-tray" title="Project notifications" aria-label="Show project notifications">
+        <span aria-hidden="true">💡</span>
+      </button>
       <span id="clock-time">12:00 PM</span>
     </div>
 
   </nav>
+
+  <!-- ═══════════════════════════════════════════════════
+       NOTIFICATION TOAST (action center) — announces the live apps
+  ════════════════════════════════════════════════════ -->
+  <div id="notify-toast" class="notify-toast" role="status" aria-live="polite" style="display:none">
+    <div class="notify-toast__bar">
+      <span class="notify-toast__title">💡 New — live AI apps inside!</span>
+      <button class="notify-toast__close" id="notify-close" aria-label="Close notification">✕</button>
+    </div>
+    <div class="notify-toast__body">
+      This portfolio runs <b>real AI apps</b>, not screenshots. Double-click
+      <b>Ask&nbsp;AI</b>, <b>Text-to-SQL</b>, <b>Semantic&nbsp;Cache</b>, or
+      <b>Hybrid&nbsp;RAG</b> on the desktop to try them live.
+      <div class="notify-toast__hint">Click the <span aria-hidden="true">💡</span> in the tray anytime to see this again.</div>
+    </div>
+  </div>
 
 
   <!-- ═══════════════════════════════════════════════════
@@ -1601,10 +1620,11 @@
   </div>
 
   <!-- Scripts -->
-  <script src="assets/js/win95-desktop.js?v=ai13"></script>
-  <script src="assets/js/ai-chat.js?v=ai13"></script>
-  <script src="assets/js/apps/textsql.js?v=ai13"></script>
-  <script src="assets/js/apps/semcache.js?v=ai13"></script>
-  <script src="assets/js/apps/rag.js?v=ai13"></script>
+  <script src="assets/js/win95-desktop.js?v=ai15"></script>
+  <script src="assets/js/ai-chat.js?v=ai15"></script>
+  <script src="assets/js/apps/textsql.js?v=ai15"></script>
+  <script src="assets/js/apps/semcache.js?v=ai15"></script>
+  <script src="assets/js/apps/rag.js?v=ai15"></script>
+  <script src="assets/js/notify.js?v=ai15"></script>
 </body>
 </html>
