@@ -85,7 +85,7 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="assets/css/win95.css">
-  <link rel="stylesheet" href="assets/css/desktop.css?v=ai10">
+  <link rel="stylesheet" href="assets/css/desktop.css?v=ai11">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="w95">
@@ -186,9 +186,9 @@
 
       <!-- Text-to-SQL (live demo) -->
       <button class="w95-deskicon" role="listitem" tabindex="0"
-              data-open-url="https://saitejamothukuri-text-to-sql-guardrails.hf.space" data-open-title="Text-to-SQL with Guardrails"
-              aria-label="Text-to-SQL with Guardrails live demo - double-click to open"
-              onkeydown="if(event.key==='Enter')openIE('https://saitejamothukuri-text-to-sql-guardrails.hf.space','Text-to-SQL with Guardrails')">
+              data-win="win-textsql"
+              aria-label="Text-to-SQL with Guardrails - double-click to open"
+              onkeydown="if(event.key==='Enter')WM.open('win-textsql')">
         <span class="deskicon-fa" aria-hidden="true"><i class="fas fa-database"></i></span>
         <span class="w95-deskicon__label">Text-to-SQL</span>
       </button>
@@ -366,6 +366,54 @@
       <footer class="w95-window__statusbar">
         <span class="w95-statusfield w95-statusfield--grow" id="ai-chat-status">Powered by OpenRouter · free</span>
         <span class="w95-statusfield">RAG over Sai Teja's profile</span>
+      </footer>
+    </article>
+
+
+    <!-- TEXT-TO-SQL window (native Win95 app) -->
+    <article id="win-textsql" class="w95-window desk-window" role="dialog"
+             aria-labelledby="win-textsql-title" aria-modal="true" style="display:none">
+      <header class="w95-titlebar" data-win="win-textsql">
+        <span class="w95-titlebar__icon w95-ico--programs w95-ico-16" aria-hidden="true"></span>
+        <span class="w95-titlebar__caption" id="win-textsql-title">Text-to-SQL with Guardrails</span>
+        <div class="w95-titlebar__controls">
+          <button class="w95-ctrl" title="Minimize" aria-label="Minimize" onclick="WM.minimize('win-textsql')">_</button>
+          <button class="w95-ctrl" title="Maximize" aria-label="Maximize" onclick="WM.toggleMax('win-textsql')">□</button>
+          <button class="w95-ctrl win-close" title="Close" aria-label="Close" onclick="WM.close('win-textsql')">✕</button>
+        </div>
+      </header>
+      <div class="w95-window__body win-body win-body--scroll app-pane" id="tsql-pane">
+        <p class="app-intro">Ask in plain English. The LLM writes SQL, a guardrail validates it
+          (read-only, single-statement, table-allowlist), then it runs on a real
+          <strong>SQLite database in your browser</strong>.</p>
+
+        <div class="app-chips" id="tsql-chips">
+          <button type="button" class="ai-chip">Top 5 highest paid employees</button>
+          <button type="button" class="ai-chip">Average salary by department</button>
+          <button type="button" class="ai-chip">Who was hired most recently?</button>
+          <button type="button" class="ai-chip">Headcount per city</button>
+        </div>
+
+        <label class="app-label" for="tsql-nl">Your question</label>
+        <div class="app-row">
+          <input type="text" id="tsql-nl" class="w95-input app-grow" maxlength="200"
+                 placeholder="e.g. which department has the highest average salary?">
+          <button type="button" id="tsql-gen" class="w95-btn w95-btn--default">Generate SQL</button>
+        </div>
+
+        <label class="app-label" for="tsql-sql">SQL (editable)</label>
+        <textarea id="tsql-sql" class="w95-textarea app-sql" rows="4" spellcheck="false"
+                  placeholder="SELECT ... (generated SQL appears here; you can edit and Run)"></textarea>
+        <div class="app-row">
+          <button type="button" id="tsql-run" class="w95-btn">▶ Run query</button>
+          <span class="app-status" id="tsql-guard"></span>
+        </div>
+
+        <div class="app-results" id="tsql-results"></div>
+      </div>
+      <footer class="w95-window__statusbar">
+        <span class="w95-statusfield w95-statusfield--grow" id="tsql-foot">SQLite (sql.js) in your browser · NL→SQL via OpenRouter</span>
+        <span class="w95-statusfield">guardrailed</span>
       </footer>
     </article>
 
@@ -1460,7 +1508,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="assets/js/win95-desktop.js?v=ai10"></script>
-  <script src="assets/js/ai-chat.js?v=ai10"></script>
+  <script src="assets/js/win95-desktop.js?v=ai11"></script>
+  <script src="assets/js/ai-chat.js?v=ai11"></script>
+  <script src="assets/js/apps/textsql.js?v=ai11"></script>
 </body>
 </html>

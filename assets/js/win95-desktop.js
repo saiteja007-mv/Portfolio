@@ -177,6 +177,9 @@
     // Per-window default size overrides (smaller dialogs)
     var SIZE_OVERRIDE = {
       'win-ai':      { w: 440, h: 540 },
+      'win-textsql': { w: 640, h: 560 },
+      'win-semcache':{ w: 560, h: 560 },
+      'win-rag':     { w: 620, h: 580 },
       'win-display': { w: 320, h: 472 },
       'win-calc':    { w: 264, h: 322 },
       'win-notepad': { w: 540, h: 400 },
@@ -455,6 +458,9 @@
   // Icon class map: window id → w95-ico class
   var iconMap = {
     'win-ai':       'w95-ico--programs',
+    'win-textsql':  'w95-ico--programs',
+    'win-semcache': 'w95-ico--programs',
+    'win-rag':      'w95-ico--programs',
     'win-about':    'w95-ico--my-computer',
     'win-work':     'w95-ico--folder',
     'win-journey':  'w95-ico--tree',
@@ -478,6 +484,9 @@
   // Label map
   var labelMap = {
     'win-ai':       'Ask AI',
+    'win-textsql':  'Text-to-SQL',
+    'win-semcache': 'Semantic Cache',
+    'win-rag':      'Hybrid RAG',
     'win-about':    'About Me',
     'win-work':     'My Work',
     'win-journey':  'Journey',

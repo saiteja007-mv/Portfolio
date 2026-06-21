@@ -1348,3 +1348,34 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .ai-dot { animation: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   NATIVE WIN95 APPS (Text-to-SQL, Semantic Cache, RAG)
+══════════════════════════════════════════════════════════════════ */
+.app-pane {
+  display: flex; flex-direction: column; gap: 8px; padding: 10px;
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif; font-size: 12px; color: #000;
+}
+.app-intro { margin: 0; line-height: 1.45; }
+.app-label { font-weight: bold; margin-top: 2px; }
+.app-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.app-grow { flex: 1 1 auto; min-width: 0; }
+.app-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.app-sql {
+  width: 100%; font-family: "Courier New", Consolas, monospace; font-size: 12px;
+  resize: vertical;
+}
+.app-status { font-size: 11px; color: #333; }
+.app-status--ok { color: #006000; }
+.app-status--err { color: #a00000; font-weight: bold; }
+
+.app-results { margin-top: 2px; }
+.app-tablewrap {
+  overflow: auto; max-height: 220px; background: #fff;
+  box-shadow: inset 1px 1px var(--w95-sh-in), inset -1px -1px var(--w95-hi-out);
+}
+.app-table { border-collapse: collapse; width: 100%; font-size: 12px; }
+.app-table th, .app-table td { border: 1px solid #c0c0c0; padding: 3px 8px; text-align: left; white-space: nowrap; }
+.app-table th { background: #000080; color: #fff; position: sticky; top: 0; }
+.app-table tbody tr:nth-child(even) { background: #eef0f4; }
+.app-empty { margin: 4px 0 0; font-size: 11px; color: #555; }

@@ -71,6 +71,31 @@ async function handleChat(req, res) {
   });
 }
 
+// Run a real Vercel api/*.js function locally via a tiny (req,res) shim,
+// so /api/complete and /api/embed behave the same in dev as in prod.
+function handleApiModule(name, req, res) {
+  var chunks = [];
+  req.on('data', function (c) { chunks.push(c); });
+  req.on('end', function () {
+    var mod;
+    try { mod = require('./api/' + name + '.js'); }
+    catch (e) { sendJson(res, 404, { error: 'No such endpoint' }); return; }
+    var body = {};
+    try { body = JSON.parse(Buffer.concat(chunks).toString() || '{}'); } catch (e) {}
+    var shimReq = { method: req.method, url: req.url, body: body };
+    var shimRes = {
+      statusCode: 200,
+      setHeader: function () {},
+      status: function (c) { this.statusCode = c; return this; },
+      json: function (obj) { sendJson(res, this.statusCode, obj); }
+    };
+    Promise.resolve(mod(shimReq, shimRes)).catch(function (err) {
+      console.error('[dev /api/' + name + ']', err && err.message);
+      sendJson(res, 500, { error: 'error' });
+    });
+  });
+}
+
 function serveStatic(req, res) {
   var urlPath = decodeURIComponent(req.url.split('?')[0]);
   if (urlPath === '/') { urlPath = '/index.html'; }
@@ -94,9 +119,16 @@ function serveStatic(req, res) {
 }
 
 http.createServer(function (req, res) {
-  if (req.url.split('?')[0] === '/api/chat') {
+  var p = req.url.split('?')[0];
+  if (p === '/api/chat') {
     if (req.method !== 'POST') { sendJson(res, 405, { error: 'Method not allowed' }); return; }
     handleChat(req, res);
+    return;
+  }
+  var m = p.match(/^\/api\/([a-z0-9_-]+)$/i);
+  if (m) {
+    if (req.method !== 'POST') { sendJson(res, 405, { error: 'Method not allowed' }); return; }
+    handleApiModule(m[1], req, res);
     return;
   }
   serveStatic(req, res);
