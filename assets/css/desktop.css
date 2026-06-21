@@ -1379,3 +1379,21 @@ html, body {
 .app-table th { background: #000080; color: #fff; position: sticky; top: 0; }
 .app-table tbody tr:nth-child(even) { background: #eef0f4; }
 .app-empty { margin: 4px 0 0; font-size: 11px; color: #555; }
+
+/* Semantic Cache */
+.sc-stats { display: flex; flex-wrap: wrap; gap: 12px; font-size: 11px;
+  background: var(--w95-face); padding: 5px 8px;
+  box-shadow: inset 1px 1px var(--w95-sh-in), inset -1px -1px var(--w95-hi-out); }
+.sc-entry { border: 1px solid #c4c8d0; background: #fff; padding: 6px 8px; margin-bottom: 6px; }
+.sc-badge { font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: .03em; margin-bottom: 3px; }
+.sc-badge.sc-hit { color: #006000; }
+.sc-badge.sc-miss { color: #99004d; }
+.sc-q { font-weight: bold; }
+.sc-a { color: #222; margin-top: 2px; }
+
+/* RAG */
+.rag-answer { background: #eef0f4; border: 1px solid #c4c8d0; padding: 8px 10px; line-height: 1.45; }
+.rag-srcs { margin-top: 8px; font-size: 11px; }
+.rag-src { background: #fff; border: 1px solid #d4d4d4; padding: 4px 6px; margin-top: 4px; }
+.rag-srcn { color: #000080; font-weight: bold; }
+.rag-rank { color: #777; }

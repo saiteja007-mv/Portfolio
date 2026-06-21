@@ -85,7 +85,7 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="assets/css/win95.css">
-  <link rel="stylesheet" href="assets/css/desktop.css?v=ai11">
+  <link rel="stylesheet" href="assets/css/desktop.css?v=ai12">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="w95">
@@ -168,18 +168,18 @@
 
       <!-- Hybrid Search RAG (live demo) -->
       <button class="w95-deskicon" role="listitem" tabindex="0"
-              data-open-url="https://saitejamothukuri-hybrid-search-rag.hf.space" data-open-title="Hybrid Search RAG"
-              aria-label="Hybrid Search RAG live demo - double-click to open"
-              onkeydown="if(event.key==='Enter')openIE('https://saitejamothukuri-hybrid-search-rag.hf.space','Hybrid Search RAG')">
+              data-win="win-rag"
+              aria-label="Hybrid Search RAG - double-click to open"
+              onkeydown="if(event.key==='Enter')WM.open('win-rag')">
         <span class="deskicon-fa" aria-hidden="true"><i class="fas fa-magnifying-glass"></i></span>
         <span class="w95-deskicon__label">Hybrid RAG</span>
       </button>
 
       <!-- Semantic Cache (live demo) -->
       <button class="w95-deskicon" role="listitem" tabindex="0"
-              data-open-url="https://saitejamothukuri-semantic-cache.hf.space" data-open-title="Semantic Cache for LLMs"
-              aria-label="Semantic Cache live demo - double-click to open"
-              onkeydown="if(event.key==='Enter')openIE('https://saitejamothukuri-semantic-cache.hf.space','Semantic Cache for LLMs')">
+              data-win="win-semcache"
+              aria-label="Semantic Cache for LLMs - double-click to open"
+              onkeydown="if(event.key==='Enter')WM.open('win-semcache')">
         <span class="deskicon-fa" aria-hidden="true"><i class="fas fa-bolt"></i></span>
         <span class="w95-deskicon__label">Semantic Cache</span>
       </button>
@@ -414,6 +414,89 @@
       <footer class="w95-window__statusbar">
         <span class="w95-statusfield w95-statusfield--grow" id="tsql-foot">SQLite (sql.js) in your browser · NL→SQL via OpenRouter</span>
         <span class="w95-statusfield">guardrailed</span>
+      </footer>
+    </article>
+
+
+    <!-- SEMANTIC CACHE window (native Win95 app) -->
+    <article id="win-semcache" class="w95-window desk-window" role="dialog"
+             aria-labelledby="win-semcache-title" aria-modal="true" style="display:none">
+      <header class="w95-titlebar" data-win="win-semcache">
+        <span class="w95-titlebar__icon w95-ico--programs w95-ico-16" aria-hidden="true"></span>
+        <span class="w95-titlebar__caption" id="win-semcache-title">Semantic Cache for LLMs</span>
+        <div class="w95-titlebar__controls">
+          <button class="w95-ctrl" title="Minimize" aria-label="Minimize" onclick="WM.minimize('win-semcache')">_</button>
+          <button class="w95-ctrl" title="Maximize" aria-label="Maximize" onclick="WM.toggleMax('win-semcache')">□</button>
+          <button class="w95-ctrl win-close" title="Close" aria-label="Close" onclick="WM.close('win-semcache')">✕</button>
+        </div>
+      </header>
+      <div class="w95-window__body win-body win-body--scroll app-pane" id="sc-pane">
+        <p class="app-intro">Ask anything. The cache keys on the <strong>meaning</strong> of your prompt
+          (embedding), not exact text — so a paraphrase of an earlier question returns the cached
+          answer instantly and <strong>skips the LLM call</strong>. Threshold: cosine ≥ 0.85.</p>
+
+        <div class="app-chips" id="sc-chips">
+          <button type="button" class="ai-chip">What is retrieval-augmented generation?</button>
+          <button type="button" class="ai-chip">Explain RAG in simple terms</button>
+          <button type="button" class="ai-chip">How does a vector database work?</button>
+        </div>
+
+        <div class="app-row">
+          <input type="text" id="sc-q" class="w95-input app-grow" maxlength="200" placeholder="Ask a question…">
+          <button type="button" id="sc-ask" class="w95-btn w95-btn--default">Ask</button>
+        </div>
+        <div class="app-status" id="sc-status"></div>
+
+        <div class="sc-stats" id="sc-stats">
+          <span>Entries: <b id="sc-n">0</b></span>
+          <span>Hits: <b id="sc-hits">0</b></span>
+          <span>Misses: <b id="sc-miss">0</b></span>
+          <span>LLM calls saved: <b id="sc-saved">0</b></span>
+        </div>
+
+        <div class="app-results" id="sc-log"></div>
+      </div>
+      <footer class="w95-window__statusbar">
+        <span class="w95-statusfield w95-statusfield--grow" id="sc-foot">Embeddings via OpenRouter · cache + cosine in your browser</span>
+        <span class="w95-statusfield">LRU</span>
+      </footer>
+    </article>
+
+
+    <!-- HYBRID RAG window (native Win95 app) -->
+    <article id="win-rag" class="w95-window desk-window" role="dialog"
+             aria-labelledby="win-rag-title" aria-modal="true" style="display:none">
+      <header class="w95-titlebar" data-win="win-rag">
+        <span class="w95-titlebar__icon w95-ico--programs w95-ico-16" aria-hidden="true"></span>
+        <span class="w95-titlebar__caption" id="win-rag-title">Hybrid Search RAG</span>
+        <div class="w95-titlebar__controls">
+          <button class="w95-ctrl" title="Minimize" aria-label="Minimize" onclick="WM.minimize('win-rag')">_</button>
+          <button class="w95-ctrl" title="Maximize" aria-label="Maximize" onclick="WM.toggleMax('win-rag')">□</button>
+          <button class="w95-ctrl win-close" title="Close" aria-label="Close" onclick="WM.close('win-rag')">✕</button>
+        </div>
+      </header>
+      <div class="w95-window__body win-body win-body--scroll app-pane" id="rag-pane">
+        <p class="app-intro">Upload a document, then ask about it. Retrieval fuses
+          <strong>BM25 keyword search + dense embeddings</strong> via Reciprocal Rank Fusion;
+          the answer is grounded in the retrieved chunks with citations.</p>
+
+        <div class="app-row">
+          <input type="file" id="rag-file" accept=".pdf,.txt,.md,.markdown" class="app-grow">
+          <button type="button" id="rag-ingest" class="w95-btn w95-btn--default">Ingest</button>
+        </div>
+        <div class="app-status" id="rag-ingest-status">No document loaded. (Tip: a short .txt/.md keeps you under the free embedding limit.)</div>
+
+        <div class="app-row">
+          <input type="text" id="rag-q" class="w95-input app-grow" maxlength="240" placeholder="Ask a question about the document…">
+          <button type="button" id="rag-ask" class="w95-btn">Ask</button>
+        </div>
+        <div class="app-status" id="rag-status"></div>
+
+        <div class="app-results" id="rag-answer"></div>
+      </div>
+      <footer class="w95-window__statusbar">
+        <span class="w95-statusfield w95-statusfield--grow" id="rag-foot">BM25 + dense (RRF) · pdf.js + embeddings · answer via OpenRouter</span>
+        <span class="w95-statusfield">cited</span>
       </footer>
     </article>
 
@@ -1508,8 +1591,10 @@
   </div>
 
   <!-- Scripts -->
-  <script src="assets/js/win95-desktop.js?v=ai11"></script>
-  <script src="assets/js/ai-chat.js?v=ai11"></script>
-  <script src="assets/js/apps/textsql.js?v=ai11"></script>
+  <script src="assets/js/win95-desktop.js?v=ai12"></script>
+  <script src="assets/js/ai-chat.js?v=ai12"></script>
+  <script src="assets/js/apps/textsql.js?v=ai12"></script>
+  <script src="assets/js/apps/semcache.js?v=ai12"></script>
+  <script src="assets/js/apps/rag.js?v=ai12"></script>
 </body>
 </html>
