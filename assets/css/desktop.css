@@ -1452,3 +1452,113 @@ html, body {
   .notify-toast, .notify-toast.is-hiding { animation: none; }
   .w95-tray-btn.is-pulsing { animation: none; }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   TOKEN-STATS WIDGET — top-right of the Win95 desktop, wiggle effect.
+   Sits above icons but below open windows; power-screen + boot-splash
+   (higher z) cover it during the boot sequence, so it appears post-boot.
+═══════════════════════════════════════════════════════════════════════ */
+.token-stats {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  width: 232px;
+  z-index: 5500;
+  font-family: var(--w95-font);
+  font-size: var(--w95-font-size);
+  color: var(--w95-text);
+  background: var(--w95-face);
+  /* Classic Win95 raised bevel */
+  border: 2px solid;
+  border-color: var(--w95-hi-out) var(--w95-sh-out) var(--w95-sh-out) var(--w95-hi-out);
+  box-shadow: inset 1px 1px 0 var(--w95-hi-in), inset -1px -1px 0 var(--w95-sh-in),
+              3px 4px 0 rgba(0, 0, 0, 0.35);
+  transform-origin: 80% 0%;
+  animation: token-stats-wiggle 3.4s ease-in-out infinite;
+  will-change: transform;
+}
+.token-stats__titlebar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 18px;
+  padding: 0 4px;
+  background: var(--w95-navy-grad);
+  color: #fff;
+  font-weight: 700;
+}
+.token-stats__titlebar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px; height: 14px;
+  background: #ffd60a;
+  color: #5b3700;
+  font-size: 9px;
+  border: 1px solid #000;
+}
+.token-stats__titlebar-caption { font-size: 11px; letter-spacing: 0.02em; }
+.token-stats__body { padding: 8px 10px 9px; }
+.token-stats__list { margin: 0; padding: 0; display: grid; gap: 4px; }
+.token-stats__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.token-stats__row dt {
+  margin: 0;
+  font-size: 11px;
+  color: var(--w95-text);
+  opacity: 0.78;
+}
+.token-stats__row dd {
+  margin: 0;
+  text-align: right;
+  min-width: 0;
+}
+.token-stats__num {
+  display: inline-block;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  background: #000080;
+  color: #fff;
+  padding: 1px 5px;
+  border: 1px solid #00004a;
+}
+.token-stats__num--sm { font-size: 11px; background: #fff; color: #000080; border-color: #808080; }
+.token-stats__foot {
+  margin: 8px 0 0;
+  padding-top: 6px;
+  border-top: 1px solid var(--w95-sh-in);
+  font-size: 10px;
+  color: var(--w95-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+.token-stats__sub { opacity: 0.65; font-style: italic; }
+.token-stats:hover { animation-play-state: paused; transform: rotate(0deg) translateY(-2px); }
+
+@keyframes token-stats-wiggle {
+  0%   { transform: rotate(-1.6deg) translateY(0); }
+  25%  { transform: rotate(1.4deg)  translateY(-1px); }
+  50%  { transform: rotate(-1.0deg) translateY(0); }
+  75%  { transform: rotate(1.6deg)  translateY(-1px); }
+  100% { transform: rotate(-1.6deg) translateY(0); }
+}
+
+/* Narrow screens: shrink, then hide if truly tight to keep desktop usable */
+@media (max-width: 720px) {
+  .token-stats { width: 198px; top: 10px; right: 10px; }
+  .token-stats__num { font-size: 13px; }
+}
+@media (max-width: 480px) {
+  .token-stats { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .token-stats { animation: none; transform: rotate(-1.0deg); }
+}

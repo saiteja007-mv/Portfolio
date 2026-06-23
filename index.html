@@ -278,6 +278,42 @@
 
 
     <!-- ═══════════════════════════════════════════════
+         AI TOKEN-USAGE WIDGET (top-right of desktop, wiggles)
+         Data source: `tokscale --json` (run locally to refresh).
+         Range: 2025-09-28 — 2026-06-23 · 101 active days.
+    ══════════════════════════════════════════════════ -->
+    <aside class="token-stats" id="token-stats"
+           role="complementary" aria-label="AI token usage so far">
+      <header class="token-stats__titlebar">
+        <span class="token-stats__titlebar-icon" aria-hidden="true">
+          <i class="fas fa-bolt"></i>
+        </span>
+        <span class="token-stats__titlebar-caption">AI Token Usage</span>
+      </header>
+      <div class="token-stats__body">
+        <dl class="token-stats__list">
+          <div class="token-stats__row">
+            <dt>Total tokens</dt>
+            <dd><span class="token-stats__num" data-stat="tokens">4.32B</span></dd>
+          </div>
+          <div class="token-stats__row">
+            <dt>Spend</dt>
+            <dd><span class="token-stats__num" data-stat="spend">$4,518</span></dd>
+          </div>
+          <div class="token-stats__row">
+            <dt>Top model</dt>
+            <dd><span class="token-stats__num token-stats__num--sm" data-stat="model">Claude&nbsp;Opus&nbsp;4.7&nbsp;/&nbsp;4.8</span></dd>
+          </div>
+        </dl>
+        <p class="token-stats__foot">
+          <span data-stat="msgs-days">25,113 msgs · 101 days</span>
+          <span class="token-stats__sub" data-stat="since">since Sep&nbsp;2025</span>
+        </p>
+      </div>
+    </aside>
+
+
+    <!-- ═══════════════════════════════════════════════
          WINDOWS
     ══════════════════════════════════════════════════ -->
 
