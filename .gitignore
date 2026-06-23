@@ -17,3 +17,6 @@ node_modules/
 
 # Local session scaffolding (internal notes, not for the public repo)
 Session_Handoff.md
+
+# Rolling log from scripts/refresh-token-stats.ps1 (local-only chatter)
+scripts/.refresh.log
