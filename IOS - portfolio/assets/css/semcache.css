@@ -1,0 +1,217 @@
+/* ══════════════════════════════════════════════════════════════════
+   SEMANTIC CACHE — iOS 26 "Liquid Glass" styling
+   Scoped to #sc-pane. Theme-var driven (dark + light), reduced-motion safe.
+   Styles: intro, suggestion chips, ask row, status, 4-counter stats strip
+   (glass pills), result log (HIT/MISS cards), footer.
+   All ids unchanged: sc-q, sc-ask, sc-status, sc-n, sc-hits, sc-miss,
+   sc-saved, sc-log, sc-foot + .ai-chip in #sc-chips.
+═══════════════════════════════════════════════════════════════════ */
+
+#sc-pane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-5) calc(var(--sp-5) + var(--safe-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Intro copy ───────────────────────────────────────────────── */
+#sc-pane .app-intro {
+  margin: 0;
+  font-size: var(--fs-subhead);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+#sc-pane .app-intro strong { color: var(--text-primary); font-weight: 600; }
+
+/* ── Suggestion chips ─────────────────────────────────────────── */
+#sc-chips.app-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+#sc-chips .ai-chip {
+  appearance: none;
+  border: 1px solid var(--glass-hairline);
+  background: var(--chip-fill);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--fs-footnote);
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  transition: transform var(--t-fast) var(--spring),
+              background var(--t-fast) ease;
+}
+#sc-chips .ai-chip:hover { background: var(--control-fill-strong); }
+#sc-chips .ai-chip:active { transform: scale(0.96); }
+#sc-chips .ai-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Ask row (input + button) ─────────────────────────────────── */
+#sc-pane .app-row {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+}
+#sc-pane .app-grow { flex: 1 1 auto; min-width: 0; }
+
+#sc-q.ios-input {
+  width: 100%;
+  font: inherit;
+  font-size: var(--fs-body);
+  color: var(--text-primary);
+  background: var(--control-fill);
+  border: 1px solid var(--control-border);
+  border-radius: var(--r-control);
+  padding: 12px 16px;
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  transition: border-color var(--t-fast) ease, background var(--t-fast) ease;
+}
+#sc-q.ios-input::placeholder { color: var(--text-tertiary); }
+#sc-q.ios-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--control-fill-strong);
+}
+
+#sc-ask.ios-btn {
+  appearance: none;
+  border: 1px solid var(--glass-hairline);
+  font: inherit;
+  font-size: var(--fs-headline);
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: var(--r-control);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform var(--t-fast) var(--spring),
+              filter var(--t-fast) ease;
+}
+#sc-ask.ios-btn--primary {
+  background: var(--accent);
+  color: var(--text-on-accent);
+  border-color: transparent;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28);
+}
+#sc-ask.ios-btn:active { transform: scale(0.96); }
+#sc-ask.ios-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#sc-ask.ios-btn:disabled { opacity: .5; cursor: default; }
+
+/* ── Status line ──────────────────────────────────────────────── */
+#sc-status.app-status {
+  min-height: 1.2em;
+  font-size: var(--fs-footnote);
+  color: var(--text-secondary);
+  transition: color var(--t-fast) ease;
+}
+#sc-status.app-status:empty { display: none; }
+#sc-status.app-status--ok  { color: var(--sys-green); }
+#sc-status.app-status--err { color: var(--sys-red); }
+
+/* ── Stats strip: 4 glass pills ───────────────────────────────── */
+#sc-stats.sc-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-2);
+}
+#sc-stats.sc-stats > span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+  padding: var(--sp-3) var(--sp-2);
+  border-radius: var(--r-card);
+  border: 1px solid var(--glass-hairline);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+#sc-stats.sc-stats > span b {
+  font-size: var(--fs-title2);
+  font-weight: var(--fw-title2);
+  line-height: 1;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  #sc-stats.sc-stats > span { background: var(--glass-fill-solid); }
+}
+
+/* ── Result log ───────────────────────────────────────────────── */
+#sc-log.app-results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+#sc-log .sc-entry {
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-card);
+  border: 1px solid var(--glass-hairline);
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  #sc-log .sc-entry { background: var(--glass-fill-solid); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #sc-log .sc-entry { animation: ios-rise var(--t-med) var(--spring) both; }
+}
+
+#sc-log .sc-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: .2px;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  margin-bottom: var(--sp-2);
+}
+#sc-log .sc-badge.sc-hit {
+  color: var(--sys-green);
+  background: color-mix(in srgb, var(--sys-green) 18%, transparent);
+}
+#sc-log .sc-badge.sc-miss {
+  color: var(--sys-orange);
+  background: color-mix(in srgb, var(--sys-orange) 18%, transparent);
+}
+#sc-log .sc-q {
+  font-size: var(--fs-callout);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+#sc-log .sc-a {
+  font-size: var(--fs-subhead);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* ── Footer ───────────────────────────────────────────────────── */
+#sc-pane .app-foot {
+  margin-top: auto;
+  padding-top: var(--sp-2);
+  font-size: var(--fs-caption);
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+/* ── Wider layout: 4-up stats strip ───────────────────────────── */
+@media (min-width: 768px) {
+  #sc-stats.sc-stats { grid-template-columns: repeat(4, 1fr); }
+}

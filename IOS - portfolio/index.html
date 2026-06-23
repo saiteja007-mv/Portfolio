@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <title>Sai Teja Mothukuri — AI/ML Engineer</title>
+
+  <meta name="description" content="AI/ML Engineer portfolio reimagined as an iOS 26 'Liquid Glass' interface — deep learning, Generative AI (RAG/LLM), and MLOps systems shipped end to end.">
+  <meta name="author" content="Sai Teja Mothukuri">
+  <meta name="theme-color" content="#06070f" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#eef3fb" media="(prefers-color-scheme: light)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Sai Teja — iOS">
+
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/favicon.svg">
+
+  <!-- Pre-paint theme (avoid flash of wrong theme) -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('ios-theme');
+        if (t === 'light' || t === 'dark') {
+          document.documentElement.setAttribute('data-theme', t);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts + icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Styles (order matters: tokens first) -->
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/shell.css">
+  <link rel="stylesheet" href="assets/css/apps.css">
+  <link rel="stylesheet" href="assets/css/ai-chat.css">
+  <link rel="stylesheet" href="assets/css/rag.css">
+  <link rel="stylesheet" href="assets/css/semcache.css">
+  <link rel="stylesheet" href="assets/css/textsql.css">
+</head>
+<body>
+
+  <!-- Wallpaper (behind everything) -->
+  <div class="ios-wallpaper" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       STATUS BAR (persistent top chrome)
+  ════════════════════════════════════════════════════════════════════ -->
+  <header class="status-bar" id="status-bar" role="banner">
+    <span class="status-bar__time" id="status-time">9:41</span>
+    <div class="status-bar__right" aria-hidden="true">
+      <i class="fas fa-signal"></i>
+      <i class="fas fa-wifi"></i>
+      <i class="fas fa-battery-three-quarters"></i>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       DYNAMIC ISLAND
+  ════════════════════════════════════════════════════════════════════ -->
+  <button type="button" class="dynamic-island" id="dynamic-island"
+          aria-label="Status: AI/ML Engineer at Honeywell. Tap to expand.">
+    <span class="dynamic-island__glyph" id="island-glyph" aria-hidden="true"></span>
+    <span class="dynamic-island__text" id="island-text">AI/ML Engineer @ Honeywell</span>
+  </button>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BOOT SCREEN
+  ════════════════════════════════════════════════════════════════════ -->
+  <div id="boot-screen" class="boot-screen" role="status" aria-live="polite" aria-label="Starting up">
+    <div class="boot-screen__inner">
+      <i class="fab fa-apple boot-screen__logo" aria-hidden="true"></i>
+      <p class="boot-screen__name">Sai Teja Mothukuri</p>
+      <div class="boot-screen__bar"><span id="boot-progress"></span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       LOCK SCREEN
+  ════════════════════════════════════════════════════════════════════ -->
+  <div id="lock-screen" class="lock-screen" role="dialog" aria-label="Lock screen — swipe up or press Enter to unlock">
+    <div class="lock-screen__clock">
+      <p class="lock-screen__date" id="lock-date">Saturday, June 21</p>
+      <p class="lock-screen__time" id="lock-time">9:41</p>
+    </div>
+
+    <!-- Lock-screen widgets (Apple iOS 26 composition: time + small widgets, no notif cards) -->
+    <div class="lock-widgets" id="lock-widgets" aria-label="Lock screen widgets">
+      <div class="glass lock-widget lock-widget--pill" role="button" tabindex="0">
+        <i class="fas fa-briefcase lock-widget__glyph" aria-hidden="true"></i>
+        <div class="lock-widget__body">
+          <p class="lock-widget__title">AI/ML Engineer</p>
+          <p class="lock-widget__sub">Honeywell · Richmond, VA</p>
+        </div>
+      </div>
+      <div class="glass lock-widget lock-widget--circle" role="button" tabindex="0" aria-label="Open to opportunities">
+        <i class="fas fa-circle-check lock-widget__circle-glyph" aria-hidden="true"></i>
+        <span class="lock-widget__circle-label">Open</span>
+      </div>
+      <div class="glass lock-widget lock-widget--circle lock-widget--yt" role="button" tabindex="0" aria-label="TechRex YouTube">
+        <i class="fab fa-youtube lock-widget__circle-glyph" aria-hidden="true"></i>
+        <span class="lock-widget__circle-label">TechRex</span>
+      </div>
+    </div>
+
+    <div class="lock-screen__bottom">
+      <button type="button" class="glass lock-screen__affordance" id="lock-flashlight" aria-label="Flashlight (decorative)" tabindex="-1">
+        <i class="fas fa-lightbulb" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="lock-screen__unlock" id="lock-unlock">
+        <span class="lock-screen__hint">swipe up to open</span>
+      </button>
+      <button type="button" class="glass lock-screen__affordance" id="lock-camera" aria-label="Camera (decorative)" tabindex="-1">
+        <i class="fas fa-camera" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       HOME SCREEN
+  ════════════════════════════════════════════════════════════════════ -->
+  <main id="home" class="home" aria-label="Home screen">
+
+    <!-- Spotlight trigger (pull-down) -->
+    <button type="button" class="home__spotlight-trigger glass" id="spotlight-trigger" aria-label="Search">
+      <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+      <span>Search</span>
+    </button>
+
+    <!-- Paged icon grid (rendered by ios.js from window.APPS) -->
+    <div class="home__pages" id="home-pages">
+      <section class="home__page" id="home-page-1" data-page="1" aria-label="Apps">
+        <div class="home__grid" id="home-grid" data-grid-page="1">
+          <!-- App icons injected by ios.js for page 1 -->
+        </div>
+      </section>
+      <section class="home__page" id="home-page-2" data-page="2" aria-label="Widgets" hidden>
+        <div class="home__widgets" id="home-widgets">
+          <!-- Widgets injected by ios.js: clock, role, latest project, TechRex subscribe -->
+        </div>
+      </section>
+    </div>
+
+    <!-- Page dots -->
+    <div class="home__dots" id="home-dots" role="tablist" aria-label="Home pages"></div>
+
+    <!-- Dock (rendered by ios.js from window.APPS where dock:true) -->
+    <nav class="dock glass glass--sheen" id="dock" aria-label="Dock">
+      <div class="dock__grid" id="dock-grid">
+        <!-- Dock icons injected by ios.js -->
+      </div>
+    </nav>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       OVERLAYS — Control Center / App Switcher / Spotlight
+  ════════════════════════════════════════════════════════════════════ -->
+  <div id="control-center" class="control-center" role="dialog" aria-label="Control Center" aria-hidden="true">
+    <div class="control-center__panel" id="control-center-panel">
+      <!-- Tiles injected by ios.js (theme toggle, brightness, links, TechRex, resume) -->
+    </div>
+  </div>
+
+  <div id="app-switcher" class="app-switcher" role="dialog" aria-label="App switcher" aria-hidden="true">
+    <div class="app-switcher__rail" id="app-switcher-rail">
+      <!-- Open-app cards injected by ios.js -->
+    </div>
+  </div>
+
+  <div id="spotlight" class="spotlight" role="dialog" aria-label="Spotlight search" aria-hidden="true">
+    <div class="spotlight__panel glass">
+      <div class="spotlight__field">
+        <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="text" id="spotlight-input" class="spotlight__input" placeholder="Search apps and projects"
+               aria-label="Search apps and projects" autocomplete="off">
+      </div>
+      <ul class="spotlight__results" id="spotlight-results" role="listbox" aria-label="Results"></ul>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       APP SHEETS — one <section> per app.
+       Static apps: empty [data-app-body] (render.js fills from content.js).
+       Functional apps: FULL markup with the EXACT original element ids.
+  ════════════════════════════════════════════════════════════════════ -->
+
+  <!-- ── About (static) ──────────────────────────────────────────────── -->
+  <section class="app-sheet" id="app-about" data-app="about" role="dialog" aria-modal="true" aria-labelledby="app-about-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-about-title">About</h1>
+      <button type="button" class="app-sheet__close" data-app-close="about" aria-label="Close About"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body" data-app-body></div>
+  </section>
+
+  <!-- ── Projects (static) ───────────────────────────────────────────── -->
+  <section class="app-sheet" id="app-projects" data-app="projects" role="dialog" aria-modal="true" aria-labelledby="app-projects-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-projects-title">Projects</h1>
+      <button type="button" class="app-sheet__close" data-app-close="projects" aria-label="Close Projects"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body" data-app-body></div>
+  </section>
+
+  <!-- ── Ask AI (functional) — original ids: ai-chat-log, ai-chat-form,
+       ai-chat-input, ai-chat-send, ai-chat-status ──────────────────────── -->
+  <section class="app-sheet" id="app-askai" data-app="askai" role="dialog" aria-modal="true" aria-labelledby="app-askai-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-askai-title">Ask AI</h1>
+      <button type="button" class="app-sheet__close" data-app-close="askai" aria-label="Close Ask AI"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body app-sheet__body--flush ai-chat">
+      <div class="ai-chat__log" id="ai-chat-log" role="log" aria-live="polite" aria-label="Chat with the AI assistant">
+        <!-- messages injected by ai-chat.js -->
+      </div>
+      <form class="ai-chat__inputrow" id="ai-chat-form" autocomplete="off">
+        <input type="text" id="ai-chat-input" class="ios-input ai-chat__input"
+               placeholder="Ask me anything about Sai Teja…" aria-label="Your question" maxlength="400">
+        <button type="submit" class="ios-btn ios-btn--primary ai-chat__send" id="ai-chat-send">Send</button>
+      </form>
+      <p class="ai-chat__status" id="ai-chat-status">Powered by OpenRouter · free</p>
+    </div>
+  </section>
+
+  <!-- ── Messages (static contact: chat thread + working form) ─────────── -->
+  <section class="app-sheet" id="app-messages" data-app="messages" role="dialog" aria-modal="true" aria-labelledby="app-messages-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-messages-title">Messages</h1>
+      <button type="button" class="app-sheet__close" data-app-close="messages" aria-label="Close Messages"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body" data-app-body></div>
+  </section>
+
+  <!-- ── Journey (static) ────────────────────────────────────────────── -->
+  <section class="app-sheet" id="app-journey" data-app="journey" role="dialog" aria-modal="true" aria-labelledby="app-journey-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-journey-title">Journey</h1>
+      <button type="button" class="app-sheet__close" data-app-close="journey" aria-label="Close Journey"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body" data-app-body></div>
+  </section>
+
+  <!-- ── Skills (static) ─────────────────────────────────────────────── -->
+  <section class="app-sheet" id="app-skills" data-app="skills" role="dialog" aria-modal="true" aria-labelledby="app-skills-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-skills-title">Skills</h1>
+      <button type="button" class="app-sheet__close" data-app-close="skills" aria-label="Close Skills"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body" data-app-body></div>
+  </section>
+
+  <!-- ── Achievements (static) ───────────────────────────────────────── -->
+  <section class="app-sheet" id="app-achievements" data-app="achievements" role="dialog" aria-modal="true" aria-labelledby="app-achievements-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-achievements-title">Achievements</h1>
+      <button type="button" class="app-sheet__close" data-app-close="achievements" aria-label="Close Achievements"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body" data-app-body></div>
+  </section>
+
+  <!-- ── Hybrid RAG (functional) — original ids: rag-pane (guard), rag-file,
+       rag-ingest, rag-ingest-status, rag-q, rag-ask, rag-status, rag-answer,
+       rag-foot ─────────────────────────────────────────────────────────── -->
+  <section class="app-sheet" id="app-hybridrag" data-app="hybridrag" role="dialog" aria-modal="true" aria-labelledby="app-hybridrag-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-hybridrag-title">Hybrid RAG</h1>
+      <button type="button" class="app-sheet__close" data-app-close="hybridrag" aria-label="Close Hybrid RAG"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body app-pane" id="rag-pane">
+      <p class="app-intro">Upload a document, then ask about it. Retrieval fuses
+        <strong>BM25 keyword search + dense embeddings</strong> via Reciprocal Rank Fusion;
+        the answer is grounded in the retrieved chunks with citations.</p>
+
+      <div class="app-row">
+        <input type="file" id="rag-file" accept=".pdf,.txt,.md,.markdown" class="app-grow">
+        <button type="button" id="rag-ingest" class="ios-btn ios-btn--primary">Ingest</button>
+      </div>
+      <div class="app-status" id="rag-ingest-status" role="status" aria-live="polite">No document loaded. (Tip: a short .txt/.md keeps you under the free embedding limit.)</div>
+
+      <div class="app-row">
+        <input type="text" id="rag-q" class="ios-input app-grow" maxlength="240" placeholder="Ask a question about the document…">
+        <button type="button" id="rag-ask" class="ios-btn">Ask</button>
+      </div>
+      <div class="app-status" id="rag-status" role="status" aria-live="polite"></div>
+
+      <div class="app-results" id="rag-answer"></div>
+
+      <footer class="app-foot">
+        <span id="rag-foot">BM25 + dense (RRF) · pdf.js + embeddings · answer via OpenRouter</span>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ── Semantic Cache (functional) — original ids: sc-pane (guard), sc-q,
+       sc-ask, sc-status, sc-n, sc-hits, sc-miss, sc-saved, sc-log, sc-foot,
+       .ai-chip buttons ─────────────────────────────────────────────────── -->
+  <section class="app-sheet" id="app-semcache" data-app="semcache" role="dialog" aria-modal="true" aria-labelledby="app-semcache-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-semcache-title">Semantic Cache</h1>
+      <button type="button" class="app-sheet__close" data-app-close="semcache" aria-label="Close Semantic Cache"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body app-pane" id="sc-pane">
+      <p class="app-intro">Ask anything. The cache keys on the <strong>meaning</strong> of your prompt
+        (embedding), not exact text — so a paraphrase of an earlier question returns the cached
+        answer instantly and <strong>skips the LLM call</strong>. Threshold: cosine ≥ 0.85.</p>
+
+      <div class="app-chips" id="sc-chips">
+        <button type="button" class="ai-chip">What is retrieval-augmented generation?</button>
+        <button type="button" class="ai-chip">Explain RAG in simple terms</button>
+        <button type="button" class="ai-chip">How does a vector database work?</button>
+      </div>
+
+      <div class="app-row">
+        <input type="text" id="sc-q" class="ios-input app-grow" maxlength="200" placeholder="Ask a question…">
+        <button type="button" id="sc-ask" class="ios-btn ios-btn--primary">Ask</button>
+      </div>
+      <div class="app-status" id="sc-status" role="status" aria-live="polite"></div>
+
+      <div class="sc-stats" id="sc-stats">
+        <span>Entries: <b id="sc-n">0</b></span>
+        <span>Hits: <b id="sc-hits">0</b></span>
+        <span>Misses: <b id="sc-miss">0</b></span>
+        <span>LLM calls saved: <b id="sc-saved">0</b></span>
+      </div>
+
+      <div class="app-results" id="sc-log"></div>
+
+      <footer class="app-foot">
+        <span id="sc-foot">Embeddings via OpenRouter · cache + cosine in your browser</span>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ── Text-to-SQL (functional) — original ids: tsql-pane (guard),
+       tsql-src-sample, tsql-src-csv, tsql-src-sql, tsql-csv, tsql-sqlfile,
+       tsql-schema, tsql-chips, tsql-nl, tsql-gen, tsql-sql, tsql-run,
+       tsql-guard, tsql-results, tsql-foot, .ai-chip buttons ─────────────── -->
+  <section class="app-sheet" id="app-textsql" data-app="textsql" role="dialog" aria-modal="true" aria-labelledby="app-textsql-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-textsql-title">Text-to-SQL</h1>
+      <button type="button" class="app-sheet__close" data-app-close="textsql" aria-label="Close Text-to-SQL"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body app-pane" id="tsql-pane">
+      <p class="app-intro">Ask in plain English. The LLM writes SQL, a guardrail validates it
+        (read-only, single-statement, table-allowlist), then it runs on a real
+        <strong>SQLite database in your browser</strong>.</p>
+
+      <div class="app-datasrc">
+        <span class="app-dslabel">Data source:</span>
+        <button type="button" class="ios-btn" id="tsql-src-sample">Sample DB</button>
+        <button type="button" class="ios-btn" id="tsql-src-csv">Upload CSV…</button>
+        <button type="button" class="ios-btn" id="tsql-src-sql">Upload .sql…</button>
+        <input type="file" id="tsql-csv" accept=".csv" hidden>
+        <input type="file" id="tsql-sqlfile" accept=".sql,.txt" hidden>
+      </div>
+      <div class="app-status app-schema" id="tsql-schema" role="status" aria-live="polite"></div>
+
+      <div class="app-chips" id="tsql-chips">
+        <button type="button" class="ai-chip">Top 5 highest paid employees</button>
+        <button type="button" class="ai-chip">Average salary by department</button>
+        <button type="button" class="ai-chip">Who was hired most recently?</button>
+        <button type="button" class="ai-chip">Headcount per city</button>
+      </div>
+
+      <label class="app-label" for="tsql-nl">Your question</label>
+      <div class="app-row">
+        <input type="text" id="tsql-nl" class="ios-input app-grow" maxlength="200"
+               placeholder="e.g. which department has the highest average salary?">
+        <button type="button" id="tsql-gen" class="ios-btn ios-btn--primary">Generate SQL</button>
+      </div>
+
+      <label class="app-label" for="tsql-sql">SQL (editable)</label>
+      <textarea id="tsql-sql" class="ios-textarea app-sql" rows="4" spellcheck="false"
+                placeholder="SELECT ... (generated SQL appears here; you can edit and Run)"></textarea>
+      <div class="app-row">
+        <button type="button" id="tsql-run" class="ios-btn">▶ Run query</button>
+        <span class="app-status" id="tsql-guard" role="alert" aria-live="assertive"></span>
+      </div>
+
+      <div class="app-results" id="tsql-results"></div>
+
+      <footer class="app-foot">
+        <span id="tsql-foot">SQLite (sql.js) in your browser · NL→SQL via OpenRouter</span>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ── Settings (static) ───────────────────────────────────────────── -->
+  <section class="app-sheet" id="app-settings" data-app="settings" role="dialog" aria-modal="true" aria-labelledby="app-settings-title" aria-hidden="true">
+    <header class="app-sheet__bar">
+      <h1 class="app-sheet__title" id="app-settings-title">Settings</h1>
+      <button type="button" class="app-sheet__close" data-app-close="settings" aria-label="Close Settings"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+    </header>
+    <div class="app-sheet__body" data-app-body></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SCRIPTS (defer, in order)
+  ════════════════════════════════════════════════════════════════════ -->
+  <script defer src="assets/js/content.js"></script>
+  <script defer src="assets/js/apps.config.js"></script>
+  <script defer src="assets/js/ios.js"></script>
+  <script defer src="assets/js/render.js"></script>
+  <script defer src="assets/js/apps/ai-chat.js"></script>
+  <script defer src="assets/js/apps/rag.js"></script>
+  <script defer src="assets/js/apps/semcache.js"></script>
+  <script defer src="assets/js/apps/textsql.js"></script>
+</body>
+</html>

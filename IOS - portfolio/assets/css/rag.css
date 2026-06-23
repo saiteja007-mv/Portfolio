@@ -1,0 +1,151 @@
+/* ══════════════════════════════════════════════════════════════════
+   rag.css — Hybrid RAG functional app (#app-hybridrag / #rag-pane)
+   iOS 26 "Liquid Glass". Theme-driven (tokens.css vars only). Dark + light.
+   Scoped to #rag-pane so it stands alone even if shared apps.css lags.
+═══════════════════════════════════════════════════════════════════ */
+
+#rag-pane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+/* Intro blurb */
+#rag-pane .app-intro {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-subhead);
+  line-height: 1.45;
+}
+#rag-pane .app-intro strong { color: var(--text-primary); font-weight: 600; }
+
+/* Ingest / ask rows */
+#rag-pane .app-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+#rag-pane .app-grow { flex: 1 1 200px; min-width: 0; }
+
+/* File input — glass control look */
+#rag-file {
+  flex: 1 1 200px;
+  min-width: 0;
+  font: inherit;
+  font-size: var(--fs-subhead);
+  color: var(--text-secondary);
+  background: var(--control-fill);
+  border: 1px solid var(--control-border);
+  border-radius: var(--r-control);
+  padding: 8px 10px;
+}
+#rag-file::-webkit-file-upload-button,
+#rag-file::file-selector-button {
+  font: inherit;
+  font-weight: 600;
+  font-size: var(--fs-footnote);
+  color: var(--text-on-accent, #fff);
+  background: var(--accent);
+  border: 0;
+  border-radius: var(--r-pill);
+  padding: 7px 14px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: transform var(--t-fast) var(--spring), background var(--t-fast) ease;
+}
+#rag-file::-webkit-file-upload-button:hover,
+#rag-file::file-selector-button:hover { background: var(--accent-press); }
+#rag-file:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Status line + states */
+#rag-pane .app-status {
+  margin: 0;
+  font-size: var(--fs-footnote);
+  line-height: 1.4;
+  color: var(--text-secondary);
+  min-height: 1.2em;
+}
+#rag-pane .app-status--ok { color: var(--sys-green); }
+#rag-pane .app-status--err { color: var(--sys-red); }
+
+/* Disabled buttons during work */
+#rag-pane .ios-btn[disabled] { opacity: 0.5; cursor: default; }
+
+/* ── Answer block ─────────────────────────────────────────────────── */
+#rag-answer:empty { display: none; }
+#rag-answer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* grounded answer card */
+#rag-answer .rag-answer {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-hairline);
+  border-radius: var(--r-card);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  padding: var(--sp-4);
+  color: var(--text-primary);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  #rag-answer .rag-answer { background: var(--glass-fill-solid); }
+  #rag-answer .rag-srcs { background: var(--glass-fill-solid); }
+}
+
+/* sources / citations */
+#rag-answer .rag-srcs {
+  background: var(--control-fill);
+  border: 1px solid var(--glass-hairline);
+  border-radius: var(--r-card);
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-footnote);
+  color: var(--text-secondary);
+}
+#rag-answer .rag-srcs > b {
+  display: block;
+  margin-bottom: var(--sp-2);
+  color: var(--text-primary);
+  font-size: var(--fs-footnote);
+  font-weight: 600;
+}
+#rag-answer .rag-src {
+  padding: 8px 0;
+  line-height: 1.45;
+  border-top: 1px solid var(--glass-hairline);
+}
+#rag-answer .rag-src:first-of-type { border-top: 0; }
+#rag-answer .rag-srcn {
+  font-weight: 700;
+  color: var(--accent);
+  margin-right: 6px;
+}
+#rag-answer .rag-rank {
+  display: inline-block;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  color: var(--text-tertiary);
+  background: var(--chip-fill);
+  border-radius: var(--r-pill);
+  padding: 2px 8px;
+}
+
+/* Footer credit */
+#rag-pane .app-foot {
+  margin-top: auto;
+  padding-top: var(--sp-2);
+  font-size: var(--fs-caption);
+  color: var(--text-tertiary);
+  border-top: 1px solid var(--glass-hairline);
+}
+
+/* iPad / wide: roomier rows */
+@media (min-width: 1024px) {
+  #rag-pane { gap: var(--sp-5); }
+}

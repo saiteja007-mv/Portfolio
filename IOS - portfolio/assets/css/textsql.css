@@ -1,0 +1,196 @@
+/* ══════════════════════════════════════════════════════════════════
+   textsql.css — Text-to-SQL (functional app) · iOS 26 "Liquid Glass"
+   Scoped to #tsql-pane. Theme via tokens.css vars only — no hardcoded colors.
+   Dark + light + prefers-reduced-motion safe. Results table scrolls on iPhone.
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── Pane layout ───────────────────────────────────────────────────── */
+#tsql-pane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-5) calc(var(--sp-5) + var(--safe-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#tsql-pane .app-intro {
+  margin: 0;
+  font-size: var(--fs-subhead);
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+#tsql-pane .app-intro strong { color: var(--text-primary); font-weight: 600; }
+
+/* ── Data source selector ──────────────────────────────────────────── */
+#tsql-pane .app-datasrc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+#tsql-pane .app-dslabel {
+  font-size: var(--fs-footnote);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-right: var(--sp-1);
+}
+/* data-source buttons inherit .ios-btn; tighten for the row + accent the active feel */
+#tsql-pane .app-datasrc .ios-btn {
+  font-size: var(--fs-footnote);
+  padding: var(--sp-2) var(--sp-4);
+}
+
+/* ── Schema chip ───────────────────────────────────────────────────── */
+#tsql-pane .app-schema {
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+  color: var(--text-secondary);
+  background: var(--chip-fill);
+  border: 1px solid var(--glass-hairline);
+  border-radius: var(--r-control);
+  padding: var(--sp-2) var(--sp-3);
+  word-break: break-word;
+}
+#tsql-pane .app-schema:empty { display: none; }
+
+/* ── Suggestion chips ──────────────────────────────────────────────── */
+#tsql-pane .app-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+#tsql-pane .ai-chip {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--fs-footnote);
+  color: var(--text-primary);
+  background: var(--chip-fill);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-pill);
+  padding: var(--sp-2) var(--sp-4);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  #tsql-pane .ai-chip {
+    background: var(--glass-fill);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #tsql-pane .ai-chip { transition: transform var(--t-fast) var(--spring), background var(--t-fast) ease; }
+}
+#tsql-pane .ai-chip:hover { background: var(--control-fill-strong); }
+#tsql-pane .ai-chip:active { transform: scale(0.96); }
+#tsql-pane .ai-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ── Labels + rows ─────────────────────────────────────────────────── */
+#tsql-pane .app-label {
+  font-size: var(--fs-footnote);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: calc(var(--sp-1) * -1);
+}
+#tsql-pane .app-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+}
+#tsql-pane .app-grow { flex: 1 1 200px; min-width: 0; }
+#tsql-pane .app-row .ios-btn { flex: 0 0 auto; }
+
+/* ── SQL editor (monospace) ────────────────────────────────────────── */
+#tsql-pane .app-sql {
+  font-family: var(--font-mono);
+  font-size: var(--fs-footnote);
+  line-height: 1.55;
+  tab-size: 2;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+}
+
+/* ── Guard / status text ───────────────────────────────────────────── */
+#tsql-pane .app-status {
+  font-size: var(--fs-footnote);
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+#tsql-pane .app-row .app-status { flex: 1 1 100%; }
+#tsql-pane .app-status--ok  { color: var(--sys-green); }
+#tsql-pane .app-status--err { color: var(--sys-red); }
+
+/* ── Results ───────────────────────────────────────────────────────── */
+#tsql-pane .app-results { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+#tsql-pane .app-tablewrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--glass-hairline);
+  border-radius: var(--r-card);
+  background: var(--glass-fill-solid);
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  #tsql-pane .app-tablewrap {
+    background: var(--glass-fill);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  }
+}
+
+#tsql-pane .app-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--fs-footnote);
+  font-variant-numeric: tabular-nums;
+}
+#tsql-pane .app-table th,
+#tsql-pane .app-table td {
+  padding: var(--sp-2) var(--sp-3);
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--glass-hairline);
+}
+#tsql-pane .app-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--glass-fill-thick-solid);
+  border-bottom: 1px solid var(--glass-border);
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  #tsql-pane .app-table thead th { background: var(--glass-fill-thick); }
+}
+#tsql-pane .app-table td { color: var(--text-secondary); }
+#tsql-pane .app-table tbody tr:last-child td { border-bottom: 0; }
+#tsql-pane .app-table tbody tr:nth-child(even) td { background: var(--control-fill); }
+
+#tsql-pane .app-empty {
+  margin: 0;
+  font-size: var(--fs-footnote);
+  color: var(--text-tertiary);
+}
+
+/* ── Footer ────────────────────────────────────────────────────────── */
+#tsql-pane .app-foot {
+  margin-top: var(--sp-1);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--glass-hairline);
+  font-size: var(--fs-caption);
+  color: var(--text-tertiary);
+}
+
+/* ── iPhone width: keep the table contained + scrollable ───────────── */
+@media (max-width: 600px) {
+  #tsql-pane { padding: var(--sp-4) var(--sp-4) calc(var(--sp-4) + var(--safe-bottom)); }
+  #tsql-pane .app-row .ios-btn { flex: 1 1 auto; }       /* full-width gen/run on narrow */
+  #tsql-pane .app-tablewrap { border-radius: var(--r-control); }
+}

@@ -1,0 +1,522 @@
+/* ════════════════════════════════════════════════════════════════════
+   tokens.css — iOS / iPadOS 26 "Liquid Glass" design system
+   Foundation layer. Theme vars (dark + light), wallpaper, typography,
+   and ALL reusable utility classes. Consumed by every other stylesheet.
+   ──────────────────────────────────────────────────────────────────────
+   Theme switch: <html data-theme="dark"|"light">. Default dark.
+═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Theme palettes ─────────────────────────────────────────────────── */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Wallpaper mesh stops (teal -> blue -> indigo) */
+  --wp-1: #0c3b4a;
+  --wp-2: #0a2a6b;
+  --wp-3: #1b1147;
+  --wp-4: #06121f;
+
+  /* Backgrounds */
+  --bg-base: #06070f;
+  --bg-elev: #0e1422;
+
+  /* Text — vibrant labels per Figma "Materials" page (over glass) */
+  --text-primary: #ffffff;             /* Vibrant Primary (Dark) */
+  --text-secondary: #999999;           /* Vibrant Secondary (Dark) */
+  --text-tertiary: #6e6e6e;            /* mid Vibrant Tertiary, raised for AA */
+  --text-quaternary: #404040;          /* Vibrant Tertiary text fill */
+  --text-on-accent: #ffffff;
+
+  /* Accent + system colors — EXACT from Apple iOS 26 UI Kit (Dark) */
+  --accent: #0091ff;        /* iOS 26 Blue dark */
+  --accent-press: #0070cc;
+  --sys-red: #ff4245;
+  --sys-orange: #ff9230;
+  --sys-yellow: #ffd600;
+  --sys-green: #30d158;
+  --sys-mint: #00dac3;
+  --sys-teal: #00d2e0;
+  --sys-cyan: #3cd3fe;
+  --sys-blue: #0091ff;
+  --sys-indigo: #6d7cff;
+  --sys-purple: #db34f2;
+  --sys-pink: #ff375f;
+  --sys-brown: #b78a66;
+  /* System grays (Dark mode) */
+  --sys-gray:  #8e8e93;
+  --sys-gray2: #636366;
+  --sys-gray3: #48484a;
+  --sys-gray4: #3a3a3c;
+  --sys-gray5: #2c2c2e;
+  --sys-gray6: #1c1c1e;
+
+  /* Glass materials — Liquid Glass exact values from Figma
+     blur 50px (was 24px); Regular = bg-black 41% opacity */
+  --glass-fill:        rgba(0, 0, 0, 0.41);          /* Regular (Default) Dark */
+  --glass-fill-thick:  rgba(0, 0, 0, 0.62);          /* Thick Dark */
+  --glass-fill-thin:   rgba(0, 0, 0, 0.30);          /* Thin Dark */
+  --glass-fill-solid:       rgba(28, 32, 46, 0.92);  /* @supports-not fallback */
+  --glass-fill-thick-solid: rgba(34, 39, 56, 0.96);
+  --glass-border:    rgba(255, 255, 255, 0.18);
+  --glass-hairline:  rgba(255, 255, 255, 0.16);      /* opaque separator dark */
+  --glass-highlight: rgba(255, 255, 255, 0.10);      /* inner top hairline */
+  --glass-highlight-strong: rgba(255, 255, 255, 0.25);
+  --glass-shadow:    0 8px 40px rgba(0, 0, 0, 0.50); /* Apple sm-glass shadow scaled */
+  --glass-blur: 50px;                                 /* Apple iOS 26 reference */
+  --glass-sat:  180%;
+
+  /* Inputs / controls */
+  --control-fill: rgba(255, 255, 255, 0.10);
+  --control-fill-strong: rgba(255, 255, 255, 0.16);
+  --control-border: rgba(255, 255, 255, 0.16);
+  --chip-fill: rgba(255, 255, 255, 0.10);
+
+  /* Per-app icon gradients (used by .app-icon--<key>) */
+  --grad-blue:   linear-gradient(160deg, #4aa3ff 0%, #0a6bff 100%);
+  --grad-orange: linear-gradient(160deg, #ffb340 0%, #ff7a00 100%);
+  --grad-purple: linear-gradient(160deg, #c77dff 0%, #7b2ff7 100%);
+  --grad-green:  linear-gradient(160deg, #5ee07a 0%, #15a93d 100%);
+  --grad-teal:   linear-gradient(160deg, #45e0d6 0%, #0c9fb8 100%);
+  --grad-yellow: linear-gradient(160deg, #ffe14a 0%, #ff9f0a 100%);
+  --grad-indigo: linear-gradient(160deg, #7a78ff 0%, #3f3ccb 100%);
+  --grad-red:    linear-gradient(160deg, #ff6a5e 0%, #e6231a 100%);
+  --grad-gold:   linear-gradient(160deg, #ffdf6b 0%, #d99a14 100%);
+  --grad-gray:   linear-gradient(160deg, #9aa0ac 0%, #565b66 100%);
+  --grad-siri:   linear-gradient(135deg, #7b2ff7 0%, #c33bd6 50%, #ff4d8d 100%);
+  --grad-multi:  linear-gradient(160deg, #ff9f0a 0%, #ff375f 45%, #5e5ce6 100%);
+
+  /* Radii */
+  --r-icon: 22%;        /* squircle icon tile (of its size) */
+  --r-card: 22px;
+  --r-sheet: 38px;
+  --r-control: 16px;
+  --r-pill: 999px;
+
+  /* Spacing scale */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
+
+  /* Type scale — EXACT iOS 26 ramp from Figma "Text Styles" (Large/Default).
+     Weight 590 = SF Pro Semibold. line-height stored separately so we can
+     express it as ratio in components. */
+  --fs-largetitle: 34px; --lh-largetitle: 41px; --ls-largetitle:  0.40px; --fw-largetitle: 700;
+  --fs-title1:     28px; --lh-title1:     34px; --ls-title1:      0.38px; --fw-title1:     400;
+  --fs-title2:     22px; --lh-title2:     28px; --ls-title2:     -0.26px; --fw-title2:     700;
+  --fs-title3:     20px; --lh-title3:     25px; --ls-title3:     -0.45px; --fw-title3:     400;
+  --fs-headline:   17px; --lh-headline:   22px; --ls-headline:   -0.43px; --fw-headline:   590;
+  --fs-body:       17px; --lh-body:       22px; --ls-body:       -0.43px; --fw-body:       400;
+  --fs-callout:    16px; --lh-callout:    21px; --ls-callout:    -0.31px;
+  --fs-subhead:    15px; --lh-subhead:    20px; --ls-subhead:    -0.23px;
+  --fs-footnote:   13px; --lh-footnote:   18px; --ls-footnote:   -0.08px;
+  --fs-caption:    12px; --lh-caption:    16px; --ls-caption:     0;
+  --fs-caption2:   11px; --lh-caption2:   13px; --ls-caption2:    0.06px;
+
+  /* Motion */
+  --spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --t-fast: 180ms;
+  --t-med: 260ms;
+  --t-app: 420ms;
+
+  /* Layout */
+  --statusbar-h: 44px;
+  --dock-h: 92px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  --font-sans: -apple-system, "SF Pro Display", "SF Pro Text", system-ui,
+               "Inter", "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --wp-1: #8fe3f0;
+  --wp-2: #6aa8ff;
+  --wp-3: #9d8cff;
+  --wp-4: #e8f3ff;
+
+  --bg-base: #f2f2f7;       /* iOS system grouped bg = gray6 */
+  --bg-elev: #ffffff;
+
+  /* Vibrant labels (Light) */
+  --text-primary: #000000;
+  --text-secondary: #3d3d3d;
+  --text-tertiary: rgba(80, 80, 80, 0.78);
+  --text-quaternary: rgba(72, 72, 72, 0.62);
+  --text-on-accent: #ffffff;
+
+  /* Accent + system colors — EXACT from iOS 26 UI Kit (Light) */
+  --accent: #0088ff;
+  --accent-press: #0066cc;
+  --sys-red: #ff383c;
+  --sys-orange: #ff8d28;
+  --sys-yellow: #ffcc00;
+  --sys-green: #34c759;
+  --sys-mint: #00c8b3;
+  --sys-teal: #00c3d0;
+  --sys-cyan: #00c0e8;
+  --sys-blue: #0088ff;
+  --sys-indigo: #6155f5;
+  --sys-purple: #cb30e0;
+  --sys-pink: #ff2d55;
+  --sys-brown: #ac7f5e;
+  --sys-gray:  #8e8e93;
+  --sys-gray2: #aeaeb2;
+  --sys-gray3: #c7c7cc;
+  --sys-gray4: #d1d1d6;
+  --sys-gray5: #e5e5ea;
+  --sys-gray6: #f2f2f7;
+
+  /* Liquid Glass — Light: bg-white 60% (was .60 already, OK), blur 50px */
+  --glass-fill:        rgba(255, 255, 255, 0.60);
+  --glass-fill-thick:  rgba(255, 255, 255, 0.78);
+  --glass-fill-thin:   rgba(255, 255, 255, 0.45);
+  --glass-fill-solid:       rgba(248, 250, 254, 0.94);
+  --glass-fill-thick-solid: rgba(255, 255, 255, 0.98);
+  --glass-border:    rgba(255, 255, 255, 0.55);
+  --glass-hairline:  rgba(60, 60, 67, 0.30);          /* opaque separator */
+  --glass-highlight: rgba(255, 255, 255, 0.40);
+  --glass-highlight-strong: rgba(255, 255, 255, 0.85);
+  --glass-shadow:    0 8px 40px rgba(0, 0, 0, 0.12);  /* exact kit shadow */
+
+  --control-fill: rgba(255, 255, 255, 0.65);
+  --control-fill-strong: rgba(255, 255, 255, 0.82);
+  --control-border: rgba(0, 0, 0, 0.08);
+  --chip-fill: rgba(120, 120, 128, 0.16);
+}
+
+/* ── Reset / base ───────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  color: var(--text-primary);
+  background: var(--bg-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;                 /* shell controls scrolling per-screen */
+  -webkit-tap-highlight-color: transparent;
+}
+
+a { color: var(--accent); text-decoration: none; }
+button { font-family: inherit; }
+img { max-width: 100%; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ── Wallpaper (richer "Liquid Glass" multi-layer mesh, iOS 26 feel) ── */
+.ios-wallpaper {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--wp-4);
+  background-image:
+    /* Bright top-left "highlight" pool */
+    radial-gradient(40% 35% at 22% 18%, rgba(255,255,255,0.18) 0%, transparent 60%),
+    /* Teal pool top-left */
+    radial-gradient(70% 55% at 14% 22%, var(--wp-1) 0%, transparent 62%),
+    /* Blue pool right-mid */
+    radial-gradient(60% 65% at 86% 36%, var(--wp-2) 0%, transparent 60%),
+    /* Indigo pool bottom-center */
+    radial-gradient(85% 70% at 50% 96%, var(--wp-3) 0%, transparent 60%),
+    /* Soft purple pool right-bottom for depth */
+    radial-gradient(50% 45% at 78% 84%, color-mix(in oklab, var(--wp-3) 70%, white 0%) 0%, transparent 65%),
+    /* Long diagonal base for cohesion */
+    linear-gradient(155deg, var(--wp-2) 0%, var(--wp-3) 55%, var(--wp-4) 100%);
+  background-attachment: fixed;
+}
+/* Subtle film-grain / noise to add Apple's "liquid" texture (no asset cost) */
+.ios-wallpaper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image:
+    radial-gradient(1px 1px at 10% 30%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 70% 20%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 30% 80%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 85% 65%, #fff 50%, transparent 51%);
+  background-size: 220px 220px;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   UTILITY CLASSES (documented in CONTRACT.md)
+═══════════════════════════════════════════════════════════════════════ */
+
+/* .glass — frosted translucent surface
+   Shape: any block. Add --thick variant for heavier material. */
+.glass,
+.glass-thick {
+  position: relative;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    var(--glass-shadow);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+}
+.glass-thick { background: var(--glass-fill-thick); }
+
+/* specular sheen overlay — opt-in via .glass--sheen */
+.glass--sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.04) 32%,
+    transparent 60%
+  );
+}
+
+/* Solid-fill fallback when backdrop-filter unsupported */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .glass { background: var(--glass-fill-solid); }
+  .glass-thick { background: var(--glass-fill-thick-solid); }
+}
+
+/* .squircle — large continuous-ish corner radius */
+.squircle { border-radius: var(--r-card); overflow: hidden; }
+
+/* .ios-card — glass card container
+   Shape: <div class="glass ios-card"> … </div> (ios-card adds padding+radius) */
+.ios-card {
+  border-radius: var(--r-card);
+  padding: var(--sp-4);
+}
+
+/* .ios-btn — pill/glass button
+   Shape: <button class="ios-btn"> … </button>
+   Modifier .ios-btn--primary = accent-filled. */
+.ios-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: 40px;
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--control-border);
+  border-radius: var(--r-pill);
+  background: var(--control-fill);
+  color: var(--text-primary);
+  font-size: var(--fs-callout);
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(12px) saturate(var(--glass-sat));
+  backdrop-filter: blur(12px) saturate(var(--glass-sat));
+  transition: transform var(--t-fast) var(--spring),
+              background var(--t-fast) ease;
+}
+.ios-btn:hover { background: var(--control-fill-strong); }
+.ios-btn:active { transform: scale(0.96); }
+.ios-btn--primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: var(--text-on-accent);
+}
+.ios-btn--primary:hover { background: var(--accent-press); }
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .ios-btn { background: var(--glass-fill-solid); }
+}
+
+/* .ios-input / .ios-textarea — glass form fields
+   Shape: <input class="ios-input"> / <textarea class="ios-textarea"> */
+.ios-input,
+.ios-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--control-border);
+  border-radius: var(--r-control);
+  background: var(--control-fill);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--fs-callout);
+  -webkit-backdrop-filter: blur(12px) saturate(var(--glass-sat));
+  backdrop-filter: blur(12px) saturate(var(--glass-sat));
+  transition: border-color var(--t-fast) ease, background var(--t-fast) ease;
+}
+.ios-textarea { resize: vertical; min-height: 96px; line-height: 1.4; }
+.ios-input::placeholder,
+.ios-textarea::placeholder { color: var(--text-tertiary); }
+.ios-input:focus,
+.ios-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--control-fill-strong);
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .ios-input, .ios-textarea { background: var(--glass-fill-solid); }
+}
+
+/* .ios-chip — small glass tag (skills / tech). Static, non-interactive. */
+.ios-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border: 1px solid var(--glass-hairline);
+  border-radius: var(--r-pill);
+  background: var(--chip-fill);
+  color: var(--text-primary);
+  font-size: var(--fs-footnote);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* .ios-pill — interactive pill (suggestion chips, etc.)
+   The functional apps' .ai-chip buttons are styled in their own CSS;
+   .ios-pill is the generic clickable variant. */
+.ios-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--control-border);
+  border-radius: var(--r-pill);
+  background: var(--control-fill);
+  color: var(--text-primary);
+  font-size: var(--fs-footnote);
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform var(--t-fast) var(--spring), background var(--t-fast) ease;
+}
+.ios-pill:hover { background: var(--control-fill-strong); }
+.ios-pill:active { transform: scale(0.96); }
+
+/* .ios-title / .ios-subtitle — type helpers */
+.ios-title {
+  margin: 0;
+  font-size: var(--fs-largetitle);
+  line-height: var(--lh-largetitle);
+  letter-spacing: var(--ls-largetitle);
+  font-weight: var(--fw-largetitle);
+}
+.ios-subtitle {
+  margin: 0;
+  font-size: var(--fs-subhead);
+  line-height: var(--lh-subhead);
+  letter-spacing: var(--ls-subhead);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* .ios-divider — hairline rule */
+.ios-divider {
+  height: 1px;
+  border: 0;
+  margin: var(--sp-4) 0;
+  background: var(--glass-hairline);
+}
+
+/* .app-icon — gradient squircle tile (home grid + dock + Spotlight)
+   Required shape:
+     <div class="app-icon app-icon--<gradientKey>">
+       <i class="app-icon__glyph fas fa-..."></i>
+     </div>
+   Use --fab on the <i> for brand glyphs (class "fab"). */
+.app-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 64px;                            /* iPhone kit icon */
+  height: 64px;
+  border-radius: 14px;                    /* squircle ~22% of 64 */
+  background: var(--grad-blue);           /* default; overridden by modifier */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 8px 40px rgba(0, 0, 0, 0.12);       /* exact Liquid Glass shadow */
+  overflow: hidden;
+  isolation: isolate;
+}
+.app-icon::after {                        /* top gloss */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.05) 38%,
+    transparent 60%
+  );
+}
+.app-icon__glyph {
+  font-size: 26px;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+
+/* .app-icon-img — real Apple PNG icon (already includes gradient, shadow, gloss).
+   Render as a self-contained image; skip the gradient/gloss/highlight overlays
+   that .app-icon adds for glyph-based icons. */
+.app-icon.app-icon-img {
+  display: block;
+  background: transparent;
+  border-radius: 14px;             /* squircle approximation matching glyph icons */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);  /* lighter — icon has its own depth */
+  object-fit: cover;
+}
+.app-icon.app-icon-img::after { content: none; }   /* kill the top-gloss overlay */
+
+/* per-app gradient modifiers */
+.app-icon--blue   { background: var(--grad-blue); }
+.app-icon--orange { background: var(--grad-orange); }
+.app-icon--purple { background: var(--grad-purple); }
+.app-icon--green  { background: var(--grad-green); }
+.app-icon--teal   { background: var(--grad-teal); }
+.app-icon--yellow { background: var(--grad-yellow); }
+.app-icon--indigo { background: var(--grad-indigo); }
+.app-icon--red    { background: var(--grad-red); }
+.app-icon--gold   { background: var(--grad-gold); }
+.app-icon--gray   { background: var(--grad-gray); }
+.app-icon--siri   { background: var(--grad-siri); }
+.app-icon--multi  { background: var(--grad-multi); }
+
+/* ── Keyframes (gated by reduced-motion at call sites; safe defaults) ── */
+@keyframes ios-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ios-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ios-animate-in { animation: ios-rise var(--t-med) var(--spring) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ios-animate-in { animation: ios-fade-in 0.001ms both; }
+}
+
+/* Hide-but-accessible helper */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0);
+  white-space: nowrap; border: 0;
+}

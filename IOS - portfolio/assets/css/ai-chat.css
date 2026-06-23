@@ -1,0 +1,195 @@
+/* ══════════════════════════════════════════════════════════════════
+   Ask AI — iOS 26 "Liquid Glass" chat styling for #app-askai.
+   iMessage-like bubbles: user = accent (right), assistant = glass (left).
+   Theme-var driven (tokens.css); works in dark + light; reduced-motion safe.
+   Element ids/classes unchanged: ai-chat-log/form/input/send/status,
+   #ai-typing, .ai-chips, .ai-msg / .ai-msg__bubble / .ai-msg__avatar.
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── Pane: vertical flex, log scrolls, composer + status pinned ──── */
+.ai-chat {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+.ai-chat__log {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ai-chat__log { scroll-behavior: auto; }
+}
+
+/* ── Message row ─────────────────────────────────────────────────── */
+.ai-msg {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-2);
+  max-width: 100%;
+}
+.ai-msg--user { flex-direction: row-reverse; }
+
+/* ── Avatar (emoji from JS) on a small glass disc ────────────────── */
+.ai-msg__avatar {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: var(--r-pill);
+  background: var(--control-fill);
+  border: 1px solid var(--glass-hairline);
+  user-select: none;
+}
+.ai-msg--user .ai-msg__avatar {
+  background: var(--accent);
+  border-color: transparent;
+}
+
+/* ── Bubble ──────────────────────────────────────────────────────── */
+.ai-msg__bubble {
+  max-width: min(78%, 560px);
+  padding: 10px 14px;
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  border-radius: 20px;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+}
+
+/* Assistant = glass, left, tail bottom-left */
+.ai-msg--assistant .ai-msg__bubble {
+  background: var(--glass-fill-thick);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-hairline);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow);
+  border-bottom-left-radius: 6px;
+}
+
+/* User = accent, right, tail bottom-right */
+.ai-msg--user .ai-msg__bubble {
+  background: var(--accent);
+  color: var(--text-on-accent);
+  border: 1px solid transparent;
+  box-shadow: var(--glass-shadow);
+  border-bottom-right-radius: 6px;
+}
+
+/* Bubble links inherit bubble color */
+.ai-msg__bubble a { color: inherit; text-decoration: underline; }
+
+/* Solid fallback where backdrop-filter is unsupported */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .ai-msg--assistant .ai-msg__bubble { background: var(--glass-fill-thick-solid); }
+}
+
+/* Entrance — reduced-motion safe */
+@media (prefers-reduced-motion: no-preference) {
+  .ai-msg { animation: ios-rise var(--t-med) var(--spring) both; }
+}
+
+/* ── Typing indicator (3 dots) ───────────────────────────────────── */
+.ai-typing .ai-msg__bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px;
+}
+.ai-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--text-tertiary);
+  display: inline-block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ai-dot { animation: ai-dot-bounce 1.2s ease-in-out infinite; }
+  .ai-dot:nth-child(2) { animation-delay: 0.15s; }
+  .ai-dot:nth-child(3) { animation-delay: 0.3s; }
+}
+@keyframes ai-dot-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* ── Suggestion chips (rendered into .ai-chips inside the log) ────── */
+.ai-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  padding: var(--sp-1) 0 0;
+}
+.ai-chip {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--fs-subhead);
+  color: var(--text-primary);
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  background: var(--chip-fill);
+  border: 1px solid var(--glass-hairline);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  transition: transform var(--t-fast) var(--spring),
+              background var(--t-fast) ease;
+}
+.ai-chip:hover { background: var(--control-fill-strong); }
+.ai-chip:active { transform: scale(0.96); }
+.ai-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ai-chip { transition: background var(--t-fast) ease; }
+  .ai-chip:active { transform: none; }
+}
+
+/* ── Composer row (form + input + send) ──────────────────────────── */
+.ai-chat__inputrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4) var(--sp-2);
+  border-top: 1px solid var(--glass-hairline);
+}
+
+.ai-chat__input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ai-chat__send {
+  flex: 0 0 auto;
+}
+.ai-chat__send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Status line ─────────────────────────────────────────────────── */
+.ai-chat__status {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0 var(--sp-4)
+           calc(var(--sp-3) + var(--safe-bottom, 0px));
+  font-size: var(--fs-caption);
+  color: var(--text-tertiary);
+  text-align: center;
+}
